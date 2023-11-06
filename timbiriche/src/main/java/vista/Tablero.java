@@ -5,6 +5,7 @@
 package vista;
 
 import java.awt.Font;
+import modelo.TimbiricheBoard;
 
 /**
  *
@@ -26,6 +27,12 @@ public class Tablero extends javax.swing.JFrame {
         jLPtsJ1.setFont(customFontSubT);
         jLPtsJ2.setFont(customFontSubT);
         lblPts.setFont(customFontSubT);
+                // PRUEBAAA, VA EN MODELO SE SABE 
+        TimbiricheBoard timbiricheBoard = new TimbiricheBoard();
+
+        // PRUEBAAAAA
+        pnlTablero.add(timbiricheBoard);
+
     }
 
     /**
