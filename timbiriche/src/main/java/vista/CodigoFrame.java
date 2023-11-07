@@ -48,11 +48,6 @@ public class CodigoFrame extends javax.swing.JFrame {
         btnUnirse.setFont(new java.awt.Font("Yu Gothic", 3, 12)); // NOI18N
         btnUnirse.setForeground(new java.awt.Color(0, 0, 0));
         btnUnirse.setText("Unirme");
-        btnUnirse.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUnirseActionPerformed(evt);
-            }
-        });
 
         btnVolver.setBackground(new java.awt.Color(241, 192, 232));
         btnVolver.setFont(new java.awt.Font("Yu Gothic", 3, 12)); // NOI18N
@@ -127,10 +122,6 @@ public class CodigoFrame extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnUnirseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUnirseActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnUnirseActionPerformed
 
     /**
      * @param args the command line arguments

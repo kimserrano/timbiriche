@@ -50,11 +50,6 @@ public class MenuFrame extends javax.swing.JFrame {
         btnCrearSala.setFont(new java.awt.Font("Yu Gothic", 3, 12)); // NOI18N
         btnCrearSala.setForeground(new java.awt.Color(0, 0, 0));
         btnCrearSala.setText("Crear Sala");
-        btnCrearSala.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCrearSalaActionPerformed(evt);
-            }
-        });
 
         btnUnirseSala.setBackground(new java.awt.Color(241, 192, 232));
         btnUnirseSala.setFont(new java.awt.Font("Yu Gothic", 3, 12)); // NOI18N
@@ -122,10 +117,6 @@ public class MenuFrame extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnCrearSalaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearSalaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnCrearSalaActionPerformed
 
     /**
      * @param args the command line arguments
