@@ -22,6 +22,11 @@ public class Jugador {
         this.estado = false;
     }
 
+    public Jugador(String nickname, String color) {
+        this.nickname = nickname;
+        this.color = color;
+    }
+
     public Jugador(String ip) {
         this.ip = ip;
     }
@@ -53,4 +58,10 @@ public class Jugador {
         this.ip = ip;
     }
 
+    @Override
+    public String toString() {
+        return "Jugador{" + "nickname=" + nickname + ", color=" + color + ", ip=" + ip + '}';
+    }
+
+    
 }

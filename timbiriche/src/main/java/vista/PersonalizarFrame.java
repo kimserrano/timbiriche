@@ -4,13 +4,18 @@
  */
 package vista;
 
+import static vista.ControlVistas.cambiarVentana;
 import vistaModelo.IVistaModelo;
+import vistaModelo.VistaModelo;
 
 /**
  *
  * @author JORGE
  */
-public class PersonalizarFrame extends javax.swing.JFrame implements IVistaModelo {
+public class PersonalizarFrame extends javax.swing.JFrame {
+
+    private IVistaModelo vistaModelo = new VistaModelo();
+    private String color;
 
     /**
      * Creates new form PersonalizarFrame
@@ -54,6 +59,11 @@ public class PersonalizarFrame extends javax.swing.JFrame implements IVistaModel
         btnConfirmar.setFont(new java.awt.Font("Yu Gothic", 3, 12)); // NOI18N
         btnConfirmar.setForeground(new java.awt.Color(0, 0, 0));
         btnConfirmar.setText("Confirmar");
+        btnConfirmar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConfirmarActionPerformed(evt);
+            }
+        });
 
         lblNickname.setFont(new java.awt.Font("Yu Gothic", 0, 18)); // NOI18N
         lblNickname.setForeground(new java.awt.Color(0, 0, 0));
@@ -64,12 +74,32 @@ public class PersonalizarFrame extends javax.swing.JFrame implements IVistaModel
         lblColor.setText("Color");
 
         btnColorRojo.setBackground(new java.awt.Color(255, 102, 153));
+        btnColorRojo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnColorRojoActionPerformed(evt);
+            }
+        });
 
         btnColorAmarillo.setBackground(new java.awt.Color(255, 255, 153));
+        btnColorAmarillo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnColorAmarilloActionPerformed(evt);
+            }
+        });
 
         btnColorAzul.setBackground(new java.awt.Color(153, 204, 255));
+        btnColorAzul.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnColorAzulActionPerformed(evt);
+            }
+        });
 
         btnColorVerde.setBackground(new java.awt.Color(153, 255, 204));
+        btnColorVerde.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnColorVerdeActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -156,43 +186,32 @@ public class PersonalizarFrame extends javax.swing.JFrame implements IVistaModel
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(PersonalizarFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(PersonalizarFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(PersonalizarFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(PersonalizarFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private void btnColorRojoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnColorRojoActionPerformed
+        this.color = "[255,102,153]";
+    }//GEN-LAST:event_btnColorRojoActionPerformed
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new PersonalizarFrame().setVisible(true);
-            }
-        });
+    private void btnColorAmarilloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnColorAmarilloActionPerformed
+        this.color = "[255,255,153]";
+    }//GEN-LAST:event_btnColorAmarilloActionPerformed
+
+    private void btnColorAzulActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnColorAzulActionPerformed
+        this.color = "[153,204,255]";
+    }//GEN-LAST:event_btnColorAzulActionPerformed
+
+    private void btnColorVerdeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnColorVerdeActionPerformed
+        this.color = "[153,255,204]";
+    }//GEN-LAST:event_btnColorVerdeActionPerformed
+
+    private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
+        extraerDatos();
+        cambiarVentana(this,2);
+    }//GEN-LAST:event_btnConfirmarActionPerformed
+
+
+    public void extraerDatos() {
+        vistaModelo.extraerInformacion(txtNickname.getText(), this.color);
     }
     
-    
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnColorAmarillo;
     private javax.swing.JButton btnColorAzul;
@@ -207,9 +226,4 @@ public class PersonalizarFrame extends javax.swing.JFrame implements IVistaModel
     private javax.swing.JTextField txtNickname;
     // End of variables declaration//GEN-END:variables
 
-    @Override
-    public void extraerInformacion() {
-       String nickname = txtNickname.getText();
-       
-    }
 }

@@ -4,17 +4,21 @@
  */
 package vista;
 
+import vistaModelo.IVistaModelo;
+import vistaModelo.VistaModelo;
+
 /**
  *
  * @author JORGE
  */
 public class MenuFrame extends javax.swing.JFrame {
-
+IVistaModelo vistaModelo = new VistaModelo();
     /**
      * Creates new form MenuFrame
      */
     public MenuFrame() {
         initComponents();
+        
     }
 
     /**
@@ -31,6 +35,8 @@ public class MenuFrame extends javax.swing.JFrame {
         lblTimbiriche = new javax.swing.JLabel();
         btnCrearSala = new javax.swing.JButton();
         btnUnirseSala = new javax.swing.JButton();
+        lblJugador = new javax.swing.JLabel();
+        lblNickname = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(1280, 730));
@@ -56,6 +62,12 @@ public class MenuFrame extends javax.swing.JFrame {
         btnUnirseSala.setForeground(new java.awt.Color(0, 0, 0));
         btnUnirseSala.setText("Unirse a Sala");
 
+        lblJugador.setFont(new java.awt.Font("Yu Gothic", 1, 18)); // NOI18N
+        lblJugador.setForeground(new java.awt.Color(0, 0, 0));
+        lblJugador.setText("Jugador");
+
+        lblNickname.setFont(new java.awt.Font("Yu Gothic", 1, 24)); // NOI18N
+
         javax.swing.GroupLayout panelLayout = new javax.swing.GroupLayout(panel);
         panel.setLayout(panelLayout);
         panelLayout.setHorizontalGroup(
@@ -69,7 +81,13 @@ public class MenuFrame extends javax.swing.JFrame {
                         .addGap(309, 309, 309)
                         .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(btnCrearSala, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnUnirseSala, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE))))
+                            .addComponent(btnUnirseSala, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)))
+                    .addGroup(panelLayout.createSequentialGroup()
+                        .addGap(353, 353, 353)
+                        .addComponent(lblJugador))
+                    .addGroup(panelLayout.createSequentialGroup()
+                        .addGap(367, 367, 367)
+                        .addComponent(lblNickname)))
                 .addContainerGap(291, Short.MAX_VALUE))
         );
         panelLayout.setVerticalGroup(
@@ -77,7 +95,11 @@ public class MenuFrame extends javax.swing.JFrame {
             .addGroup(panelLayout.createSequentialGroup()
                 .addGap(49, 49, 49)
                 .addComponent(lblTimbiriche)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 205, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblJugador)
+                .addGap(18, 18, 18)
+                .addComponent(lblNickname)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 149, Short.MAX_VALUE)
                 .addComponent(btnCrearSala, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(50, 50, 50)
                 .addComponent(btnUnirseSala, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -89,16 +111,16 @@ public class MenuFrame extends javax.swing.JFrame {
         panelFondoLayout.setHorizontalGroup(
             panelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelFondoLayout.createSequentialGroup()
-                .addContainerGap(253, Short.MAX_VALUE)
+                .addContainerGap(262, Short.MAX_VALUE)
                 .addComponent(panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(234, 234, 234))
+                .addGap(225, 225, 225))
         );
         panelFondoLayout.setVerticalGroup(
             panelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelFondoLayout.createSequentialGroup()
                 .addGap(31, 31, 31)
                 .addComponent(panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(78, Short.MAX_VALUE))
+                .addContainerGap(81, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -118,44 +140,11 @@ public class MenuFrame extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MenuFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MenuFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MenuFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MenuFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new MenuFrame().setVisible(true);
-            }
-        });
-    }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCrearSala;
     private javax.swing.JButton btnUnirseSala;
+    private javax.swing.JLabel lblJugador;
+    private javax.swing.JLabel lblNickname;
     private javax.swing.JLabel lblTimbiriche;
     private javax.swing.JPanel panel;
     private javax.swing.JPanel panelFondo;

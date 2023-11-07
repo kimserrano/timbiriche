@@ -4,13 +4,28 @@
  */
 package modelo;
 
+import dominio.Jugador;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import vistaModelo.IVistaModelo;
 
 /**
  *
  * @author JORGE
  */
-public class ModeloJugador{
+public class ModeloJugador implements IModelo{
+private Jugador jugador;
     
+    @Override
+    public void procesarDatos(String nickname, String color) {
+        try {
+             jugador = new Jugador(nickname, color,InetAddress.getLocalHost().getHostAddress());
+             System.out.println(jugador);
+        } catch (UnknownHostException ex) {
+            Logger.getLogger(ModeloJugador.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     
 }

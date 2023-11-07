@@ -4,14 +4,24 @@
  */
 package vistaModelo;
 
+import java.net.InetAddress;
+import modelo.IModelo;
+import modelo.ModeloJugador;
+
 /**
  *
  * @author JORGE
  */
 public class VistaModelo implements IVistaModelo{
+private IModelo modelo = new ModeloJugador();
+    
+    @Override
+    public void extraerInformacion(String nickname, String color) {
+        modelo.procesarDatos(nickname, color);
+    }
 
     @Override
-    public void extraerInformacion() {
+    public void solicitarInformacionJugador() {
         
     }
     

@@ -4,6 +4,8 @@
 
 package com.mycompany.timbiriche;
 
+import vista.PersonalizarFrame;
+
 /**
  *
  * @author berly
@@ -11,6 +13,6 @@ package com.mycompany.timbiriche;
 public class Timbiriche {
 
     public static void main(String[] args) {
-        System.out.println("Hola");
+        new PersonalizarFrame().setVisible(true);
     }
 }
