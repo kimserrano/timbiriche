@@ -9,6 +9,7 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import utils.JugadorDTO;
 import vistaModelo.IVistaModelo;
 
 /**
@@ -27,5 +28,13 @@ private Jugador jugador;
             Logger.getLogger(ModeloJugador.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
+    @Override
+    public JugadorDTO mandarJugador() {
+        JugadorDTO jugadorDTO = new JugadorDTO(jugador.getNickname(),jugador.getColor());
+        return jugadorDTO;
+    }
+    
+    
     
 }

@@ -4,6 +4,7 @@
  */
 package vista;
 
+import utils.JugadorDTO;
 import vistaModelo.IVistaModelo;
 import vistaModelo.VistaModelo;
 
@@ -13,13 +14,18 @@ import vistaModelo.VistaModelo;
  */
 public class MenuFrame extends javax.swing.JFrame {
 IVistaModelo vistaModelo = new VistaModelo();
+private JugadorDTO jugador;
+
     /**
      * Creates new form MenuFrame
      */
     public MenuFrame() {
         initComponents();
-        
+        jugador = vistaModelo.solicitarInformacionJugador();
+        this.lblJugador.setText(jugador.getNickname());
+        this.lblColor.setText(jugador.getColor());
     }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -37,9 +43,9 @@ IVistaModelo vistaModelo = new VistaModelo();
         btnUnirseSala = new javax.swing.JButton();
         lblJugador = new javax.swing.JLabel();
         lblNickname = new javax.swing.JLabel();
+        lblColor = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1280, 730));
         setResizable(false);
         setSize(new java.awt.Dimension(1280, 730));
 
@@ -68,15 +74,14 @@ IVistaModelo vistaModelo = new VistaModelo();
 
         lblNickname.setFont(new java.awt.Font("Yu Gothic", 1, 24)); // NOI18N
 
+        lblColor.setText("jLabel1");
+
         javax.swing.GroupLayout panelLayout = new javax.swing.GroupLayout(panel);
         panel.setLayout(panelLayout);
         panelLayout.setHorizontalGroup(
             panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelLayout.createSequentialGroup()
                 .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelLayout.createSequentialGroup()
-                        .addGap(273, 273, 273)
-                        .addComponent(lblTimbiriche))
                     .addGroup(panelLayout.createSequentialGroup()
                         .addGap(309, 309, 309)
                         .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -88,13 +93,21 @@ IVistaModelo vistaModelo = new VistaModelo();
                     .addGroup(panelLayout.createSequentialGroup()
                         .addGap(367, 367, 367)
                         .addComponent(lblNickname)))
-                .addContainerGap(291, Short.MAX_VALUE))
+                .addContainerGap(334, Short.MAX_VALUE))
+            .addGroup(panelLayout.createSequentialGroup()
+                .addGap(273, 273, 273)
+                .addComponent(lblTimbiriche)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 153, Short.MAX_VALUE)
+                .addComponent(lblColor)
+                .addGap(101, 101, 101))
         );
         panelLayout.setVerticalGroup(
             panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelLayout.createSequentialGroup()
                 .addGap(49, 49, 49)
-                .addComponent(lblTimbiriche)
+                .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblTimbiriche)
+                    .addComponent(lblColor))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblJugador)
                 .addGap(18, 18, 18)
@@ -143,6 +156,7 @@ IVistaModelo vistaModelo = new VistaModelo();
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCrearSala;
     private javax.swing.JButton btnUnirseSala;
+    private javax.swing.JLabel lblColor;
     private javax.swing.JLabel lblJugador;
     private javax.swing.JLabel lblNickname;
     private javax.swing.JLabel lblTimbiriche;

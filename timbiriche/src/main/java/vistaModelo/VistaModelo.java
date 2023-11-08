@@ -7,6 +7,7 @@ package vistaModelo;
 import java.net.InetAddress;
 import modelo.IModelo;
 import modelo.ModeloJugador;
+import utils.JugadorDTO;
 
 /**
  *
@@ -21,8 +22,8 @@ private IModelo modelo = new ModeloJugador();
     }
 
     @Override
-    public void solicitarInformacionJugador() {
-        
+    public JugadorDTO solicitarInformacionJugador() {
+        return modelo.mandarJugador();
     }
     
 }

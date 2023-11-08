@@ -4,6 +4,7 @@
  */
 package vistaModelo;
 import negocio.*;
+import utils.JugadorDTO;
 
 /**
  *
@@ -11,5 +12,5 @@ import negocio.*;
  */
 public interface IVistaModelo {
     public void extraerInformacion(String nickname, String color);
-    public void solicitarInformacionJugador();
+    public JugadorDTO solicitarInformacionJugador();
 }

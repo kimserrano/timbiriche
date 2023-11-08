@@ -203,14 +203,14 @@ public class PersonalizarFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnColorVerdeActionPerformed
 
     private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
-        extraerDatos();
-        cambiarVentana(this,2);
+        cambiarMenu();
     }//GEN-LAST:event_btnConfirmarActionPerformed
-
-
-    public void extraerDatos() {
+ 
+    public void cambiarMenu(){
         vistaModelo.extraerInformacion(txtNickname.getText(), this.color);
+        cambiarVentana(this,2);
     }
+   
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnColorAmarillo;
