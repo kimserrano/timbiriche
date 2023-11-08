@@ -4,17 +4,37 @@
  */
 package vista;
 
+import java.awt.Color;
+import utils.SalaDTO;
+import vistaModelo.IVistaModelo;
+import vistaModelo.VistaModelo;
+
 /**
  *
  * @author JORGE
  */
 public class SalaFrame extends javax.swing.JFrame {
 
+    IVistaModelo vistaModelo;
+    SalaDTO sala;
+
     /**
      * Creates new form SalaFrame
      */
     public SalaFrame() {
         initComponents();
+        vistaModelo = new VistaModelo();
+
+        sala = vistaModelo.obtenerSala();
+
+        lblCodigo.setText(sala.getCodigo());
+        lblJugador1.setText(sala.getJugadores().get(0).getNickname());
+        pnlJugador1.setBackground(generarColor(sala.getJugadores().get(0).getColor()));
+    }
+
+    public Color generarColor(String color) {
+        String rgb[] = color.split(",");
+        return new Color(Integer.parseInt(rgb[0]), Integer.parseInt(rgb[1]), Integer.parseInt(rgb[2]));
     }
 
     /**

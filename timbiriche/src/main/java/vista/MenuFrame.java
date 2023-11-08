@@ -168,7 +168,8 @@ private JugadorDTO jugador;
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCrearSalaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearSalaActionPerformed
-        
+        vistaModelo.crearSala(jugador);
+        ControlVistas.cambiarVentana(this, 4);
     }//GEN-LAST:event_btnCrearSalaActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -14,8 +14,9 @@ import java.util.Random;
  *
  * @author JORGE
  */
-public class SalaNegocio {
+public class SalaNegocio implements ISalaNegocio {
 
+    @Override
     public Sala crearSala(Jugador anfitrion) throws NegocioException {
         if (anfitrion.getIp() == null) {
             throw new NegocioException();
@@ -25,10 +26,11 @@ public class SalaNegocio {
         sala.setJugadores(Arrays.asList(anfitrion));
         return sala;
     }
-    
+
     //TO DO con sockets
-    public void unirseSala(String codigo, Jugador jugador) throws NegocioException{
-        
+    @Override
+    public void unirseSala(String codigo, Jugador jugador) throws NegocioException {
+
     }
 
     private String generarCodigo() {

@@ -7,7 +7,10 @@ package vistaModelo;
 import java.net.InetAddress;
 import utils.JugadorDTO;
 import modelo.IModeloJugador;
+import modelo.IModeloSala;
 import modelo.ModeloJugador;
+import modelo.ModeloSala;
+import utils.SalaDTO;
 
 /**
  *
@@ -15,15 +18,27 @@ import modelo.ModeloJugador;
  */
 public class VistaModelo implements IVistaModelo {
 
-    private IModeloJugador modelo = ModeloJugador.getInstance();
-
+    private IModeloJugador modeloJugador = ModeloJugador.getInstance();
+    private IModeloSala modeloSala = ModeloSala.getInstance();
     @Override
     public void extraerInformacion(String nickname, String color) {
-        modelo.procesarDatos(nickname, color);
+        modeloJugador.procesarDatos(nickname, color);
     }
 
     @Override
     public JugadorDTO solicitarJugador() {
-        return modelo.solicitarJugador();
+        return modeloJugador.solicitarJugador();
     }
+
+    @Override
+    public void crearSala(JugadorDTO jug) {
+        modeloSala.crearSala(jug);
+    }
+
+    @Override
+    public SalaDTO obtenerSala() {
+        return modeloSala.obtenerSala();
+    }
+    
+    
 }

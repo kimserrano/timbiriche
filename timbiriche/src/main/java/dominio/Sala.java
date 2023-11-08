@@ -27,7 +27,7 @@ public class Sala {
     public List<Jugador> getJugadores() {
         return jugadores;
     }
-
+ 
     public void setJugadores(List<Jugador> jugadores) {
         this.jugadores = jugadores;
     }
