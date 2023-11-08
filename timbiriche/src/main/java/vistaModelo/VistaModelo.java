@@ -5,19 +5,25 @@
 package vistaModelo;
 
 import java.net.InetAddress;
-import modelo.IModelo;
-import modelo.ModeloJugador;
 import utils.JugadorDTO;
+import modelo.IModeloJugador;
+import modelo.ModeloJugador;
 
 /**
  *
  * @author JORGE
  */
-public class VistaModelo implements IVistaModelo{
-private IModelo modelo = new ModeloJugador();
-    
+public class VistaModelo implements IVistaModelo {
+
+    private IModeloJugador modelo = ModeloJugador.getInstance();
+
     @Override
-    public JugadorDTO extraerInformacion(String nickname, String color) {
-        return modelo.procesarDatos(nickname, color);
+    public void extraerInformacion(String nickname, String color) {
+        modelo.procesarDatos(nickname, color);
+    }
+
+    @Override
+    public JugadorDTO solicitarJugador() {
+        return modelo.solicitarJugador();
     }
 }

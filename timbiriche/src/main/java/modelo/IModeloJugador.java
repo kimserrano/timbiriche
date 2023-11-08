@@ -10,6 +10,7 @@ import utils.JugadorDTO;
  *
  * @author JORGE
  */
-public interface IModelo {
-    public JugadorDTO procesarDatos(String nickname, String color);
+public interface IModeloJugador {
+    public void procesarDatos(String nickname, String color);
+    public JugadorDTO solicitarJugador();
 }

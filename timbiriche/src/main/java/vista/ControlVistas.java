@@ -5,7 +5,6 @@
 package vista;
 
 import javax.swing.JFrame;
-import utils.JugadorDTO;
 
 /**
  *
@@ -13,8 +12,24 @@ import utils.JugadorDTO;
  */
 public class ControlVistas {
 
-    public static void cambiarMenu(JFrame jf, JugadorDTO jug) {
-        new MenuFrame(jug).setVisible(true);
-        jf.dispose();
+    public static void cambiarVentana(JFrame ventana, int idVentana) {
+        ventana.setVisible(false);
+        switch (idVentana) {
+            case 1:
+                new PersonalizarFrame().setVisible(true);
+                break;
+            case 2:
+                new MenuFrame().setVisible(true);
+                break;
+            case 3:
+                new CodigoFrame().setVisible(true);
+                break;
+            case 4:
+                new SalaFrame().setVisible(true);
+                break;
+            case 5:
+                new Tablero().setVisible(true);
+                break;
+        }
     }
 }

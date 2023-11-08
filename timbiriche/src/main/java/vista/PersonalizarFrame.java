@@ -14,7 +14,7 @@ import vistaModelo.VistaModelo;
 public class PersonalizarFrame extends javax.swing.JFrame {
 
     private IVistaModelo vistaModelo = new VistaModelo();
-    private String color;
+    private String color = "255,255,255";
 
     /**
      * Creates new form PersonalizarFrame
@@ -206,7 +206,8 @@ public class PersonalizarFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnConfirmarActionPerformed
 
     public void cambiarMenu() {
-        ControlVistas.cambiarMenu(this, vistaModelo.extraerInformacion(txtNickname.getText(), this.color));
+        vistaModelo.extraerInformacion(this.txtNickname.getText(), this.color);
+        ControlVistas.cambiarVentana(this, 2);
     }
     
     

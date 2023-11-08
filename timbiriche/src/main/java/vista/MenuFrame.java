@@ -20,8 +20,11 @@ private JugadorDTO jugador;
     /**
      * Creates new form MenuFrame
      */
-    public MenuFrame(JugadorDTO jugador) {
+    public MenuFrame() {
         initComponents();
+        
+        jugador = vistaModelo.solicitarJugador();
+        
         this.lblJugador.setText(jugador.getNickname());
         this.colorBlock.setBackground(generarColor(jugador.getColor()));
         
@@ -68,6 +71,11 @@ private JugadorDTO jugador;
         btnCrearSala.setFont(new java.awt.Font("Yu Gothic", 3, 12)); // NOI18N
         btnCrearSala.setForeground(new java.awt.Color(0, 0, 0));
         btnCrearSala.setText("Crear Sala");
+        btnCrearSala.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCrearSalaActionPerformed(evt);
+            }
+        });
 
         btnUnirseSala.setBackground(new java.awt.Color(241, 192, 232));
         btnUnirseSala.setFont(new java.awt.Font("Yu Gothic", 3, 12)); // NOI18N
@@ -158,6 +166,10 @@ private JugadorDTO jugador;
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnCrearSalaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearSalaActionPerformed
+        
+    }//GEN-LAST:event_btnCrearSalaActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCrearSala;
