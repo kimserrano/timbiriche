@@ -17,13 +17,7 @@ public class VistaModelo implements IVistaModelo{
 private IModelo modelo = new ModeloJugador();
     
     @Override
-    public void extraerInformacion(String nickname, String color) {
-        modelo.procesarDatos(nickname, color);
+    public JugadorDTO extraerInformacion(String nickname, String color) {
+        return modelo.procesarDatos(nickname, color);
     }
-
-    @Override
-    public JugadorDTO solicitarInformacionJugador() {
-        return modelo.mandarJugador();
-    }
-    
 }

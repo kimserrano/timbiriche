@@ -11,6 +11,5 @@ import utils.JugadorDTO;
  * @author JORGE
  */
 public interface IVistaModelo {
-    public void extraerInformacion(String nickname, String color);
-    public JugadorDTO solicitarInformacionJugador();
+    public JugadorDTO extraerInformacion(String nickname, String color);
 }

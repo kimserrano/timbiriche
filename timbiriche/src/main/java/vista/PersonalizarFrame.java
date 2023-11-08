@@ -4,7 +4,6 @@
  */
 package vista;
 
-import static vista.ControlVistas.cambiarVentana;
 import vistaModelo.IVistaModelo;
 import vistaModelo.VistaModelo;
 
@@ -141,7 +140,7 @@ public class PersonalizarFrame extends javax.swing.JFrame {
                 .addComponent(lblNickname)
                 .addGap(8, 8, 8)
                 .addComponent(txtNickname, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(66, 66, 66)
+                .addGap(120, 120, 120)
                 .addComponent(lblColor)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -168,7 +167,7 @@ public class PersonalizarFrame extends javax.swing.JFrame {
             .addGroup(pnlFondoLayout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(45, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -187,30 +186,29 @@ public class PersonalizarFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnColorRojoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnColorRojoActionPerformed
-        this.color = "[255,102,153]";
+        this.color = "255,102,153";
     }//GEN-LAST:event_btnColorRojoActionPerformed
 
     private void btnColorAmarilloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnColorAmarilloActionPerformed
-        this.color = "[255,255,153]";
+        this.color = "255,255,153";
     }//GEN-LAST:event_btnColorAmarilloActionPerformed
 
     private void btnColorAzulActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnColorAzulActionPerformed
-        this.color = "[153,204,255]";
+        this.color = "153,204,255";
     }//GEN-LAST:event_btnColorAzulActionPerformed
 
     private void btnColorVerdeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnColorVerdeActionPerformed
-        this.color = "[153,255,204]";
+        this.color = "153,255,204";
     }//GEN-LAST:event_btnColorVerdeActionPerformed
 
     private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
         cambiarMenu();
     }//GEN-LAST:event_btnConfirmarActionPerformed
- 
-    public void cambiarMenu(){
-        vistaModelo.extraerInformacion(txtNickname.getText(), this.color);
-        cambiarVentana(this,2);
+
+    public void cambiarMenu() {
+        ControlVistas.cambiarMenu(this, vistaModelo.extraerInformacion(txtNickname.getText(), this.color));
     }
-   
+    
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnColorAmarillo;

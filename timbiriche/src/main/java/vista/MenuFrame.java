@@ -4,6 +4,7 @@
  */
 package vista;
 
+import java.awt.Color;
 import utils.JugadorDTO;
 import vistaModelo.IVistaModelo;
 import vistaModelo.VistaModelo;
@@ -19,13 +20,18 @@ private JugadorDTO jugador;
     /**
      * Creates new form MenuFrame
      */
-    public MenuFrame() {
+    public MenuFrame(JugadorDTO jugador) {
         initComponents();
-        jugador = vistaModelo.solicitarInformacionJugador();
         this.lblJugador.setText(jugador.getNickname());
-        this.lblColor.setText(jugador.getColor());
+        this.colorBlock.setBackground(generarColor(jugador.getColor()));
+        
+        this.setVisible(true);
     }
     
+    public Color generarColor(String color){
+        String rgb[] = color.split(",");
+        return new Color(Integer.parseInt(rgb[0]),Integer.parseInt(rgb[1]),Integer.parseInt(rgb[2]));
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -37,7 +43,7 @@ private JugadorDTO jugador;
     private void initComponents() {
 
         panelFondo = new javax.swing.JPanel();
-        panel = new javax.swing.JPanel();
+        colorBlock = new javax.swing.JPanel();
         lblTimbiriche = new javax.swing.JLabel();
         btnCrearSala = new javax.swing.JButton();
         btnUnirseSala = new javax.swing.JButton();
@@ -52,7 +58,7 @@ private JugadorDTO jugador;
         panelFondo.setBackground(new java.awt.Color(255, 207, 210));
         panelFondo.setPreferredSize(new java.awt.Dimension(1280, 730));
 
-        panel.setBackground(new java.awt.Color(255, 255, 255));
+        colorBlock.setBackground(new java.awt.Color(255, 255, 255));
 
         lblTimbiriche.setFont(new java.awt.Font("Javanese Text", 0, 48)); // NOI18N
         lblTimbiriche.setForeground(new java.awt.Color(0, 0, 0));
@@ -76,41 +82,41 @@ private JugadorDTO jugador;
 
         lblColor.setText("jLabel1");
 
-        javax.swing.GroupLayout panelLayout = new javax.swing.GroupLayout(panel);
-        panel.setLayout(panelLayout);
-        panelLayout.setHorizontalGroup(
-            panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelLayout.createSequentialGroup()
-                .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelLayout.createSequentialGroup()
+        javax.swing.GroupLayout colorBlockLayout = new javax.swing.GroupLayout(colorBlock);
+        colorBlock.setLayout(colorBlockLayout);
+        colorBlockLayout.setHorizontalGroup(
+            colorBlockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(colorBlockLayout.createSequentialGroup()
+                .addGroup(colorBlockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(colorBlockLayout.createSequentialGroup()
                         .addGap(309, 309, 309)
-                        .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(colorBlockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(btnCrearSala, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnUnirseSala, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)))
-                    .addGroup(panelLayout.createSequentialGroup()
+                    .addGroup(colorBlockLayout.createSequentialGroup()
                         .addGap(353, 353, 353)
                         .addComponent(lblJugador))
-                    .addGroup(panelLayout.createSequentialGroup()
+                    .addGroup(colorBlockLayout.createSequentialGroup()
                         .addGap(367, 367, 367)
                         .addComponent(lblNickname)))
                 .addContainerGap(334, Short.MAX_VALUE))
-            .addGroup(panelLayout.createSequentialGroup()
+            .addGroup(colorBlockLayout.createSequentialGroup()
                 .addGap(273, 273, 273)
                 .addComponent(lblTimbiriche)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 153, Short.MAX_VALUE)
                 .addComponent(lblColor)
                 .addGap(101, 101, 101))
         );
-        panelLayout.setVerticalGroup(
-            panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelLayout.createSequentialGroup()
+        colorBlockLayout.setVerticalGroup(
+            colorBlockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(colorBlockLayout.createSequentialGroup()
                 .addGap(49, 49, 49)
-                .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(colorBlockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblTimbiriche)
                     .addComponent(lblColor))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblJugador)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblNickname)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 149, Short.MAX_VALUE)
                 .addComponent(btnCrearSala, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -125,15 +131,15 @@ private JugadorDTO jugador;
             panelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelFondoLayout.createSequentialGroup()
                 .addContainerGap(262, Short.MAX_VALUE)
-                .addComponent(panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(colorBlock, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(225, 225, 225))
         );
         panelFondoLayout.setVerticalGroup(
             panelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelFondoLayout.createSequentialGroup()
                 .addGap(31, 31, 31)
-                .addComponent(panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(81, Short.MAX_VALUE))
+                .addComponent(colorBlock, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(87, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -156,11 +162,11 @@ private JugadorDTO jugador;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCrearSala;
     private javax.swing.JButton btnUnirseSala;
+    private javax.swing.JPanel colorBlock;
     private javax.swing.JLabel lblColor;
     private javax.swing.JLabel lblJugador;
     private javax.swing.JLabel lblNickname;
     private javax.swing.JLabel lblTimbiriche;
-    private javax.swing.JPanel panel;
     private javax.swing.JPanel panelFondo;
     // End of variables declaration//GEN-END:variables
 }
