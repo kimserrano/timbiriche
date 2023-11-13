@@ -2,19 +2,17 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
  */
-package vistaModelo;
-import negocio.*;
+package modelo;
+
 import utils.JugadorDTO;
 import utils.SalaDTO;
 
 /**
  *
- * @author JORGE
+ * @author Elkur
  */
-public interface IVistaModelo {
-    public void extraerInformacion(String nickname, String color);
-    public JugadorDTO solicitarJugador();
-    
-    public void crearSala(JugadorDTO jug);
+public interface IModeloSala {
+    public void crearSala(JugadorDTO anfitrion);
     public SalaDTO obtenerSala();
+    public void unirseSala(String codigo, String nombre);
 }

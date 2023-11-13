@@ -4,37 +4,72 @@
  */
 package vista;
 
+import broker.Suscriptor;
 import java.awt.Color;
+import java.util.Arrays;
+import java.util.List;
+import javax.swing.JLabel;
+import negocio.ISalaNegocio;
+import negocio.SalaNegocio;
+import utils.JugadorDTO;
 import utils.SalaDTO;
-import vistaModelo.IVistaModelo;
-import vistaModelo.VistaModelo;
+import vistaModelo.VistaModeloJugador;
+import vistaModelo.IVistaModeloJugador;
+import vistaModelo.IVistaModeloSala;
+import vistaModelo.VistaModeloSala;
 
 /**
  *
  * @author JORGE
  */
-public class SalaFrame extends javax.swing.JFrame {
+public class SalaFrame extends javax.swing.JFrame implements Suscriptor {
 
-    IVistaModelo vistaModelo;
+    IVistaModeloSala vistaModeloSala;
+    IVistaModeloJugador vistaModeloJugador;
+
     SalaDTO sala;
+    List<JLabel> nombres;
 
-    /**
-     * Creates new form SalaFrame
-     */
     public SalaFrame() {
         initComponents();
-        vistaModelo = new VistaModelo();
+        nombres = Arrays.asList(lblJugador1, lblJugador2, lblJugador3, lblJugador4);
+    }
 
-        sala = vistaModelo.obtenerSala();
-
-        lblCodigo.setText(sala.getCodigo());
-        lblJugador1.setText(sala.getJugadores().get(0).getNickname());
-        pnlJugador1.setBackground(generarColor(sala.getJugadores().get(0).getColor()));
+    public void iniciar() {
+       
+        //pnlJugador1.setBackground(generarColor(sala.getJugadores().get(0).getColor()));
     }
 
     public Color generarColor(String color) {
         String rgb[] = color.split(",");
         return new Color(Integer.parseInt(rgb[0]), Integer.parseInt(rgb[1]), Integer.parseInt(rgb[2]));
+    }
+
+    public void insertarJugadores() {
+        for (int i = 0; i < sala.getJugadores().size(); i++) {
+            nombres.get(i).setText(sala.getJugadores().get(i).getNickname());
+        }
+    }
+
+    @Override
+    public void update() {
+        vistaModeloSala = new VistaModeloSala();
+        vistaModeloJugador = new VistaModeloJugador();
+        sala = vistaModeloSala.obtenerSala();
+        
+        if (sala != null) {
+            if(sala.getJugadores().size()>=4){
+                return;
+            }
+            if (!sala.getJugadores().contains(vistaModeloJugador.solicitarJugador())) {
+                sala.getJugadores().add(vistaModeloJugador.solicitarJugador());
+            }
+
+            lblCodigo.setText(sala.getCodigo());
+            insertarJugadores();
+            setVisible(true);
+            this.repaint();
+        }
     }
 
     /**

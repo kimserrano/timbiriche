@@ -4,7 +4,6 @@
  */
 package modelo;
 
-import dominio.Jugador;
 import utils.JugadorDTO;
 import utils.SalaDTO;
 
@@ -15,5 +14,5 @@ import utils.SalaDTO;
 public interface IModeloSala {
     public void crearSala(JugadorDTO anfitrion);
     public SalaDTO obtenerSala();
-    
+    public void unirseSala(String codigo, String nombre);
 }

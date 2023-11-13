@@ -4,6 +4,8 @@
  */
 package utils;
 
+import java.util.Objects;
+
 /**
  *
  * @author JORGE
@@ -32,5 +34,31 @@ public class JugadorDTO {
     public void setColor(String color) {
         this.color = color;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final JugadorDTO other = (JugadorDTO) obj;
+        if (!Objects.equals(this.nickname, other.nickname)) {
+            return false;
+        }
+        return Objects.equals(this.color, other.color);
+    }
+    
+    
     
 }
