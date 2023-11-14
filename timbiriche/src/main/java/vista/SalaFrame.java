@@ -107,7 +107,6 @@ public class SalaFrame extends javax.swing.JFrame implements Suscriptor {
 
         lblSala.setBackground(new java.awt.Color(0, 0, 0));
         lblSala.setFont(new java.awt.Font("Javanese Text", 0, 48)); // NOI18N
-        lblSala.setForeground(new java.awt.Color(0, 0, 0));
         lblSala.setText("Sala");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -128,16 +127,19 @@ public class SalaFrame extends javax.swing.JFrame implements Suscriptor {
 
         btnIniciar.setBackground(new java.awt.Color(207, 186, 240));
         btnIniciar.setFont(new java.awt.Font("Yu Gothic", 3, 12)); // NOI18N
-        btnIniciar.setForeground(new java.awt.Color(0, 0, 0));
         btnIniciar.setText("Iniciar");
         btnIniciar.setPreferredSize(new java.awt.Dimension(150, 25));
+        btnIniciar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnIniciarActionPerformed(evt);
+            }
+        });
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
 
         jPanel4.setBackground(new java.awt.Color(163, 196, 243));
 
         jLabel2.setFont(new java.awt.Font("Javanese Text", 0, 14)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("Jugadores:");
 
         pnlJugador1.setBackground(new java.awt.Color(255, 204, 204));
@@ -193,19 +195,15 @@ public class SalaFrame extends javax.swing.JFrame implements Suscriptor {
         );
 
         lblJugador1.setFont(new java.awt.Font("Javanese Text", 1, 12)); // NOI18N
-        lblJugador1.setForeground(new java.awt.Color(0, 0, 0));
         lblJugador1.setText("------");
 
         lblJugador2.setFont(new java.awt.Font("Javanese Text", 1, 12)); // NOI18N
-        lblJugador2.setForeground(new java.awt.Color(0, 0, 0));
         lblJugador2.setText("------");
 
         lblJugador4.setFont(new java.awt.Font("Javanese Text", 1, 12)); // NOI18N
-        lblJugador4.setForeground(new java.awt.Color(0, 0, 0));
         lblJugador4.setText("------");
 
         lblJugador3.setFont(new java.awt.Font("Javanese Text", 1, 12)); // NOI18N
-        lblJugador3.setForeground(new java.awt.Color(0, 0, 0));
         lblJugador3.setText("------");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -269,11 +267,9 @@ public class SalaFrame extends javax.swing.JFrame implements Suscriptor {
 
         lblTitulo.setBackground(new java.awt.Color(0, 0, 0));
         lblTitulo.setFont(new java.awt.Font("Javanese Text", 0, 24)); // NOI18N
-        lblTitulo.setForeground(new java.awt.Color(0, 0, 0));
         lblTitulo.setText("Código:");
 
         lblCodigo.setFont(new java.awt.Font("Yu Gothic", 3, 24)); // NOI18N
-        lblCodigo.setForeground(new java.awt.Color(0, 0, 0));
         lblCodigo.setText("---   ---");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -345,6 +341,13 @@ public class SalaFrame extends javax.swing.JFrame implements Suscriptor {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnIniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarActionPerformed
+        // TODO add your handling code here:
+        new Tablero().setVisible(true);
+        this.dispose();
+        
+    }//GEN-LAST:event_btnIniciarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
