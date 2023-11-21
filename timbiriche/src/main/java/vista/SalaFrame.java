@@ -14,7 +14,7 @@ import negocio.SalaNegocio;
 import utils.JugadorDTO;
 import utils.SalaDTO;
 import vistaModelo.VistaModeloJugador;
-import vistaModelo.IVistaModeloJugador;
+import vistaModelo.*;
 import vistaModelo.IVistaModeloSala;
 import vistaModelo.VistaModeloSala;
 
@@ -26,6 +26,7 @@ public class SalaFrame extends javax.swing.JFrame implements Suscriptor {
 
     IVistaModeloSala vistaModeloSala;
     IVistaModeloJugador vistaModeloJugador;
+    IVistaModeloTablero vistaModeloTablero;
 
     SalaDTO sala;
     List<JLabel> nombres;
@@ -55,6 +56,7 @@ public class SalaFrame extends javax.swing.JFrame implements Suscriptor {
     public void update() {
         vistaModeloSala = new VistaModeloSala();
         vistaModeloJugador = new VistaModeloJugador();
+        vistaModeloTablero=new VistaModeloTablero();
         sala = vistaModeloSala.obtenerSala();
         
         if (sala != null) {
@@ -344,7 +346,8 @@ public class SalaFrame extends javax.swing.JFrame implements Suscriptor {
 
     private void btnIniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarActionPerformed
         // TODO add your handling code here:
-        new Tablero().setVisible(true);
+        
+        ControlVistas.cambiarATableroNuevo(this, vistaModeloTablero.obtenerNicks(nombres));
         this.dispose();
         
     }//GEN-LAST:event_btnIniciarActionPerformed

@@ -4,6 +4,7 @@
  */
 package vista;
 
+import java.util.List;
 import javax.swing.JFrame;
 import utils.SalaDTO;
 
@@ -37,5 +38,9 @@ public class ControlVistas {
     
     public static SalaFrame getSalaF(){
         return salaF;
+    }
+    
+    public static void cambiarATableroNuevo(JFrame ventana, List<String> nicks){
+        new Tablero(nicks).setVisible(true);
     }
 }
