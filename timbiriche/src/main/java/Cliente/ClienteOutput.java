@@ -9,6 +9,7 @@ import dominio.Jugador;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.net.ConnectException;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -42,7 +43,14 @@ public class ClienteOutput {
     }
 
     public void avisar(String ip, int puerto) throws IOException {
-        Socket skt = new Socket(ip, puerto);
+        Socket skt = null;
+        try {
+            skt = new Socket(ip, puerto);
+
+        } catch (ConnectException e) {
+            System.out.println("SE SALIO UNO WE");
+            //Avisar al directorio de direcciones para eliminarlo
+        }
 
         DataOutputStream out = new DataOutputStream(skt.getOutputStream());
 

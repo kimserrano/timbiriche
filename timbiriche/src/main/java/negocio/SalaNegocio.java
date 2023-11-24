@@ -150,7 +150,9 @@ public class SalaNegocio implements ISalaNegocio {
 
     @Override
     public int obtenerPuerto() throws IOException {
-        return cln.obtenerPuerto();
+        int puerto = cln.obtenerPuerto();
+        jugadorNegocio.obtenerJugador().setPuerto(puerto);
+        return puerto;
     }
 
     @Override
