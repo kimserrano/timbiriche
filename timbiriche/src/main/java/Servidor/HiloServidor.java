@@ -31,19 +31,23 @@ public class HiloServidor implements Runnable {
     private ISalaNegocio salaN;
 
     public HiloServidor() throws IOException {
-        svSocket = new ServerSocket(9999);
-        jugadores = new HashSet<>();
         salaN = SalaNegocio.getInstance();
+        int puerto = salaN.obtenerPuerto();
+
+        System.out.println("Puerto a iniciar: " + puerto);
+        svSocket = new ServerSocket(puerto);
+        jugadores = new HashSet<>();
     }
 
     @Override
     public void run() {
+        salaN.agregarJugadores();
         while (true) {
             try {
                 Socket skt = svSocket.accept();
                 DataInputStream dis = new DataInputStream(skt.getInputStream());
                 String operacion = dis.readUTF();
-                System.out.println();
+
                 procesaMensaje(operacion, skt);
 
             } catch (IOException ex) {
@@ -62,26 +66,10 @@ public class HiloServidor implements Runnable {
         return nombre;
     }
 
-    private void procesaMensaje(String mensaje, Socket skt) throws NegocioException {
+    private void procesaMensaje(String mensaje, Socket skt) throws NegocioException, IOException {
         String[] operacion = mensaje.split(" ");
-        if (operacion[0].equalsIgnoreCase("nuevo")) {
-            try {
-                salaN.agregarJugadorNuevo(new Jugador(operacion[1], "", operacion[2]));
-            } catch (NegocioException ex) {
-                Logger.getLogger(HiloServidor.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-
-        if (operacion[0].equalsIgnoreCase("sala")) {
-            salaN.establecerSala(operacion);
-        }
-
-        if (operacion[0].equalsIgnoreCase("nombre")) {
-            String nombre = getName(mensaje);
-            Jugador jug = new Jugador(nombre, "", skt.getInetAddress().getHostAddress());
-            System.out.println("Jugador " + nombre + " creado");
-            salaN.agregarJugador(jug);
-            jugadores.add(skt);
+        if (operacion[0].equalsIgnoreCase("jugadorNuevo")) {
+            salaN.revisarNuevosJugadores();
         }
     }
 }
