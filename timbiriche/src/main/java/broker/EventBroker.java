@@ -4,6 +4,7 @@
  */
 package broker;
 
+import Servidor.Servidor;
 import java.util.HashSet;
 import negocio.SalaNegocio;
 import vista.ControlVistas;
@@ -17,11 +18,14 @@ public class EventBroker implements IEventBroker {
 
     private HashSet<Suscriptor> subsSala;
     private HashSet<Suscriptor> subsJuego;
+    private HashSet<Suscriptor> subsServer;
 
     private EventBroker() {
         subsJuego = new HashSet<>();
         subsSala = new HashSet<>();
+        subsServer = new HashSet<>();
         subsSala.add(ControlVistas.getSalaF());
+        subsServer.add(new Servidor());
     }
 
     public static EventBroker getInstance() {
@@ -38,6 +42,13 @@ public class EventBroker implements IEventBroker {
         if (proc == Procedencia.Sala) {
             if (!subsSala.isEmpty()) {
                 for (Suscriptor sub : subsSala) {
+                    sub.update();
+                }
+            }
+        }
+        if (proc == Procedencia.input) {
+            if (!subsServer.isEmpty()) {
+                for (Suscriptor sub : subsServer) {
                     sub.update();
                 }
             }
