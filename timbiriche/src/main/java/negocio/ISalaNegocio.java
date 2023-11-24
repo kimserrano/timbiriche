@@ -6,6 +6,7 @@ package negocio;
 
 import dominio.Jugador;
 import dominio.Sala;
+import java.io.IOException;
 
 /**
  *
@@ -17,13 +18,13 @@ public interface ISalaNegocio {
 
     public void unirseSala(String codigo, String nombre) throws NegocioException;
 
-    public void agregarJugador(Jugador jug) throws NegocioException;
-
     public Sala actualizarSala();
-    
-    public String obtenerSalaMensaje();
 
-    public void agregarJugadorNuevo(Jugador jugador) throws NegocioException;
+    public void agregarJugadores();
     
-    public void establecerSala(String[] sala);
+    public int obtenerPuerto() throws IOException;
+    
+    public void revisarNuevosJugadores();
+    
+    
 }

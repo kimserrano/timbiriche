@@ -9,7 +9,7 @@ import Cliente.ICliente;
 import broker.EventBroker;
 import broker.IEventBroker;
 import broker.Procedencia;
-import broker.Suscriptor;
+import datos.ipsDTO;
 import dominio.Jugador;
 import dominio.Sala;
 import java.io.IOException;
@@ -29,6 +29,7 @@ public class SalaNegocio implements ISalaNegocio {
     private IEventBroker evtBroker;
     private Sala sala;
     private ICliente cln;
+    private IJugadorNegocio jugadorNegocio;
 
     public static SalaNegocio getInstance() {
         return SalaNegocioHolder.INSTANCE;
@@ -42,6 +43,7 @@ public class SalaNegocio implements ISalaNegocio {
     private SalaNegocio() {
         cln = new Cliente();
         evtBroker = EventBroker.getInstance();
+        jugadorNegocio = JugadorNegocio.getInstance();
     }
 
     @Override
@@ -50,19 +52,28 @@ public class SalaNegocio implements ISalaNegocio {
             throw new NegocioException("Error al crear la sala");
         }
         String codigo = this.generarCodigo();
-        Sala sala = new Sala(anfitrion.getIp());
+        Sala sala = new Sala(codigo);
         ArrayList<Jugador> jug = new ArrayList<>();
         jug.add(anfitrion);
         sala.setJugadores(jug);
+        try {
+            cln.crearSala(codigo, anfitrion.getNickname());
+        } catch (IOException ex) {
+            Logger.getLogger(SalaNegocio.class.getName()).log(Level.SEVERE, null, ex);
+            throw new NegocioException("No se pudo crear la sala");
+        }
         this.sala = sala;
         return sala;
     }
 
-    //TO DO con sockets
     @Override
     public void unirseSala(String codigo, String nombre) throws NegocioException {
         try {
             cln.unirseSala(codigo, new Jugador(nombre, "", InetAddress.getLocalHost().getHostAddress()));
+            sala = new Sala(codigo);
+            sala.setJugadores(new ArrayList<>());
+            sala.getJugadores().add(jugadorNegocio.obtenerJugador());
+
         } catch (IOException ex) {
             Logger.getLogger(SalaNegocio.class.getName()).log(Level.SEVERE, null, ex);
             throw new NegocioException("Error al ingresar a la sala");
@@ -85,58 +96,66 @@ public class SalaNegocio implements ISalaNegocio {
     }
 
     @Override
-    public void agregarJugador(Jugador jug) throws NegocioException {
-        if (sala != null) {
-
-            try {
-                cln.enviarNuevoJugador(jug.getNickname(), jug.getIp());
-                cln.agregarConexionNuevo(jug.getIp(), sala);
-                sala.getJugadores().add(jug);
-
-                evtBroker.notificar("", Procedencia.Sala);
-            } catch (IOException ex) {
-                Logger.getLogger(SalaNegocio.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            evtBroker.notificar("", Procedencia.Sala);
+    public void agregarJugadores() {
+        ipsDTO ips = null;
+        try {
+            ips = cln.agregarSala();
+        } catch (IOException ex) {
+            Logger.getLogger(SalaNegocio.class.getName()).log(Level.SEVERE, null, ex);
         }
+        List<Jugador> jugadores = new ArrayList<>();
+
+        for (String datos : ips.getIppuerto()) {
+            String[] aux = datos.split(" ");
+
+            String nickname = aux[0];
+            String ip = aux[1].split(":")[0];
+            int puerto = Integer.parseInt(aux[1].split(":")[1]);
+
+            Jugador jugador = new Jugador(nickname, ip, puerto);
+
+            jugadores.add(jugador);
+        }
+
+        sala.setJugadores(jugadores);
+        evtBroker.notificar("", Procedencia.Sala);
+    }
+
+    @Override
+    public void revisarNuevosJugadores() {
+        ipsDTO ips = null;
+        try {
+            ips = cln.obtenerNuevaSala(sala.getCodigo());
+        } catch (IOException ex) {
+            Logger.getLogger(SalaNegocio.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        List<Jugador> jugadores = new ArrayList<>();
+
+        for (String datos : ips.getIppuerto()) {
+            String[] aux = datos.split(" ");
+
+            String nickname = aux[0];
+            String ip = aux[1].split(":")[0];
+            int puerto = Integer.parseInt(aux[1].split(":")[1]);
+
+            Jugador jugador = new Jugador(nickname, ip, puerto);
+
+            jugadores.add(jugador);
+        }
+        
+        sala.setJugadores(jugadores);
+        evtBroker.notificar("", Procedencia.Sala);
+    }
+
+    @Override
+    public int obtenerPuerto() throws IOException {
+        return cln.obtenerPuerto();
     }
 
     @Override
     public Sala actualizarSala() {
         return sala;
-    }
-
-    @Override
-    public String obtenerSalaMensaje() {
-        StringBuffer txt = new StringBuffer();
-
-        for (Jugador jug : sala.getJugadores()) {
-            txt.append(jug.getNickname() + " " + jug.getIp() + " ");
-        }
-
-        return txt.toString();
-    }
-
-    @Override
-    public void agregarJugadorNuevo(Jugador jugador) throws NegocioException {
-        if (sala != null) {
-            sala.getJugadores().add(jugador);
-            cln.agregarConexionNuevo(jugador.getIp(), sala);
-            for (Jugador jug : sala.getJugadores()) {
-                System.out.println(jug.getNickname());
-            }
-        }
-    }
-
-    @Override
-    public void establecerSala(String[] sala) {
-        List<Jugador> jug = new ArrayList<>();
-        for (int i = 1; i < sala.length-1; i += 2) {
-            jug.add(new Jugador(sala[i], "", sala[i + 1]));
-        }
-        this.sala = new Sala(sala[sala.length-1]);
-        this.sala.setJugadores(jug);
-        evtBroker.notificar("nuevasala", Procedencia.Sala);
     }
 
 }
