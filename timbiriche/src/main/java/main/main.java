@@ -21,12 +21,6 @@ public class main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        
-        try { 
-            new Thread(new HiloServidor()).start();
-        } catch (IOException ex) {
-            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
-        }
         new PersonalizarFrame().setVisible(true);
     }
     

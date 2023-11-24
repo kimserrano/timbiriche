@@ -13,6 +13,7 @@ public class Jugador {
     private String nickname;
     private String color;
     private String ip;
+    private int puerto;
     private boolean estado;
 
     public Jugador(String nickname, String color, String ip) {
@@ -20,6 +21,12 @@ public class Jugador {
         this.color = color;
         this.ip = ip;
         this.estado = false;
+    }
+
+    public Jugador(String nickname, String ip, int puerto) {
+        this.nickname = nickname;
+        this.ip = ip;
+        this.puerto = puerto;
     }
 
     public Jugador(String nickname, String color) {
@@ -32,6 +39,22 @@ public class Jugador {
     }
 
     public Jugador() {
+    }
+
+    public int getPuerto() {
+        return puerto;
+    }
+
+    public void setPuerto(int puerto) {
+        this.puerto = puerto;
+    }
+
+    public boolean isEstado() {
+        return estado;
+    }
+
+    public void setEstado(boolean estado) {
+        this.estado = estado;
     }
 
     public String getNickname() {
@@ -63,5 +86,4 @@ public class Jugador {
         return "Jugador{" + "nickname=" + nickname + ", color=" + color + ", ip=" + ip + '}';
     }
 
-    
 }

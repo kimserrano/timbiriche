@@ -26,6 +26,7 @@ public class CodigoFrame extends javax.swing.JFrame {
 
     public void entrar() {
         vistaModelo.unirseSala(txtCodigo.getText(), vistaModeloJug.solicitarJugador().getNickname());
+        ControlVistas.cambiarVentana(this, 4);
     }
 
     /**

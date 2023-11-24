@@ -56,17 +56,10 @@ public class SalaFrame extends javax.swing.JFrame implements Suscriptor {
     public void update() {
         vistaModeloSala = new VistaModeloSala();
         vistaModeloJugador = new VistaModeloJugador();
-        vistaModeloTablero=new VistaModeloTablero();
+        vistaModeloTablero = new VistaModeloTablero();
         sala = vistaModeloSala.obtenerSala();
         
         if (sala != null) {
-            if(sala.getJugadores().size()>=4){
-                return;
-            }
-            if (!sala.getJugadores().contains(vistaModeloJugador.solicitarJugador())) {
-                sala.getJugadores().add(vistaModeloJugador.solicitarJugador());
-            }
-
             lblCodigo.setText(sala.getCodigo());
             insertarJugadores();
             setVisible(true);

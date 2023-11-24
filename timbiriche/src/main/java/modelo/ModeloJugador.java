@@ -9,6 +9,8 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import negocio.IJugadorNegocio;
+import negocio.JugadorNegocio;
 import utils.JugadorDTO;
 
 /**
@@ -17,9 +19,10 @@ import utils.JugadorDTO;
  */
 public class ModeloJugador implements IModeloJugador {
 
-    private Jugador jugador;
-
+    private IJugadorNegocio jugadorN;
+    
     private ModeloJugador() {
+        this.jugadorN = JugadorNegocio.getInstance();
     }
 
     public static ModeloJugador getInstance() {
@@ -34,7 +37,9 @@ public class ModeloJugador implements IModeloJugador {
     @Override
     public void procesarDatos(String nickname, String color) {
         try {
-            jugador = new Jugador(nickname, color, InetAddress.getLocalHost().getHostAddress());
+            Jugador jugador = new Jugador(nickname, color, InetAddress.getLocalHost().getHostAddress());
+            jugadorN.establecerJugador(jugador);
+            
         } catch (UnknownHostException ex) {
             Logger.getLogger(ModeloJugador.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -42,6 +47,7 @@ public class ModeloJugador implements IModeloJugador {
 
     @Override
     public JugadorDTO solicitarJugador() {
+        Jugador jugador = jugadorN.obtenerJugador();
         return new JugadorDTO(jugador.getNickname(), jugador.getColor());
     }
 }
