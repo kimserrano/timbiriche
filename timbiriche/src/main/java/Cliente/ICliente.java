@@ -4,22 +4,25 @@
  */
 package Cliente;
 
+import datos.ipsDTO;
 import dominio.Jugador;
 import dominio.Sala;
 import java.io.IOException;
-
 
 /**
  *
  * @author JORGE
  */
 public interface ICliente {
-    //TO DO
+
     public void unirseSala(String codigo, Jugador jugador) throws IOException;
-//    
-//    public Sala getSala(String codigo) throws IOException;
 
-    public void enviarNuevoJugador(String nickname, String ip) throws IOException;
+    public int obtenerPuerto() throws IOException;
 
-    public void agregarConexionNuevo(String ip, Sala sala);
+    public void crearSala(String codigo, String nickname) throws IOException;
+
+    public ipsDTO agregarSala() throws IOException;
+
+    public ipsDTO obtenerNuevaSala(String codigo) throws IOException;
+
 }

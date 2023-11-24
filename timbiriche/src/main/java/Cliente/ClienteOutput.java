@@ -4,14 +4,18 @@
  */
 package Cliente;
 
+import datos.ipsDTO;
 import dominio.Jugador;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -25,39 +29,29 @@ public class ClienteOutput {
         jugadores = jug;
     }
 
-    public void agregarSv(String host, String sala) throws IOException {
-        Socket skt = new Socket(host, 9999);
-        enviarSala(sala, skt);
-        jugadores.add(skt);
+    public void enviarSolicitudPullSv(Socket pullSv, String codigo, String operacion, String nickname) throws IOException {
+        DataOutputStream out = new DataOutputStream(pullSv.getOutputStream());
+
+        out.writeUTF(operacion + " " + codigo + " " + nickname);
     }
 
-    public void unirseSala(String codigo, Jugador jugador) throws IOException {
-        Socket skt = new Socket(codigo, 9999);
-        if (skt.isConnected()) {
-            enviarNombre(skt, jugador.getNickname());
-            jugadores.add(skt);
-        }
+    public void solicitarSala(Socket pullSv, String codigo, String operacion, String puerto) throws IOException {
+        DataOutputStream out = new DataOutputStream(pullSv.getOutputStream());
+
+        out.writeUTF(operacion + " " + codigo + " " + puerto);
     }
 
-    private void enviarSala(String sala, Socket skt) throws IOException {
-        DataOutputStream salida = new DataOutputStream(skt.getOutputStream());
-        salida.writeUTF(sala);
+    public void avisar(String ip, int puerto) throws IOException {
+        Socket skt = new Socket(ip, puerto);
+
+        DataOutputStream out = new DataOutputStream(skt.getOutputStream());
+
+        out.writeUTF("jugadorNuevo");
     }
 
-    private void enviarNombre(Socket skt, String nombre) throws IOException {
-        DataOutputStream dos = new DataOutputStream(skt.getOutputStream());
-        dos.writeUTF("nombre " + nombre);
-    }
+    public void solicitarNuevaSala(Socket pullSv, String codigo) throws IOException {
+        DataOutputStream out = new DataOutputStream(pullSv.getOutputStream());
 
-    public Set<Socket> getJugadores() {
-        return jugadores;
+        out.writeUTF("solicitarIps" + " " + codigo);
     }
-
-    public void enviarNuevoJugador(String nuevoJugadorMensaje) throws IOException {
-        for (Socket skt : jugadores) {
-            DataOutputStream salida = new DataOutputStream(skt.getOutputStream());
-            salida.writeUTF(nuevoJugadorMensaje);
-        }
-    }
-
 }

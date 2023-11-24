@@ -5,9 +5,15 @@
 package Cliente;
 
 import Servidor.HiloServidor;
+import broker.EventBroker;
+import broker.IEventBroker;
+import broker.Procedencia;
+import datos.ipsDTO;
 import dominio.Jugador;
 import dominio.Sala;
+import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.net.Socket;
 import java.util.HashSet;
 import java.util.List;
@@ -20,48 +26,87 @@ import java.util.logging.Logger;
  * @author Elkur
  */
 public class Cliente implements ICliente {
-    
+
     private ClienteOutput clnOut;
+    private ClienteInput clnIn;
+
+    private IEventBroker evtBroker;
+
     private Set<Socket> jugadores;
-    
+    private Socket svSockets;
+
     public Cliente() {
         jugadores = new HashSet<>();
         clnOut = new ClienteOutput(jugadores);
+        clnIn = new ClienteInput();
+        evtBroker = EventBroker.getInstance();
     }
-    
+
+    private void iniciarSvSockets() throws IOException {
+
+        svSockets = new Socket("192.168.1.120", 9500);
+
+    }
+
+    @Override
+    public void crearSala(String codigo, String nickname) throws IOException {
+        iniciarSvSockets();
+        clnOut.enviarSolicitudPullSv(svSockets, codigo, "crear", nickname);
+        evtBroker.notificar("", Procedencia.input);
+    }
+
     @Override
     public void unirseSala(String codigo, Jugador jugador) throws IOException {
-        clnOut.unirseSala(codigo, jugador);
+        iniciarSvSockets();
+        clnOut.enviarSolicitudPullSv(svSockets, codigo, "unirse", jugador.getNickname());
+        evtBroker.notificar("", Procedencia.input);
     }
 
     @Override
-    public void enviarNuevoJugador(String nickname, String ip) throws IOException {
-        clnOut.enviarNuevoJugador(crearNuevoJugadorMensaje(nickname, ip));
-    }
-    
-    private String crearNuevoJugadorMensaje(String nickname, String ip){
-        String mensaje = "nuevo "+nickname+" "+ip;
-        return mensaje;
-    }
-
-    @Override
-    public void agregarConexionNuevo(String ip, Sala sala) {
+    public ipsDTO agregarSala() throws IOException {
+        ObjectInputStream in = new ObjectInputStream(svSockets.getInputStream());
         try {
-            clnOut.agregarSv(ip, crearCadenaSala(sala));
-        } catch (IOException ex) {
+            ipsDTO ips = (datos.ipsDTO) in.readObject();
+            avisarEntrada(ips);
+            return ips;
+        } catch (ClassNotFoundException ex) {
             Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
+
+        }
+        return null;
+    }
+
+    @Override
+    public int obtenerPuerto() throws IOException {
+        return clnIn.obtenerPuerto(svSockets);
+    }
+
+    private void avisarEntrada(ipsDTO ips) throws IOException {
+        for (String datos : ips.getIppuerto()) {
+            String[] aux = datos.split(" ");
+
+            String nickname = aux[0];
+            String ip = aux[1].split(":")[0];
+            int puerto = Integer.parseInt(aux[1].split(":")[1]);
+
+            clnOut.avisar(ip, puerto);
         }
     }
-    
-    private String crearCadenaSala(Sala sala){
-        StringBuffer cadena = new StringBuffer();
-        cadena.append("sala ");
-        for(Jugador jug : sala.getJugadores()){
-            cadena.append(jug.getNickname()+" "+jug.getIp()+" ");
+
+    @Override
+    public ipsDTO obtenerNuevaSala(String codigo) throws IOException {
+        iniciarSvSockets();
+        clnOut.solicitarNuevaSala(svSockets, codigo);
+
+        ObjectInputStream in = new ObjectInputStream(svSockets.getInputStream());
+        try {
+            ipsDTO ips = (datos.ipsDTO) in.readObject();
+            return ips;
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
+
         }
-        cadena.append(sala.getCodigo());
-        return cadena.toString();
+        return null;
     }
-    
-    
+
 }
