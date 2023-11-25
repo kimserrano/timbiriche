@@ -21,7 +21,7 @@ public interface ICliente {
 
     public void crearSala(String codigo, String nickname) throws IOException;
 
-    public ipsDTO agregarSala() throws IOException;
+    public ipsDTO agregarSala(String codigo) throws IOException;
 
     public ipsDTO obtenerNuevaSala(String codigo) throws IOException;
 

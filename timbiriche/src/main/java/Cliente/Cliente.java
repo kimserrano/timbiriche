@@ -14,7 +14,9 @@ import dominio.Sala;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.net.ConnectException;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -63,15 +65,14 @@ public class Cliente implements ICliente {
     }
 
     @Override
-    public ipsDTO agregarSala() throws IOException {
+    public ipsDTO agregarSala(String codigo) throws IOException {
         ObjectInputStream in = new ObjectInputStream(svSockets.getInputStream());
         try {
             ipsDTO ips = (datos.ipsDTO) in.readObject();
-            avisarEntrada(ips);
+            avisarEntrada(ips, codigo);
             return ips;
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
-
         }
         return null;
     }
@@ -81,15 +82,30 @@ public class Cliente implements ICliente {
         return clnIn.obtenerPuerto(svSockets);
     }
 
-    private void avisarEntrada(ipsDTO ips) throws IOException {
+    private void avisarEntrada(ipsDTO ips, String codigo) throws IOException {
+        List<Integer> puertosMuertos = new ArrayList<>();
         for (String datos : ips.getIppuerto()) {
             String[] aux = datos.split(" ");
 
             String nickname = aux[0];
             String ip = aux[1].split(":")[0];
             int puerto = Integer.parseInt(aux[1].split(":")[1]);
+            try {
+                clnOut.avisar(ip, puerto, codigo);
+            } catch (ConnectException e) {
+                System.out.println("Puerto muerto: "+puerto);
+                puertosMuertos.add(puerto);
+            }
+        }
+        
+        eliminarPuerto(puertosMuertos, codigo);
 
-            clnOut.avisar(ip, puerto);
+    }
+
+    private void eliminarPuerto(List<Integer> puertos, String codigo) throws IOException {
+        for (Integer puerto : puertos) {
+            iniciarSvSockets();
+            clnOut.eliminarConexion(puerto, codigo, svSockets);
         }
     }
 

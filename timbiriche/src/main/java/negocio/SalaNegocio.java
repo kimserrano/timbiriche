@@ -69,10 +69,9 @@ public class SalaNegocio implements ISalaNegocio {
     @Override
     public void unirseSala(String codigo, String nombre) throws NegocioException {
         try {
-            cln.unirseSala(codigo, new Jugador(nombre, "", InetAddress.getLocalHost().getHostAddress()));
             sala = new Sala(codigo);
             sala.setJugadores(new ArrayList<>());
-            sala.getJugadores().add(jugadorNegocio.obtenerJugador());
+            cln.unirseSala(codigo, new Jugador(nombre, "", InetAddress.getLocalHost().getHostAddress()));
 
         } catch (IOException ex) {
             Logger.getLogger(SalaNegocio.class.getName()).log(Level.SEVERE, null, ex);
@@ -99,7 +98,8 @@ public class SalaNegocio implements ISalaNegocio {
     public void agregarJugadores() {
         ipsDTO ips = null;
         try {
-            ips = cln.agregarSala();
+            System.out.println("2");
+            ips = cln.agregarSala(sala.getCodigo());
         } catch (IOException ex) {
             Logger.getLogger(SalaNegocio.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -143,7 +143,7 @@ public class SalaNegocio implements ISalaNegocio {
 
             jugadores.add(jugador);
         }
-        
+
         sala.setJugadores(jugadores);
         evtBroker.notificar("", Procedencia.Sala);
     }

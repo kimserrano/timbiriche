@@ -42,15 +42,8 @@ public class ClienteOutput {
         out.writeUTF(operacion + " " + codigo + " " + puerto);
     }
 
-    public void avisar(String ip, int puerto) throws IOException {
-        Socket skt = null;
-        try {
-            skt = new Socket(ip, puerto);
-
-        } catch (ConnectException e) {
-            System.out.println("SE SALIO UNO WE");
-            //Avisar al directorio de direcciones para eliminarlo
-        }
+    public void avisar(String ip, int puerto, String codigo) throws IOException, ConnectException {
+        Socket skt = new Socket(ip, puerto);
 
         DataOutputStream out = new DataOutputStream(skt.getOutputStream());
 
@@ -61,5 +54,11 @@ public class ClienteOutput {
         DataOutputStream out = new DataOutputStream(pullSv.getOutputStream());
 
         out.writeUTF("solicitarIps" + " " + codigo);
+    }
+
+    public void eliminarConexion(int puerto, String codigo, Socket svSocket) throws IOException {
+        DataOutputStream out = new DataOutputStream(svSocket.getOutputStream());
+
+        out.writeUTF("eliminarPuerto" + " " + codigo + " "+puerto);
     }
 }
