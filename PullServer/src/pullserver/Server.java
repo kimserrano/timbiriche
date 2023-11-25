@@ -66,6 +66,10 @@ public class Server implements Runnable {
                 enviarSala(skt, obtenerCodigo(operacion));
                 break;
 
+            case "eliminarPuerto":
+                eliminarPuerto(obtenerCodigo(operacion), obtenerPuerto(operacion));
+                break;
+
         }
     }
 
@@ -75,6 +79,10 @@ public class Server implements Runnable {
 
     private int unirseSala(Socket skt, String codigo, String nickname) throws SalaException {
         return svNegocio.unirseSala(skt, codigo, nickname);
+    }
+
+    private void eliminarPuerto(String codigo, String puerto) throws SalaException {
+        svNegocio.eliminarPuerto(codigo, Integer.parseInt(puerto));
     }
 
     private void enviarSala(Socket skt, String codigo) throws IOException {
@@ -107,4 +115,5 @@ public class Server implements Runnable {
     private String obtenerNickname(String dato) {
         return dato.split(" ")[2];
     }
+
 }

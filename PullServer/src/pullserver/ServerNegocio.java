@@ -131,4 +131,14 @@ public class ServerNegocio {
 //        return puertoFaltante;
 //
 //    }
+    public void eliminarPuerto(String codigo, int puerto) throws SalaException {
+        int index = salas.indexOf(new Sala(codigo));
+        if(index == -1){
+            throw new SalaException("No se encontro la sala");
+        }
+        
+        Sala sala = salas.get(index);
+        
+        sala.remove(new Conexion(puerto));
+    }
 }

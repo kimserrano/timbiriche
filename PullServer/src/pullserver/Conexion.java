@@ -20,6 +20,10 @@ public class Conexion {
         this.nickname = nickname;
     }
 
+    public Conexion(int puerto) {
+        this.puerto = puerto;
+    }
+
     public String getIp() {
         return ip;
     }
