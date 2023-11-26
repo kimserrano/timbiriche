@@ -50,13 +50,14 @@ public class ModeloSala implements IModeloSala {
         sala = salaN.actualizarSala();
         return new SalaDTO(generarListaJugadores(sala.getJugadores()), sala.getCodigo());
     }
-    
+
     private List<JugadorDTO> generarListaJugadores(List<Jugador> jug) {
         if (!jug.isEmpty()) {
             List<JugadorDTO> jugDTO = new ArrayList<>();
             for (Jugador juga : jug) {
-                System.out.println("Nombre: "+juga.getNickname() +" puerto: "+juga.getPuerto());
-                jugDTO.add(new JugadorDTO(juga.getNickname(), juga.getColor()));
+                JugadorDTO jugador = new JugadorDTO(juga.getNickname(), juga.getColor());
+                jugador.setReady(juga.isEstado());
+                jugDTO.add(jugador);
 
             }
             return jugDTO;
@@ -78,4 +79,8 @@ public class ModeloSala implements IModeloSala {
         salaN.salirDeLaSala();
     }
 
+    @Override
+    public void iniciar() {
+        salaN.iniciar();
+    }
 }

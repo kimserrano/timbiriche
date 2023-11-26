@@ -27,4 +27,6 @@ public interface ICliente {
     
     public void eliminarPuerto(Solicitud solicitud) throws IOException;
 
+    public void enviarEstado(Solicitud solicitud);
+
 }

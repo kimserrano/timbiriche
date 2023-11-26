@@ -21,7 +21,9 @@ import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import Cliente.OperacionesCliente;
-import static Cliente.OperacionesCliente.salida;
+import static Cliente.OperacionesCliente.*;
+import java.util.HashMap;
+
 /**
  *
  * @author JORGE
@@ -32,7 +34,7 @@ public class SalaNegocio implements ISalaNegocio {
     private Sala sala;
     private ICliente cln;
     private IJugadorNegocio jugadorNegocio;
-
+    
     public static SalaNegocio getInstance() {
         return SalaNegocioHolder.INSTANCE;
     }
@@ -144,7 +146,7 @@ public class SalaNegocio implements ISalaNegocio {
 
             jugadores.add(jugador);
         }
-        
+
         sala.setJugadores(jugadores);
         evtBroker.notificar("", Procedencia.Sala);
     }
@@ -175,6 +177,28 @@ public class SalaNegocio implements ISalaNegocio {
             Logger.getLogger(SalaNegocio.class.getName()).log(Level.SEVERE, null, ex);
 
         }
+    }
+
+    @Override
+    public void iniciar() {
+        int index = sala.getJugadores().indexOf(new Jugador(jugadorNegocio.obtenerJugador().getPuerto()));
+        if(index != -1){
+            boolean estado = false;
+            Jugador jugador = sala.getJugadores().get(index);
+            estado = !jugadorNegocio.obtenerJugador().isEstado();
+            
+            jugador.setEstado(estado);
+            jugadorNegocio.obtenerJugador().setEstado(estado);
+            
+            Solicitud solicitud = new Solicitud.SolicitudBuilder()
+                    .agregarOperacion(listo)
+                    .agregarDatos("puerto", jugadorNegocio.obtenerJugador().getPuerto()+"")
+                    .agregarDatos("listo", jugadorNegocio.obtenerJugador().isEstado()+"")
+                    .construir();
+            
+            cln.enviarEstado(solicitud);
+        }
+
     }
 
 }

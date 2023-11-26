@@ -27,6 +27,8 @@ public interface ISalaNegocio {
     public void revisarNuevosJugadores();
 
     public void salirDeLaSala();
+
+    public void iniciar();
     
     
 }

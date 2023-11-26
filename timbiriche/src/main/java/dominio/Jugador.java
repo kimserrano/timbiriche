@@ -38,6 +38,10 @@ public class Jugador {
         this.ip = ip;
     }
 
+    public Jugador(int puerto) {
+        this.puerto = puerto;
+    }
+
     public Jugador() {
     }
 
@@ -80,10 +84,34 @@ public class Jugador {
     public void setIp(String ip) {
         this.ip = ip;
     }
+    
+    
 
     @Override
     public String toString() {
         return "Jugador{" + "nickname=" + nickname + ", color=" + color + ", ip=" + ip + '}';
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 97 * hash + this.puerto;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Jugador other = (Jugador) obj;
+        return this.puerto == other.puerto;
     }
 
 }

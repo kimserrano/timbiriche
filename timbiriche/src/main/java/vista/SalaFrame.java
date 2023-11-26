@@ -93,7 +93,7 @@ public class SalaFrame extends javax.swing.JFrame implements Suscriptor {
                 listos++;
             }
         }
-        lblListos.setText("(" + numJug + "/" + listos + ")");
+        lblListos.setText("(" + listos + "/" + numJug + ")");
     }
 
     /**
@@ -377,14 +377,11 @@ public class SalaFrame extends javax.swing.JFrame implements Suscriptor {
                             .addComponent(lblJugadorLocal, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)))
                 .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(28, 28, 28)
-                        .addComponent(btnIniciar, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(36, 36, 36)
-                        .addComponent(lblListos)))
-                .addGap(49, 49, 49))
+                .addGap(26, 26, 26)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnIniciar, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblListos))
+                .addGap(57, 57, 57))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -402,10 +399,10 @@ public class SalaFrame extends javax.swing.JFrame implements Suscriptor {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnIniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarActionPerformed
-        // TODO add your handling code here:
-
-        ControlVistas.cambiarATableroNuevo(this, vistaModeloTablero.obtenerNicks(nombres));
-        this.dispose();
+        vistaModeloSala.iniciar();
+        this.update();
+//        ControlVistas.cambiarATableroNuevo(this, vistaModeloTablero.obtenerNicks(nombres));
+//        this.dispose();
 
     }//GEN-LAST:event_btnIniciarActionPerformed
 

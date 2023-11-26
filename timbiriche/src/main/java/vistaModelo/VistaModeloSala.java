@@ -36,6 +36,11 @@ public class VistaModeloSala implements IVistaModeloSala {
     public void salir() {
         modeloSala.salir();
     }
+
+    @Override
+    public void iniciar() {
+        modeloSala.iniciar();
+    }
     
     
 }

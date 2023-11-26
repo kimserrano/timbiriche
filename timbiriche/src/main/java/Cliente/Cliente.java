@@ -128,10 +128,10 @@ public class Cliente implements ICliente {
     @Override
     public void eliminarPuerto(Solicitud solicitud) throws IOException {
         iniciarSvSockets();
-        
+
         String codigo = solicitud.obtenerDato("codigo");
         int puerto = Integer.parseInt(solicitud.obtenerDato("puerto"));
-        
+
         clnOut.eliminarConexion(puerto, codigo, svSockets);
         avisar(solicitud);
     }
@@ -154,4 +154,12 @@ public class Cliente implements ICliente {
         clnOut.solicitarIPs(svSockets, codigo, puerto);
         return clnIn.obtenerIPs(svSockets);
     }
+
+    @Override
+    public void enviarEstado(Solicitud solicitud) {
+        //Enviar solicitud de inicio, despliega el inicio
+        System.out.println("NO ESTA HECHO EL INDICAR EL INICIO, CLASE CLIENTE, LINEA 161");
+        
+    }
+
 }

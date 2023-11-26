@@ -17,4 +17,6 @@ public interface IModeloSala {
     public void unirseSala(String codigo, String nombre);
 
     public void salir();
+
+    public void iniciar();
 }
