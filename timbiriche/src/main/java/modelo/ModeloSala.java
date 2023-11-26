@@ -83,4 +83,10 @@ public class ModeloSala implements IModeloSala {
     public void iniciar() {
         salaN.iniciar();
     }
+
+    @Override
+    public boolean verificarInicio(int listos, int numJug) {
+        return salaN.verificarInicio(listos,numJug);
+    }
+
 }

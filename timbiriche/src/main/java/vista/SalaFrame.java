@@ -77,9 +77,9 @@ public class SalaFrame extends javax.swing.JFrame implements Suscriptor {
 //                pnlJugador1.setBackground(generarColor(sala.getJugadores().get(0).getColor()));
                 lblCodigo.setText(sala.getCodigo());
                 insertarJugadores();
-                getListos();
                 setVisible(true);
                 this.repaint();
+                getListos();
             }
         }
     }
@@ -94,6 +94,10 @@ public class SalaFrame extends javax.swing.JFrame implements Suscriptor {
             }
         }
         lblListos.setText("(" + listos + "/" + numJug + ")");
+        if (vistaModeloSala.verificarInicio(listos, numJug)) {
+            iniciarPartida();
+        }
+
     }
 
     /**
@@ -401,11 +405,13 @@ public class SalaFrame extends javax.swing.JFrame implements Suscriptor {
     private void btnIniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarActionPerformed
         vistaModeloSala.iniciar();
         this.update();
-//        ControlVistas.cambiarATableroNuevo(this, vistaModeloTablero.obtenerNicks(nombres));
-//        this.dispose();
+
 
     }//GEN-LAST:event_btnIniciarActionPerformed
-
+    private void iniciarPartida() {
+        this.dispose();
+        ControlVistas.cambiarATableroNuevo(this, vistaModeloTablero.obtenerNicks(nombres));
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnIniciar;
@@ -429,4 +435,5 @@ public class SalaFrame extends javax.swing.JFrame implements Suscriptor {
     private javax.swing.JPanel pnlJugador1;
     private javax.swing.JPanel pnlJugador4;
     // End of variables declaration//GEN-END:variables
+
 }

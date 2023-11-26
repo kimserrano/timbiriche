@@ -19,4 +19,6 @@ public interface IModeloSala {
     public void salir();
 
     public void iniciar();
+
+    public boolean verificarInicio(int listos, int numJug);
 }

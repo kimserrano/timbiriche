@@ -72,6 +72,8 @@ public class HiloServidor implements Runnable {
             salaN.revisarNuevosJugadores();
         }else if(operacion[0].equalsIgnoreCase("actualizarSala")){
             salaN.revisarNuevosJugadores();
+        }else if(operacion[0].equalsIgnoreCase("estadoEnSala")){
+            salaN.indicarListo(operacion[1],operacion[2]);
         }
     }
 }

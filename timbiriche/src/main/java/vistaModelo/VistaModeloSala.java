@@ -41,6 +41,10 @@ public class VistaModeloSala implements IVistaModeloSala {
     public void iniciar() {
         modeloSala.iniciar();
     }
-    
-    
+
+    @Override
+    public boolean verificarInicio(int listos, int numJug) {
+        return modeloSala.verificarInicio(listos, numJug);
+    }
+
 }
