@@ -5,6 +5,7 @@
 package vista;
 
 import java.awt.Font;
+import java.awt.LayoutManager;
 import java.util.List;
 import modelo.TimbiricheBoard;
 
@@ -29,9 +30,11 @@ public class Tablero extends javax.swing.JFrame {
         jLPtsJ1.setFont(customFontSubT);
         jLPtsJ2.setFont(customFontSubT);
         lblPts.setFont(customFontSubT);
+        
         // PRUEBAAA, VA EN MODELO SE SABE 
         this.pnlTablero.add(new TimbiricheBoard());
-
+    //    this.pnlTablero.getComponent(0).setBounds(-50, -40, 972, 673);
+        
     }
     
     public Tablero(List<String> nombres) {
@@ -79,13 +82,11 @@ public class Tablero extends javax.swing.JFrame {
         pnlFondo.setBackground(new java.awt.Color(255, 207, 210));
 
         jLabelTurno.setFont(new java.awt.Font("Trebuchet MS", 2, 36)); // NOI18N
-        jLabelTurno.setForeground(new java.awt.Color(0, 0, 0));
         jLabelTurno.setText("Turno de:");
 
         pnlColorJ1.setBackground(new java.awt.Color(246, 255, 197));
 
         jLPtsJ1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLPtsJ1.setForeground(new java.awt.Color(0, 0, 0));
         jLPtsJ1.setText("    0");
 
         javax.swing.GroupLayout pnlColorJ1Layout = new javax.swing.GroupLayout(pnlColorJ1);
@@ -104,21 +105,17 @@ public class Tablero extends javax.swing.JFrame {
 
         btnSalir.setBackground(new java.awt.Color(207, 186, 240));
         btnSalir.setFont(new java.awt.Font("Yu Gothic", 3, 12)); // NOI18N
-        btnSalir.setForeground(new java.awt.Color(0, 0, 0));
         btnSalir.setText("Salir");
 
         jLJugador1.setFont(new java.awt.Font("Segoe UI Light", 0, 24)); // NOI18N
-        jLJugador1.setForeground(new java.awt.Color(0, 0, 0));
         jLJugador1.setText("Jugador 1");
 
         jLJugador2.setFont(new java.awt.Font("Segoe UI Light", 0, 24)); // NOI18N
-        jLJugador2.setForeground(new java.awt.Color(0, 0, 0));
         jLJugador2.setText("Jugador 2");
 
         pnlColorJ2.setBackground(new java.awt.Color(171, 184, 250));
 
         jLPtsJ2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLPtsJ2.setForeground(new java.awt.Color(0, 0, 0));
         jLPtsJ2.setText("    0");
 
         javax.swing.GroupLayout pnlColorJ2Layout = new javax.swing.GroupLayout(pnlColorJ2);
@@ -132,7 +129,6 @@ public class Tablero extends javax.swing.JFrame {
             .addComponent(jLPtsJ2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
         );
 
-        lblPts.setForeground(new java.awt.Color(0, 0, 0));
         lblPts.setText("Pts:");
 
         pnlTablero.setBackground(new java.awt.Color(255, 255, 255));

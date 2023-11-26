@@ -50,6 +50,7 @@ public class TimbiricheBoard extends JPanel {
                 // horizontal
                 if (j < ROWS - 1) {
                     btnTimbi botonHorizontal = new btnTimbi();
+
                     botonHorizontal.setCoordenadas(j, i);
                     botonesH[j][i] = botonHorizontal;
                     botonHorizontal.setBounds(punto.x + 9, punto.y + 1, separacionHor - 7, 7);
@@ -117,10 +118,13 @@ public class TimbiricheBoard extends JPanel {
         int x = boton.getCorX();
         int y = boton.getCorY();
 
-        if (!botonesV[x + 1][y].isEnabled()) {
-            if (!botonesH[x][y].isEnabled()) {
-                if (!botonesH[x][y + 1].isEnabled()) {
-                    System.out.println("true");
+        if (x != ROWS-1 && y != COLS-1) {
+
+            if (!botonesV[x + 1][y].isEnabled()) {
+                if (!botonesH[x][y].isEnabled()) {
+                    if (!botonesH[x][y + 1].isEnabled()) {
+                        System.out.println("true");
+                    }
                 }
             }
         }
@@ -130,10 +134,12 @@ public class TimbiricheBoard extends JPanel {
         int x = boton.getCorX();
         int y = boton.getCorY();
 
-        if (!botonesV[x - 1][y].isEnabled()) {
-            if (!botonesH[x - 1][y].isEnabled()) {
-                if (!botonesH[x - 1][y + 1].isEnabled()) {
-                    System.out.println("true");
+        if (x != ROWS && x != 0) {
+            if (!botonesV[x - 1][y].isEnabled()) {
+                if (!botonesH[x - 1][y].isEnabled()) {
+                    if (!botonesH[x - 1][y + 1].isEnabled()) {
+                        System.out.println("true");
+                    }
                 }
             }
         }
@@ -143,10 +149,13 @@ public class TimbiricheBoard extends JPanel {
         int x = boton.getCorX();
         int y = boton.getCorY();
 
-        if (!botonesH[x][y + 1].isEnabled()) {
-            if (!botonesV[x][y].isEnabled()) {
-                if (!botonesV[x + 1][y].isEnabled()) {
-                    System.out.println("true");
+        if (y != COLS-1 && x!=ROWS-1) {
+
+            if (!botonesH[x][y + 1].isEnabled()) {
+                if (!botonesV[x][y].isEnabled()) {
+                    if (!botonesV[x + 1][y].isEnabled()) {
+                        System.out.println("true");
+                    }
                 }
             }
         }
@@ -156,10 +165,13 @@ public class TimbiricheBoard extends JPanel {
         int x = boton.getCorX();
         int y = boton.getCorY();
 
-        if (!botonesH[x][y - 1].isEnabled()) {
-            if (!botonesV[x][y - 1].isEnabled()) {
-                if (!botonesV[x + 1][y - 1].isEnabled()) {
-                    System.out.println("true");
+        if (y != 0 && x!=ROWS-1) {
+
+            if (!botonesH[x][y - 1].isEnabled()) {
+                if (!botonesV[x][y - 1].isEnabled()) {
+                    if (!botonesV[x + 1][y - 1].isEnabled()) {
+                        System.out.println("true");
+                    }
                 }
             }
         }
