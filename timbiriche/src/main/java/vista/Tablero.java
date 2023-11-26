@@ -4,10 +4,14 @@
  */
 package vista;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.LayoutManager;
 import java.util.List;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import modelo.TimbiricheBoard;
+import utils.JugadorDTO;
 import vistaModelo.IVistaModeloTablero;
 import vistaModelo.VistaModeloTablero;
 
@@ -30,16 +34,18 @@ public class Tablero extends javax.swing.JFrame {
         jLabelTurno.setFont(customFontTitulos);
         btnSalir.setFont(customFontTitulos);
         jLJugador1.setFont(customFontSubT);
-        jLJugador2.setFont(customFontSubT);
         jLPtsJ1.setFont(customFontSubT);
-        jLPtsJ2.setFont(customFontSubT);
         lblPts.setFont(customFontSubT);
 
+        this.jLJugador1.setVisible(false);
+        this.pnlColorJ1.setVisible(false);
+        this.jLPtsJ1.setVisible(false);
         // PRUEBAAA, VA EN MODELO SE SABE 
         this.pnlTablero.add(new TimbiricheBoard());
         //    this.pnlTablero.getComponent(0).setBounds(-50, -40, 972, 673);
-        vistaModeloTablero= new VistaModeloTablero();
+        vistaModeloTablero = new VistaModeloTablero();
         vistaModeloTablero.imprimirJugadores();
+        moduloJugadores();
 
     }
 
@@ -48,12 +54,45 @@ public class Tablero extends javax.swing.JFrame {
         jLabelTurno.setFont(customFontTitulos);
         btnSalir.setFont(customFontTitulos);
         jLJugador1.setFont(customFontSubT);
-        jLJugador2.setFont(customFontSubT);
         jLPtsJ1.setFont(customFontSubT);
-        jLPtsJ2.setFont(customFontSubT);
         lblPts.setFont(customFontSubT);
         // PRUEBAAA, VA EN MODELO SE SABE 
         this.pnlTablero.add(new TimbiricheBoard());
+    }
+
+    private void moduloJugadores() {
+        System.out.println("ras");
+        int paddingVertical = 0;
+        JugadorDTO[] jugadoresDTO = vistaModeloTablero.recuperarJugadores();
+
+        for (JugadorDTO jugador : jugadoresDTO) {
+            System.out.println("aqui");
+            JLabel nomJugador = new JLabel(jugador.getNickname());
+            nomJugador.setBounds(this.jLJugador1.getX(), this.jLJugador1.getY() + paddingVertical, 96, 32);
+            nomJugador.setVisible(true);
+            System.out.println(nomJugador.getBounds());
+            this.pnlFondo.add(nomJugador);
+
+            JPanel pnlPts=new JPanel();
+            pnlPts.setBackground(generarColor(jugador.getColor()));
+            pnlPts.setBounds(this.pnlColorJ1.getX()+30,this.pnlColorJ1.getY()+paddingVertical,52,26);
+            pnlPts.setVisible(true);
+            
+            JLabel pts=new JLabel("0");
+            pts.setForeground(Color.WHITE);
+            pts.setBounds(this.jLPtsJ1.getBounds());
+            pts.setVisible(true);
+            pnlPts.add(pts);
+            
+            this.pnlFondo.add(pnlPts);
+            paddingVertical += 50;
+
+        }
+    }
+    
+    public Color generarColor(String color) {
+        String rgb[] = color.split(",");
+        return new Color(Integer.parseInt(rgb[0]), Integer.parseInt(rgb[1]), Integer.parseInt(rgb[2]));
     }
 
     /**
@@ -73,9 +112,6 @@ public class Tablero extends javax.swing.JFrame {
         jLPtsJ1 = new javax.swing.JLabel();
         btnSalir = new javax.swing.JButton();
         jLJugador1 = new javax.swing.JLabel();
-        jLJugador2 = new javax.swing.JLabel();
-        pnlColorJ2 = new javax.swing.JPanel();
-        jLPtsJ2 = new javax.swing.JLabel();
         lblPts = new javax.swing.JLabel();
         pnlTablero = new javax.swing.JPanel();
 
@@ -93,20 +129,18 @@ public class Tablero extends javax.swing.JFrame {
         pnlColorJ1.setBackground(new java.awt.Color(246, 255, 197));
 
         jLPtsJ1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLPtsJ1.setText("    0");
+        jLPtsJ1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLPtsJ1.setText("0");
 
         javax.swing.GroupLayout pnlColorJ1Layout = new javax.swing.GroupLayout(pnlColorJ1);
         pnlColorJ1.setLayout(pnlColorJ1Layout);
         pnlColorJ1Layout.setHorizontalGroup(
             pnlColorJ1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlColorJ1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLPtsJ1, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
-                .addGap(15, 15, 15))
+            .addComponent(jLPtsJ1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 52, Short.MAX_VALUE)
         );
         pnlColorJ1Layout.setVerticalGroup(
             pnlColorJ1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLPtsJ1, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
+            .addComponent(jLPtsJ1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE)
         );
 
         btnSalir.setBackground(new java.awt.Color(207, 186, 240));
@@ -115,25 +149,6 @@ public class Tablero extends javax.swing.JFrame {
 
         jLJugador1.setFont(new java.awt.Font("Segoe UI Light", 0, 24)); // NOI18N
         jLJugador1.setText("Jugador 1");
-
-        jLJugador2.setFont(new java.awt.Font("Segoe UI Light", 0, 24)); // NOI18N
-        jLJugador2.setText("Jugador 2");
-
-        pnlColorJ2.setBackground(new java.awt.Color(171, 184, 250));
-
-        jLPtsJ2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLPtsJ2.setText("    0");
-
-        javax.swing.GroupLayout pnlColorJ2Layout = new javax.swing.GroupLayout(pnlColorJ2);
-        pnlColorJ2.setLayout(pnlColorJ2Layout);
-        pnlColorJ2Layout.setHorizontalGroup(
-            pnlColorJ2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLPtsJ2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        pnlColorJ2Layout.setVerticalGroup(
-            pnlColorJ2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLPtsJ2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
-        );
 
         lblPts.setText("Pts:");
 
@@ -164,21 +179,18 @@ public class Tablero extends javax.swing.JFrame {
                         .addComponent(pnlTablero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 88, Short.MAX_VALUE)
                         .addGroup(pnlFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlFondoLayout.createSequentialGroup()
-                                .addGroup(pnlFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLJugador1, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLJugador2, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(pnlFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlFondoLayout.createSequentialGroup()
+                                    .addComponent(jLabelTurno, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(72, 72, 72))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlFondoLayout.createSequentialGroup()
+                                    .addComponent(lblPts, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(24, 24, 24)))
+                            .addGroup(pnlFondoLayout.createSequentialGroup()
+                                .addComponent(jLJugador1, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addGroup(pnlFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(pnlColorJ2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(pnlColorJ1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGap(58, 58, 58))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlFondoLayout.createSequentialGroup()
-                                .addComponent(jLabelTurno, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(72, 72, 72))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlFondoLayout.createSequentialGroup()
-                                .addComponent(lblPts, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(49, 49, 49))))))
+                                .addComponent(pnlColorJ1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18))))))
         );
         pnlFondoLayout.setVerticalGroup(
             pnlFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -186,25 +198,19 @@ public class Tablero extends javax.swing.JFrame {
                 .addGap(79, 79, 79)
                 .addGroup(pnlFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlFondoLayout.createSequentialGroup()
+                        .addComponent(pnlTablero, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(19, 19, 19))
+                    .addGroup(pnlFondoLayout.createSequentialGroup()
                         .addComponent(jLabelTurno, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblPts)
+                        .addGap(28, 28, 28)
                         .addGroup(pnlFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(pnlFondoLayout.createSequentialGroup()
-                                .addGap(52, 52, 52)
-                                .addComponent(jLJugador1))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlFondoLayout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblPts)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(pnlColorJ1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(26, 26, 26)
-                        .addGroup(pnlFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(pnlColorJ2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLJugador2))
-                        .addGap(0, 384, Short.MAX_VALUE))
-                    .addComponent(pnlTablero, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(19, 19, 19))
+                            .addComponent(jLJugador1)
+                            .addComponent(pnlColorJ1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(525, Short.MAX_VALUE))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -232,15 +238,12 @@ public class Tablero extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSalir;
     private javax.swing.JLabel jLJugador1;
-    private javax.swing.JLabel jLJugador2;
     private javax.swing.JLabel jLPtsJ1;
-    private javax.swing.JLabel jLPtsJ2;
     private javax.swing.JLabel jLabelTurno;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JLabel lblPts;
     private javax.swing.JPanel pnlColorJ1;
-    private javax.swing.JPanel pnlColorJ2;
     private javax.swing.JPanel pnlFondo;
     private javax.swing.JPanel pnlTablero;
     // End of variables declaration//GEN-END:variables
