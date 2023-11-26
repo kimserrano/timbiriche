@@ -15,6 +15,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.net.ConnectException;
+import java.net.InetAddress;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -46,7 +47,7 @@ public class Cliente implements ICliente {
 
     private void iniciarSvSockets() throws IOException {
 
-        svSockets = new Socket("192.168.1.120", 9500);
+        svSockets = new Socket(InetAddress.getLocalHost().getHostAddress(), 9500);
 
     }
 
