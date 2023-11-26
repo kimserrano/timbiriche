@@ -21,6 +21,7 @@ public class TimbiricheBoard extends JPanel {
     private ArrayList<Point> puntos = new ArrayList<>();
     private btnTimbi[][] botonesV = new btnTimbi[ROWS][COLS];
     private btnTimbi[][] botonesH = new btnTimbi[ROWS][COLS];
+    private ArrayList<Point> cuadrosCompletados = new ArrayList<>();
 
     public TimbiricheBoard() {
         setLayout(null);
@@ -30,12 +31,25 @@ public class TimbiricheBoard extends JPanel {
     }
 
     @Override
-    public void paint(Graphics g) {
-        super.paint(g);
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
 
+        // Dibuja los puntos
         for (Point punto : puntos) {
             g2d.fillOval(punto.x, punto.y, POINT_SIZE, POINT_SIZE);
+        }
+
+        // Colorea los cuadros completados
+        for (Point cuadro : cuadrosCompletados) {
+            int separacionHor = getWidth() / ROWS;
+            int separacionVer = getHeight() / COLS;
+
+            int xCuadro = puntos.get(cuadro.y * ROWS + cuadro.x).x + 1;
+            int yCuadro = puntos.get(cuadro.y * ROWS + cuadro.x).y + 1;
+
+            g2d.setColor(Color.PINK); // Puedes cambiar este color
+            g2d.fillRect(xCuadro, yCuadro, separacionHor - 1, separacionVer - 1);
         }
     }
 
@@ -109,7 +123,6 @@ public class TimbiricheBoard extends JPanel {
                 System.out.println(boton.toString());
                 verHAbajo(boton);
                 verHArriba(boton);
-
             }
         });
     }
@@ -118,12 +131,11 @@ public class TimbiricheBoard extends JPanel {
         int x = boton.getCorX();
         int y = boton.getCorY();
 
-        if (x != ROWS-1 && y != COLS-1) {
-
+        if (x != ROWS - 1 && y != COLS - 1) {
             if (!botonesV[x + 1][y].isEnabled()) {
                 if (!botonesH[x][y].isEnabled()) {
                     if (!botonesH[x][y + 1].isEnabled()) {
-                        System.out.println("true");
+                        colorearCuadro(x, y);
                     }
                 }
             }
@@ -138,7 +150,7 @@ public class TimbiricheBoard extends JPanel {
             if (!botonesV[x - 1][y].isEnabled()) {
                 if (!botonesH[x - 1][y].isEnabled()) {
                     if (!botonesH[x - 1][y + 1].isEnabled()) {
-                        System.out.println("true");
+                        colorearCuadro(x - 1, y);
                     }
                 }
             }
@@ -149,12 +161,11 @@ public class TimbiricheBoard extends JPanel {
         int x = boton.getCorX();
         int y = boton.getCorY();
 
-        if (y != COLS-1 && x!=ROWS-1) {
-
+        if (y != COLS - 1 && x != ROWS - 1) {
             if (!botonesH[x][y + 1].isEnabled()) {
                 if (!botonesV[x][y].isEnabled()) {
                     if (!botonesV[x + 1][y].isEnabled()) {
-                        System.out.println("true");
+                        colorearCuadro(x, y);
                     }
                 }
             }
@@ -165,16 +176,21 @@ public class TimbiricheBoard extends JPanel {
         int x = boton.getCorX();
         int y = boton.getCorY();
 
-        if (y != 0 && x!=ROWS-1) {
-
+        if (y != 0 && x != ROWS - 1) {
             if (!botonesH[x][y - 1].isEnabled()) {
                 if (!botonesV[x][y - 1].isEnabled()) {
                     if (!botonesV[x + 1][y - 1].isEnabled()) {
-                        System.out.println("true");
+                        colorearCuadro(x, y - 1);
                     }
                 }
             }
         }
+    }
+
+    private void colorearCuadro(int x, int y) {
+        System.out.println("Cuadro completado en (" + x + ", " + y + ")");
+        cuadrosCompletados.add(new Point(x, y));
+        repaint();
     }
 
     private void calcularPuntos() {
