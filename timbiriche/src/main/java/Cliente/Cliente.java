@@ -93,16 +93,16 @@ public class Cliente implements ICliente {
             try {
                 clnOut.avisar(ip, puerto, codigo);
             } catch (ConnectException e) {
-                System.out.println("Puerto muerto: "+puerto);
+                System.out.println("Puerto muerto: " + puerto);
                 puertosMuertos.add(puerto);
             }
         }
-        
-        eliminarPuerto(puertosMuertos, codigo);
+
+        eliminarPuertos(puertosMuertos, codigo);
 
     }
 
-    private void eliminarPuerto(List<Integer> puertos, String codigo) throws IOException {
+    private void eliminarPuertos(List<Integer> puertos, String codigo) throws IOException {
         for (Integer puerto : puertos) {
             iniciarSvSockets();
             clnOut.eliminarConexion(puerto, codigo, svSockets);
@@ -125,4 +125,33 @@ public class Cliente implements ICliente {
         return null;
     }
 
+    @Override
+    public void eliminarPuerto(Solicitud solicitud) throws IOException {
+        iniciarSvSockets();
+        
+        String codigo = solicitud.obtenerDato("codigo");
+        int puerto = Integer.parseInt(solicitud.obtenerDato("puerto"));
+        
+        clnOut.eliminarConexion(puerto, codigo, svSockets);
+        avisar(solicitud);
+    }
+
+    private void avisar(Solicitud solicitud) throws IOException {
+        OperacionesCliente op = solicitud.getOperacion();
+        switch (op) {
+            case entrada:
+                //To do
+                break;
+            case salida:
+                int puerto = Integer.parseInt(solicitud.obtenerDato("puerto"));
+                ipsDTO ips = obtenerIPs(solicitud.obtenerDato("codigo"), puerto);
+                clnOut.actualizarPeers(ips);
+        }
+    }
+
+    public ipsDTO obtenerIPs(String codigo, int puerto) throws IOException {
+        iniciarSvSockets();
+        clnOut.solicitarIPs(svSockets, codigo, puerto);
+        return clnIn.obtenerIPs(svSockets);
+    }
 }

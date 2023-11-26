@@ -59,6 +59,28 @@ public class ClienteOutput {
     public void eliminarConexion(int puerto, String codigo, Socket svSocket) throws IOException {
         DataOutputStream out = new DataOutputStream(svSocket.getOutputStream());
 
-        out.writeUTF("eliminarPuerto" + " " + codigo + " "+puerto);
+        out.writeUTF("eliminarPuerto" + " " + codigo + " " + puerto);
+    }
+
+    public void actualizarPeers(ipsDTO ips) throws IOException {
+        for (String datos : ips.getIppuerto()) {
+            String[] aux = datos.split(" ");
+
+            String nickname = aux[0];
+            String ip = aux[1].split(":")[0];
+            int puerto = Integer.parseInt(aux[1].split(":")[1]);
+
+            Socket skt = new Socket(ip, puerto);
+            DataOutputStream out = new DataOutputStream(skt.getOutputStream());
+
+            out.writeUTF("actualizarSala");
+
+        }
+    }
+
+    public void solicitarIPs(Socket svSockets, String codigo, int puerto) throws IOException {
+        DataOutputStream out = new DataOutputStream(svSockets.getOutputStream());
+
+        out.writeUTF("solicitarIpsSinMi" + " " + codigo + " " + puerto);
     }
 }

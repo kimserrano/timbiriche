@@ -15,4 +15,6 @@ public interface IModeloSala {
     public void crearSala(JugadorDTO anfitrion);
     public SalaDTO obtenerSala();
     public void unirseSala(String codigo, String nombre);
+
+    public void salir();
 }

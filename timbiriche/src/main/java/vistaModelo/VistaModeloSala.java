@@ -31,6 +31,11 @@ public class VistaModeloSala implements IVistaModeloSala {
     public void unirseSala(String codigo, String nombre) {
         modeloSala.unirseSala(codigo, nombre);
     }
+
+    @Override
+    public void salir() {
+        modeloSala.salir();
+    }
     
     
 }

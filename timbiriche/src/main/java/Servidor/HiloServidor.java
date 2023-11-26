@@ -70,6 +70,8 @@ public class HiloServidor implements Runnable {
         String[] operacion = mensaje.split(" ");
         if (operacion[0].equalsIgnoreCase("jugadorNuevo")) {
             salaN.revisarNuevosJugadores();
+        }else if(operacion[0].equalsIgnoreCase("actualizarSala")){
+            salaN.revisarNuevosJugadores();
         }
     }
 }

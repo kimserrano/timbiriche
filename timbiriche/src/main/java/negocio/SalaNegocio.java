@@ -6,6 +6,7 @@ package negocio;
 
 import Cliente.Cliente;
 import Cliente.ICliente;
+import Cliente.Solicitud;
 import broker.EventBroker;
 import broker.IEventBroker;
 import broker.Procedencia;
@@ -19,7 +20,8 @@ import java.util.List;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
+import Cliente.OperacionesCliente;
+import static Cliente.OperacionesCliente.salida;
 /**
  *
  * @author JORGE
@@ -98,7 +100,6 @@ public class SalaNegocio implements ISalaNegocio {
     public void agregarJugadores() {
         ipsDTO ips = null;
         try {
-            System.out.println("2");
             ips = cln.agregarSala(sala.getCodigo());
         } catch (IOException ex) {
             Logger.getLogger(SalaNegocio.class.getName()).log(Level.SEVERE, null, ex);
@@ -143,7 +144,7 @@ public class SalaNegocio implements ISalaNegocio {
 
             jugadores.add(jugador);
         }
-
+        
         sala.setJugadores(jugadores);
         evtBroker.notificar("", Procedencia.Sala);
     }
@@ -158,6 +159,22 @@ public class SalaNegocio implements ISalaNegocio {
     @Override
     public Sala actualizarSala() {
         return sala;
+    }
+
+    @Override
+    public void salirDeLaSala() {
+        try {
+            Solicitud solicitud = new Solicitud.SolicitudBuilder()
+                    .agregarDatos("codigo", sala.getCodigo())
+                    .agregarDatos("puerto", jugadorNegocio.obtenerJugador().getPuerto() + "")
+                    .agregarOperacion(salida)
+                    .construir();
+
+            cln.eliminarPuerto(solicitud);
+        } catch (IOException ex) {
+            Logger.getLogger(SalaNegocio.class.getName()).log(Level.SEVERE, null, ex);
+
+        }
     }
 
 }

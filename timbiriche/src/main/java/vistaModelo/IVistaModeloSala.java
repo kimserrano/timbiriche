@@ -18,4 +18,6 @@ public interface IVistaModeloSala {
     public SalaDTO obtenerSala();
     
     public void unirseSala(String codigo, String nombre);
+
+    public void salir();
 }

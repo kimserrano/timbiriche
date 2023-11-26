@@ -47,21 +47,15 @@ public class ModeloSala implements IModeloSala {
 
     @Override
     public SalaDTO obtenerSala() {
-        actualizarSala();
-        if(sala == null){
-            return null;
-        }
-        return new SalaDTO(generarListaJugadores(sala.getJugadores()), sala.getCodigo());
-    }
-
-    private void actualizarSala(){
         sala = salaN.actualizarSala();
+        return new SalaDTO(generarListaJugadores(sala.getJugadores()), sala.getCodigo());
     }
     
     private List<JugadorDTO> generarListaJugadores(List<Jugador> jug) {
         if (!jug.isEmpty()) {
             List<JugadorDTO> jugDTO = new ArrayList<>();
             for (Jugador juga : jug) {
+                System.out.println("Nombre: "+juga.getNickname() +" puerto: "+juga.getPuerto());
                 jugDTO.add(new JugadorDTO(juga.getNickname(), juga.getColor()));
 
             }
@@ -69,13 +63,19 @@ public class ModeloSala implements IModeloSala {
         }
         return null;
     }
-    
+
     @Override
-    public void unirseSala(String codigo, String nombre){
+    public void unirseSala(String codigo, String nombre) {
         try {
             salaN.unirseSala(codigo, nombre);
         } catch (NegocioException ex) {
             Logger.getLogger(ModeloSala.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
+    @Override
+    public void salir() {
+        salaN.salirDeLaSala();
+    }
+
 }

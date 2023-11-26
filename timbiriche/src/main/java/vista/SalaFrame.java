@@ -6,8 +6,11 @@ package vista;
 
 import broker.Suscriptor;
 import java.awt.Color;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.Arrays;
 import java.util.List;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import negocio.ISalaNegocio;
 import negocio.SalaNegocio;
@@ -34,11 +37,14 @@ public class SalaFrame extends javax.swing.JFrame implements Suscriptor {
     public SalaFrame() {
         initComponents();
         nombres = Arrays.asList(lblJugador1, lblJugador2, lblJugador3, lblJugador4);
-    }
-
-    public void iniciar() {
-       
-        //pnlJugador1.setBackground(generarColor(sala.getJugadores().get(0).getColor()));
+        this.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                vistaModeloSala.salir();
+                System.exit(0);
+            }
+        });
+        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
     }
 
     public Color generarColor(String color) {
@@ -48,6 +54,12 @@ public class SalaFrame extends javax.swing.JFrame implements Suscriptor {
 
     public void insertarJugadores() {
         lblJugadorLocal.setText(vistaModeloJugador.solicitarJugador().getNickname());
+        if (sala.getJugadores() == null) {
+            return;
+        }
+        for (int i = 0; i < 4; i++) {
+            nombres.get(i).setText("--- ---");
+        }
         for (int i = 0; i < sala.getJugadores().size(); i++) {
             nombres.get(i).setText(sala.getJugadores().get(i).getNickname());
         }
@@ -59,13 +71,29 @@ public class SalaFrame extends javax.swing.JFrame implements Suscriptor {
         vistaModeloJugador = new VistaModeloJugador();
         vistaModeloTablero = new VistaModeloTablero();
         sala = vistaModeloSala.obtenerSala();
-        
+
         if (sala != null) {
-            lblCodigo.setText(sala.getCodigo());
-            insertarJugadores();
-            setVisible(true);
-            this.repaint();
+            if (sala.getJugadores() != null) {
+//                pnlJugador1.setBackground(generarColor(sala.getJugadores().get(0).getColor()));
+                lblCodigo.setText(sala.getCodigo());
+                insertarJugadores();
+                getListos();
+                setVisible(true);
+                this.repaint();
+            }
         }
+    }
+
+    public void getListos() {
+        List<JugadorDTO> jugadores = sala.getJugadores();
+        int numJug = jugadores.size();
+        int listos = 0;
+        for (JugadorDTO jug : jugadores) {
+            if (jug.isReady()) {
+                listos++;
+            }
+        }
+        lblListos.setText("(" + numJug + "/" + listos + ")");
     }
 
     /**
@@ -96,6 +124,7 @@ public class SalaFrame extends javax.swing.JFrame implements Suscriptor {
         lblCodigo = new javax.swing.JLabel();
         lblJugador = new javax.swing.JLabel();
         lblJugadorLocal = new javax.swing.JLabel();
+        lblListos = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -306,6 +335,10 @@ public class SalaFrame extends javax.swing.JFrame implements Suscriptor {
         lblJugadorLocal.setFont(new java.awt.Font("Javanese Text", 0, 24)); // NOI18N
         lblJugadorLocal.setText("-----");
 
+        lblListos.setBackground(new java.awt.Color(0, 0, 0));
+        lblListos.setFont(new java.awt.Font("Javanese Text", 0, 24)); // NOI18N
+        lblListos.setText("(x/x)");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -314,7 +347,9 @@ public class SalaFrame extends javax.swing.JFrame implements Suscriptor {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(565, 565, 565)
-                        .addComponent(btnIniciar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnIniciar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lblListos))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(244, 244, 244)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -342,9 +377,14 @@ public class SalaFrame extends javax.swing.JFrame implements Suscriptor {
                             .addComponent(lblJugadorLocal, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)))
                 .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(28, 28, 28)
-                .addComponent(btnIniciar, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(57, 57, 57))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(28, 28, 28)
+                        .addComponent(btnIniciar, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(36, 36, 36)
+                        .addComponent(lblListos)))
+                .addGap(49, 49, 49))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -363,10 +403,10 @@ public class SalaFrame extends javax.swing.JFrame implements Suscriptor {
 
     private void btnIniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarActionPerformed
         // TODO add your handling code here:
-        
+
         ControlVistas.cambiarATableroNuevo(this, vistaModeloTablero.obtenerNicks(nombres));
         this.dispose();
-        
+
     }//GEN-LAST:event_btnIniciarActionPerformed
 
 
@@ -384,6 +424,7 @@ public class SalaFrame extends javax.swing.JFrame implements Suscriptor {
     private javax.swing.JLabel lblJugador3;
     private javax.swing.JLabel lblJugador4;
     private javax.swing.JLabel lblJugadorLocal;
+    private javax.swing.JLabel lblListos;
     private javax.swing.JLabel lblSala1;
     private javax.swing.JLabel lblTitulo;
     private javax.swing.JPanel pblJugador2;

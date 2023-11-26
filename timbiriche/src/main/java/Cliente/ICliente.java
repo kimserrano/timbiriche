@@ -24,5 +24,7 @@ public interface ICliente {
     public ipsDTO agregarSala(String codigo) throws IOException;
 
     public ipsDTO obtenerNuevaSala(String codigo) throws IOException;
+    
+    public void eliminarPuerto(Solicitud solicitud) throws IOException;
 
 }

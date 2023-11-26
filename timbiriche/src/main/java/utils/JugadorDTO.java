@@ -11,12 +11,15 @@ import java.util.Objects;
  * @author JORGE
  */
 public class JugadorDTO {
+
     private String nickname;
     private String color;
+    private boolean ready;
 
     public JugadorDTO(String nickname, String color) {
         this.nickname = nickname;
         this.color = color;
+        ready = false;
     }
 
     public String getNickname() {
@@ -33,6 +36,14 @@ public class JugadorDTO {
 
     public void setColor(String color) {
         this.color = color;
+    }
+
+    public boolean isReady() {
+        return ready;
+    }
+
+    public void setReady(boolean ready) {
+        this.ready = ready;
     }
 
     @Override
@@ -58,7 +69,5 @@ public class JugadorDTO {
         }
         return Objects.equals(this.color, other.color);
     }
-    
-    
-    
+
 }

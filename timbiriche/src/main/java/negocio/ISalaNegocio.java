@@ -25,6 +25,8 @@ public interface ISalaNegocio {
     public int obtenerPuerto() throws IOException;
     
     public void revisarNuevosJugadores();
+
+    public void salirDeLaSala();
     
     
 }
