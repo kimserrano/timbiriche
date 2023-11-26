@@ -31,7 +31,11 @@ public class VistaModeloTablero implements IVistaModeloTablero{
     public void imprimirJugadores() {
         modelTab.imprimirJugadores();
     }
-    
-    
+
+    @Override
+    public JugadorDTO[] recuperarJugadores() {
+       return modelTab.recuperarJugadores();
+    }
+
     
 }

@@ -17,8 +17,9 @@ public interface IVistaModeloTablero {
 
     public List<String> obtenerNicks(List<JLabel> nombres);
 
-    public void shuffleTurnos();
+    public void imprimirJugadores();
     
+    public JugadorDTO[] recuperarJugadores();
 }
 
     

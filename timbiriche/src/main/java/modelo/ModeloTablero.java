@@ -9,6 +9,7 @@ import java.awt.Color;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import utils.JugadorDTO;
 
 /**
  *
@@ -35,5 +36,16 @@ public class ModeloTablero {
         for (Jugador jugador : jugadores) {
             System.out.println(jugador);
         }
+    }
+    
+    public JugadorDTO[] recuperarJugadores(){
+        JugadorDTO[] jugadoresDTO =  new JugadorDTO[this.jugadores.length];
+        int i=0;
+        for(Jugador jugador:this.jugadores){
+            JugadorDTO jugadorDTO = new JugadorDTO(jugador.getNickname(),jugador.getColor());
+            jugadoresDTO[i] = jugadorDTO;
+           i++;
+        }
+        return jugadoresDTO;
     }
 }
