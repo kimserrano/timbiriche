@@ -69,6 +69,9 @@ public class Server implements Runnable {
             case "eliminarPuerto":
                 eliminarPuerto(obtenerCodigo(operacion), obtenerPuerto(operacion));
                 break;
+            case "solicitarIpsSinMi":
+                enviarSala(skt, obtenerCodigo(operacion), obtenerPuerto(operacion));
+                break;
 
         }
     }
