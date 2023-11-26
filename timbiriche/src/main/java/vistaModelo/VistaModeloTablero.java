@@ -7,6 +7,7 @@ package vistaModelo;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JLabel;
+import modelo.ModeloTablero;
 import utils.JugadorDTO;
 
 /**
@@ -15,7 +16,8 @@ import utils.JugadorDTO;
  */
 public class VistaModeloTablero implements IVistaModeloTablero{
 
- 
+    ModeloTablero modelTab=new ModeloTablero();
+    
     @Override
     public List<String> obtenerNicks(List<JLabel> nombres) {
         List<String> nicks=new ArrayList<>();
@@ -24,5 +26,12 @@ public class VistaModeloTablero implements IVistaModeloTablero{
         }
         return nicks;
     }
+
+    @Override
+    public void imprimirJugadores() {
+        modelTab.imprimirJugadores();
+    }
+    
+    
     
 }

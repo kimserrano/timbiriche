@@ -14,7 +14,11 @@ import utils.SalaDTO;
  * @author eruma
  */
 public interface IVistaModeloTablero {
-    
-    public List<String> obtenerNicks(List<JLabel> nombres) ;
 
+    public List<String> obtenerNicks(List<JLabel> nombres);
+
+    public void shuffleTurnos();
+    
 }
+
+    

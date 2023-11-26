@@ -8,6 +8,8 @@ import java.awt.Font;
 import java.awt.LayoutManager;
 import java.util.List;
 import modelo.TimbiricheBoard;
+import vistaModelo.IVistaModeloTablero;
+import vistaModelo.VistaModeloTablero;
 
 /**
  *
@@ -17,6 +19,8 @@ public class Tablero extends javax.swing.JFrame {
 
     Font customFontTitulos = new Font("Just Me Again Down Here", Font.BOLD, 50);
     Font customFontSubT = new Font("Just Me Again Down Here", Font.PLAIN, 30);
+
+    IVistaModeloTablero vistaModeloTablero;
 
     /**
      * Creates new form Tablero
@@ -30,13 +34,15 @@ public class Tablero extends javax.swing.JFrame {
         jLPtsJ1.setFont(customFontSubT);
         jLPtsJ2.setFont(customFontSubT);
         lblPts.setFont(customFontSubT);
-        
+
         // PRUEBAAA, VA EN MODELO SE SABE 
         this.pnlTablero.add(new TimbiricheBoard());
-    //    this.pnlTablero.getComponent(0).setBounds(-50, -40, 972, 673);
-        
+        //    this.pnlTablero.getComponent(0).setBounds(-50, -40, 972, 673);
+        vistaModeloTablero= new VistaModeloTablero();
+        vistaModeloTablero.imprimirJugadores();
+
     }
-    
+
     public Tablero(List<String> nombres) {
         initComponents();
         jLabelTurno.setFont(customFontTitulos);
@@ -218,7 +224,7 @@ public class Tablero extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    public static void main (String [] args){
+    public static void main(String[] args) {
         Tablero tab = new Tablero();
         tab.setVisible(true);
     }
