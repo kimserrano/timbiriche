@@ -157,10 +157,12 @@ public class Cliente implements ICliente {
     }
 
     @Override
-    public void enviarEstado(Solicitud solicitud) {
-        //Enviar solicitud de inicio, despliega el inicio
-        System.out.println("NO ESTA HECHO EL INDICAR EL INICIO, CLASE CLIENTE, LINEA 161");
+    public void enviarEstado(Solicitud solicitud) throws IOException{
         
+        int puerto = Integer.parseInt(solicitud.obtenerDato("puerto"));
+        ipsDTO ips = obtenerIPs(solicitud.obtenerDato("codigo"), puerto);
+        
+        clnOut.avisarEstadoSala("estadoEnSala", solicitud, ips);
     }
 
 }

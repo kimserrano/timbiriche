@@ -83,4 +83,19 @@ public class ClienteOutput {
 
         out.writeUTF("solicitarIpsSinMi" + " " + codigo + " " + puerto);
     }
+
+    void avisarEstadoSala(String operacion, Solicitud solicitud, ipsDTO ips) throws IOException {
+        for (String ippuerto : ips.getIppuerto()) {
+            String[] aux = ippuerto.split(" ");
+
+            String nickname = aux[0];
+            String ip = aux[1].split(":")[0];
+            int puerto = Integer.parseInt(aux[1].split(":")[1]);
+
+            Socket skt = new Socket(ip, puerto);
+            DataOutputStream out = new DataOutputStream(skt.getOutputStream());
+            out.writeUTF(operacion + " " + solicitud.obtenerDato("puerto") + " " + solicitud.obtenerDato("estadoEnSala"));
+
+        }
+    }
 }

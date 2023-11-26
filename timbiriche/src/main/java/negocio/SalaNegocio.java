@@ -34,7 +34,7 @@ public class SalaNegocio implements ISalaNegocio {
     private Sala sala;
     private ICliente cln;
     private IJugadorNegocio jugadorNegocio;
-    
+
     public static SalaNegocio getInstance() {
         return SalaNegocioHolder.INSTANCE;
     }
@@ -182,23 +182,46 @@ public class SalaNegocio implements ISalaNegocio {
     @Override
     public void iniciar() {
         int index = sala.getJugadores().indexOf(new Jugador(jugadorNegocio.obtenerJugador().getPuerto()));
-        if(index != -1){
+        if (index != -1) {
             boolean estado = false;
             Jugador jugador = sala.getJugadores().get(index);
             estado = !jugadorNegocio.obtenerJugador().isEstado();
-            
+
             jugador.setEstado(estado);
             jugadorNegocio.obtenerJugador().setEstado(estado);
-            
+
             Solicitud solicitud = new Solicitud.SolicitudBuilder()
-                    .agregarOperacion(listo)
-                    .agregarDatos("puerto", jugadorNegocio.obtenerJugador().getPuerto()+"")
-                    .agregarDatos("listo", jugadorNegocio.obtenerJugador().isEstado()+"")
+                    .agregarOperacion(OperacionesCliente.estadoEnSala)
+                    .agregarDatos("puerto", jugadorNegocio.obtenerJugador().getPuerto() + "")
+                    .agregarDatos("estadoEnSala", String.valueOf(jugadorNegocio.obtenerJugador().isEstado()))
+                    .agregarDatos("codigo", sala.getCodigo())
                     .construir();
-            
-            cln.enviarEstado(solicitud);
+
+            try {
+                cln.enviarEstado(solicitud);
+            } catch (IOException ex) {
+                Logger.getLogger(SalaNegocio.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
 
     }
 
+    @Override
+    public void indicarListo(String puerto, String estado) {
+        int port = Integer.parseInt(puerto);
+        boolean est = Boolean.parseBoolean(estado);
+
+        int index = sala.getJugadores().indexOf(new Jugador(port));
+        if (index != -1) {
+            Jugador jugador = sala.getJugadores().get(index);
+            jugador.setEstado(est);
+        }
+        evtBroker.notificar("", Procedencia.Sala);
+    }
+
+    @Override
+    public boolean verificarInicio(int listos, int numJug) {
+        return numJug == listos && numJug >= 2;
+
+    }
 }

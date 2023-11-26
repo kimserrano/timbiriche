@@ -29,6 +29,10 @@ public interface ISalaNegocio {
     public void salirDeLaSala();
 
     public void iniciar();
+
+    public void indicarListo(String string, String string0);
+
+    public boolean verificarInicio(int listos, int numJug);
     
     
 }
