@@ -108,7 +108,7 @@ public class ClienteOutput {
 
             Socket skt = new Socket(ip, puerto);
             DataOutputStream out = new DataOutputStream(skt.getOutputStream());
-            out.writeUTF("movimiento" + ""+solicitud.obtenerDato("coordenadaX") + " " + solicitud.obtenerDato("coordenadaY"));
+            out.writeUTF("movimiento" + ""+solicitud.obtenerDato("coordenadaX") + " " + solicitud.obtenerDato("coordenadaY")+""+solicitud.obtenerDato("orientacion"));
         }
     }
 }

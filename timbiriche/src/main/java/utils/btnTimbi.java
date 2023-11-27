@@ -4,7 +4,6 @@
  */
 package utils;
 
-
 import javax.swing.JButton;
 
 /**
@@ -15,6 +14,7 @@ public class btnTimbi extends JButton {
 
     private int corX;
     private int corY;
+    private boolean orientacion;
 
     public btnTimbi() {
         super();
@@ -23,6 +23,14 @@ public class btnTimbi extends JButton {
     public void setCoordenadas(int corX, int corY) {
         this.corY = corY;
         this.corX = corX;
+    }
+
+    public boolean getOrientacion() {
+        return orientacion;
+    }
+
+    public void setOrientacion(boolean orientacion) {
+        this.orientacion = orientacion;
     }
 
     public int getCorX() {
@@ -40,7 +48,7 @@ public class btnTimbi extends JButton {
     public void setCorY(int corY) {
         this.corY = corY;
     }
-    
+
     @Override
     public String toString() {
         return "btnTimbi{" + "corX=" + corX + ", corY=" + corY + '}';

@@ -67,7 +67,7 @@ public class TimbiricheBoard extends JPanel {
                 // horizontal
                 if (j < ROWS - 1) {
                     btnTimbi botonHorizontal = new btnTimbi();
-
+                    botonHorizontal.setOrientacion(true);
                     botonHorizontal.setCoordenadas(j, i);
                     botonesH[j][i] = botonHorizontal;
                     botonHorizontal.setBounds(punto.x + 9, punto.y + 1, separacionHor - 7, 7);
@@ -78,6 +78,7 @@ public class TimbiricheBoard extends JPanel {
                 // vertical
                 if (i < COLS - 1) {
                     btnTimbi botonVertical = new btnTimbi();
+                    botonVertical.setOrientacion(false);
                     botonVertical.setCoordenadas(j, i);
                     botonesV[j][i] = botonVertical;
                     botonVertical.setBounds(punto.x + 1, punto.y + 9, 7, separacionVer - 7);
@@ -106,6 +107,7 @@ public class TimbiricheBoard extends JPanel {
                 vistaModeloTablero.verificarMovimiento(boton);
                 verVDer(boton);
                 verVIzq(boton);
+                
             }
         });
     }

@@ -75,6 +75,7 @@ public class TableroNegocio implements ITableroNegocio {
                    .agregarDatos("puerto", jugadorNegocio.obtenerJugador().getPuerto() + "")
                    .agregarDatos("coordenadaX", String.valueOf(btn.getCorX()))
                    .agregarDatos("coordenadaY", String.valueOf(btn.getCorY()))
+                   .agregarDatos("orientacion", String.valueOf(btn.getOrientacion()))
                    .agregarOperacion(movimiento)
                    .construir();
           cln.enviarCoordenadas(solicitud);
@@ -84,9 +85,8 @@ public class TableroNegocio implements ITableroNegocio {
     }
     
     @Override
-    public void pintarMovimiento(int cordX, int cordY){
+    public void pintarMovimiento(int cordX, int cordY, boolean orientacion){
         //Pintar el boton con las coordenadas
-        //regresar tablero
         //procesar movimiento
     }
 
