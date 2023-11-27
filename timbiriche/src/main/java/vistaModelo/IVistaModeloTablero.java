@@ -8,7 +8,7 @@ import java.util.List;
 import javax.swing.JLabel;
 import utils.JugadorDTO;
 import utils.SalaDTO;
-import utils.btnTimbi;
+import utils.BtnTimbi;
 
 /**
  *
@@ -26,7 +26,7 @@ public interface IVistaModeloTablero {
     
     public void salir();
     
-    public void verificarMovimiento(btnTimbi btn);
+    public void verificarMovimiento(BtnTimbi btn);
     
     public void otorgarPuntos();
     

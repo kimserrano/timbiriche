@@ -18,7 +18,7 @@ import static negocio.SalaNegocio.getInstance;
 import negocio.TableroNegocio;
 import utils.JugadorDTO;
 import utils.SalaDTO;
-import utils.btnTimbi;
+import utils.BtnTimbi;
 
 /**
  *
@@ -97,7 +97,7 @@ public class ModeloTablero implements IModeloTablero {
     }
 
     @Override
-    public void movimiento(btnTimbi btn) {
+    public void movimiento(BtnTimbi btn) {
         tableroN.realizarMovimiento(btn);
     }
 

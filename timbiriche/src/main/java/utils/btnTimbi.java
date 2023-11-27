@@ -10,13 +10,13 @@ import javax.swing.JButton;
  *
  * @author berly
  */
-public class btnTimbi extends JButton {
+public class BtnTimbi extends JButton {
 
     private int corX;
     private int corY;
     private boolean orientacion;
 
-    public btnTimbi() {
+    public BtnTimbi() {
         super();
     }
 

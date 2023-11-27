@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
-import utils.btnTimbi;
+import utils.BtnTimbi;
 import vistaModelo.IVistaModeloTablero;
 import vistaModelo.VistaModeloTablero;
 
@@ -21,11 +21,10 @@ public class TimbiricheBoard extends JPanel {
     private static final int POINT_SIZE = 10;
 
     private ArrayList<Point> puntos = new ArrayList<>();
-    private btnTimbi[][] botonesV = new btnTimbi[ROWS][COLS];
-    private btnTimbi[][] botonesH = new btnTimbi[ROWS][COLS];
+    private BtnTimbi[][] botonesV = new BtnTimbi[ROWS][COLS];
+    private BtnTimbi[][] botonesH = new BtnTimbi[ROWS][COLS];
     private ArrayList<Point> cuadrosCompletados = new ArrayList<>();
     private IVistaModeloTablero vistaModeloTablero = new VistaModeloTablero();
-    
 
     public TimbiricheBoard() {
         setLayout(null);
@@ -49,8 +48,8 @@ public class TimbiricheBoard extends JPanel {
             int separacionHor = getWidth() / ROWS;
             int separacionVer = getHeight() / COLS;
 
-            int xCuadro = puntos.get(cuadro.y * ROWS + cuadro.x).x + 1;
-            int yCuadro = puntos.get(cuadro.y * ROWS + cuadro.x).y + 1;
+            int xCuadro = puntos.get(cuadro.y * ROWS + cuadro.x).x + 4;
+            int yCuadro = puntos.get(cuadro.y * ROWS + cuadro.x).y + 6;
 
             g2d.setColor(Color.PINK); // Puedes cambiar este color
             g2d.fillRect(xCuadro, yCuadro, separacionHor - 1, separacionVer - 1);
@@ -67,75 +66,76 @@ public class TimbiricheBoard extends JPanel {
 
                 // horizontal
                 if (j < ROWS - 1) {
-                    btnTimbi botonHorizontal = new btnTimbi();
+                    BtnTimbi botonHorizontal = new BtnTimbi();
                     botonHorizontal.setOrientacion(true);
                     botonHorizontal.setCoordenadas(j, i);
                     botonesH[j][i] = botonHorizontal;
                     botonHorizontal.setBounds(punto.x + 9, punto.y + 1, separacionHor - 7, 7);
-                    configurarBotonHor(botonesH[j][i]);
+                    activarBtn(botonesH[j][i]);
                     add(botonHorizontal);
                 }
 
                 // vertical
                 if (i < COLS - 1) {
-                    btnTimbi botonVertical = new btnTimbi();
+                    BtnTimbi botonVertical = new BtnTimbi();
                     botonVertical.setOrientacion(false);
                     botonVertical.setCoordenadas(j, i);
                     botonesV[j][i] = botonVertical;
                     botonVertical.setBounds(punto.x + 1, punto.y + 9, 7, separacionVer - 7);
-                    configurarBotonVer(botonesV[j][i]);
+                    activarBtn(botonesV[j][i]);
                     add(botonVertical);
                 }
             }
         }
     }
 
-    private void configurarBotonVer(btnTimbi boton) {
+    private void configurarInicioBtn(BtnTimbi boton) {
         boton.setOpaque(false);
         boton.setContentAreaFilled(false);
         boton.setBorderPainted(false);
+    }
 
+    private void configurarFinalBtn(BtnTimbi boton) {
+        boton.setOpaque(true);
+        boton.setContentAreaFilled(true);
+        boton.setBorderPainted(true);
+        boton.setBackground(Color.BLACK);
+        boton.setEnabled(false);
+        repaint();
+    }
+
+    private void verificarBtnHorizontal(BtnTimbi boton) {
+        vistaModeloTablero.verificarMovimiento(boton);
+        verHAbajo(boton);
+        verHArriba(boton);
+    }
+
+    private void verificarBtnVertical(BtnTimbi boton) {
+        vistaModeloTablero.verificarMovimiento(boton);
+        verVDer(boton);
+        verVIzq(boton);
+    }
+
+    private void verificarOrientacionBtn(BtnTimbi boton) {
+        if (boton.getOrientacion()) {
+            verificarBtnHorizontal(boton);
+        } else {
+            verificarBtnVertical(boton);
+        }
+    }
+
+    private void activarBtn(BtnTimbi boton) {
+        configurarInicioBtn(boton);
         boton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                boton.setOpaque(true);
-                boton.setContentAreaFilled(true);
-                boton.setBorderPainted(true);
-                boton.setBackground(Color.BLACK);
-                boton.setEnabled(false);
-                repaint();
-//                System.out.println(boton.toString());
-                vistaModeloTablero.verificarMovimiento(boton);
-                verVDer(boton);
-                verVIzq(boton);
-                
+                verificarOrientacionBtn(boton);
+                configurarFinalBtn(boton);
             }
         });
     }
 
-    private void configurarBotonHor(btnTimbi boton) {
-        boton.setOpaque(false);
-        boton.setContentAreaFilled(false);
-        boton.setBorderPainted(false);
-
-        boton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                boton.setOpaque(true);
-                boton.setContentAreaFilled(true);
-                boton.setBorderPainted(true);
-                boton.setBackground(Color.BLACK);
-                boton.setEnabled(false);
-                repaint();
-//                System.out.println(boton.toString());
-                vistaModeloTablero.verificarMovimiento(boton);
-                verHAbajo(boton);
-                verHArriba(boton);
-            }
-        });
-    }
-
-    private void verVDer(btnTimbi boton) {
+    private void verVDer(BtnTimbi boton) {
         int x = boton.getCorX();
         int y = boton.getCorY();
 
@@ -150,7 +150,7 @@ public class TimbiricheBoard extends JPanel {
         }
     }
 
-    private void verVIzq(btnTimbi boton) {
+    private void verVIzq(BtnTimbi boton) {
         int x = boton.getCorX();
         int y = boton.getCorY();
 
@@ -165,7 +165,7 @@ public class TimbiricheBoard extends JPanel {
         }
     }
 
-    private void verHAbajo(btnTimbi boton) {
+    private void verHAbajo(BtnTimbi boton) {
         int x = boton.getCorX();
         int y = boton.getCorY();
 
@@ -180,7 +180,7 @@ public class TimbiricheBoard extends JPanel {
         }
     }
 
-    private void verHArriba(btnTimbi boton) {
+    private void verHArriba(BtnTimbi boton) {
         int x = boton.getCorX();
         int y = boton.getCorY();
 

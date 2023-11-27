@@ -7,7 +7,7 @@ package modelo;
 import java.util.List;
 import utils.JugadorDTO;
 import utils.SalaDTO;
-import utils.btnTimbi;
+import utils.BtnTimbi;
 
 /**
  *
@@ -21,7 +21,7 @@ public interface IModeloTablero {
 
     public void salir();
 
-    public void movimiento(btnTimbi btn);
+    public void movimiento(BtnTimbi btn);
 
     public void generarTurnos(List<JugadorDTO> jugadores);
 

@@ -6,7 +6,7 @@ package negocio;
 
 import java.util.List;
 import utils.JugadorDTO;
-import utils.btnTimbi;
+import utils.BtnTimbi;
 
 /**
  *
@@ -15,6 +15,6 @@ import utils.btnTimbi;
 public interface ITableroNegocio {
     public void generarTurnos(List<JugadorDTO> jugadores);
     public void otorgarPuntos();
-    public void realizarMovimiento(btnTimbi btn);
+    public void realizarMovimiento(BtnTimbi btn);
     public void pintarMovimiento(int cordX, int cordY, boolean orientacion);
 }

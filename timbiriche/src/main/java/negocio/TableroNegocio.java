@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import utils.JugadorDTO;
-import utils.btnTimbi;
+import utils.BtnTimbi;
 
 /**
  *
@@ -67,7 +67,7 @@ System.out.println("TODAVIA NO ESTA HECHO EL OTORGAR PUNTOS");
     }
 
     @Override
-    public void realizarMovimiento(btnTimbi btn) {
+    public void realizarMovimiento(BtnTimbi btn) {
         try {
            Solicitud solicitud = new Solicitud.SolicitudBuilder()
                    .agregarDatos("codigo", sala.getCodigo())

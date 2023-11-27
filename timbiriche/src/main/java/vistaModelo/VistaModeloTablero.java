@@ -10,7 +10,7 @@ import javax.swing.JLabel;
 import modelo.ModeloTablero;
 import utils.JugadorDTO;
 import utils.SalaDTO;
-import utils.btnTimbi;
+import utils.BtnTimbi;
 
 /**
  *
@@ -50,7 +50,7 @@ public class VistaModeloTablero implements IVistaModeloTablero{
     }
     
     @Override
-    public void verificarMovimiento(btnTimbi btn){
+    public void verificarMovimiento(BtnTimbi btn){
         modelTab.movimiento(btn);
     }
 
