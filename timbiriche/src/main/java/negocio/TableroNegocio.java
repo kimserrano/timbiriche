@@ -58,13 +58,12 @@ public class TableroNegocio implements ITableroNegocio {
 
     @Override
     public void generarTurnos(List<JugadorDTO> jugadores) {
-        turnoActual = (turnoActual + 1) % jugadores.size();
-        actualizarAccionesTablero(jugadores);
+       System.out.println("TODAVIA NO ESTA HECHO EL GENERAR TURNOS");
     }
 
     @Override
     public void otorgarPuntos() {
-
+System.out.println("TODAVIA NO ESTA HECHO EL OTORGAR PUNTOS");
     }
 
     @Override
@@ -78,6 +77,7 @@ public class TableroNegocio implements ITableroNegocio {
                    .agregarDatos("orientacion", String.valueOf(btn.getOrientacion()))
                    .agregarOperacion(movimiento)
                    .construir();
+           System.out.println(btn);
           cln.enviarCoordenadas(solicitud);
         }catch(IOException ex){
              Logger.getLogger(TableroNegocio.class.getName()).log(Level.SEVERE, null, ex);
@@ -88,6 +88,7 @@ public class TableroNegocio implements ITableroNegocio {
     public void pintarMovimiento(int cordX, int cordY, boolean orientacion){
         //Pintar el boton con las coordenadas
         //procesar movimiento
+        System.out.println("ESTE NO ESTA HECHO");
     }
 
 }

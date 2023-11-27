@@ -15,7 +15,6 @@ import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import modelo.TimbiricheBoard;
 import utils.JugadorDTO;
 import utils.SalaDTO;
 import vistaModelo.IVistaModeloJugador;
@@ -68,7 +67,7 @@ public class Tablero extends javax.swing.JFrame implements Suscriptor {
         vistaModeloTablero = new VistaModeloTablero();
         lblJugadorLocal.setText(vistaModeloJugador.solicitarJugador().getNickname());
         sala = vistaModeloTablero.obtenerSala();
-        vistaModeloTablero.generarTurnos(sala.getJugadores());
+        //vistaModeloTablero.generarTurnos(sala.getJugadores());
         //vistaModeloTablero.imprimirJugadores();
         moduloJugadores();
 
@@ -315,7 +314,7 @@ public class Tablero extends javax.swing.JFrame implements Suscriptor {
 
     @Override
     public void update() {
-        
+        System.out.println("Hola");
         //boton aux
     }
 }

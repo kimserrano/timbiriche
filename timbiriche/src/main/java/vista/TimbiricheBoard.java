@@ -1,4 +1,4 @@
-package modelo;
+package vista;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import utils.btnTimbi;
 import vistaModelo.IVistaModeloTablero;
+import vistaModelo.VistaModeloTablero;
 
 public class TimbiricheBoard extends JPanel {
 
@@ -23,7 +24,7 @@ public class TimbiricheBoard extends JPanel {
     private btnTimbi[][] botonesV = new btnTimbi[ROWS][COLS];
     private btnTimbi[][] botonesH = new btnTimbi[ROWS][COLS];
     private ArrayList<Point> cuadrosCompletados = new ArrayList<>();
-    private IVistaModeloTablero vistaModeloTablero;
+    private IVistaModeloTablero vistaModeloTablero = new VistaModeloTablero();
     
 
     public TimbiricheBoard() {

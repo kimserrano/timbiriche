@@ -51,7 +51,7 @@ public class btnTimbi extends JButton {
 
     @Override
     public String toString() {
-        return "btnTimbi{" + "corX=" + corX + ", corY=" + corY + '}';
+        return "btnTimbi{" + "corX=" + corX + ", corY=" + corY + ", orientacion=" + orientacion + '}';
     }
 
 }

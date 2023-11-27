@@ -14,6 +14,8 @@ import java.util.List;
 import negocio.ISalaNegocio;
 import negocio.ITableroNegocio;
 import negocio.SalaNegocio;
+import static negocio.SalaNegocio.getInstance;
+import negocio.TableroNegocio;
 import utils.JugadorDTO;
 import utils.SalaDTO;
 import utils.btnTimbi;
@@ -34,6 +36,7 @@ public class ModeloTablero implements IModeloTablero {
 
     public ModeloTablero() {
         salaN = SalaNegocio.getInstance();
+        tableroN = TableroNegocio.getInstance();
         shuffleTurnos(this.obtenerSala().getJugadores().toArray());
         
 
