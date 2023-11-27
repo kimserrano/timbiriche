@@ -22,6 +22,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import Cliente.OperacionesCliente;
 import static Cliente.OperacionesCliente.*;
+import java.awt.Color;
 import java.util.HashMap;
 
 /**
@@ -81,6 +82,29 @@ public class SalaNegocio implements ISalaNegocio {
             Logger.getLogger(SalaNegocio.class.getName()).log(Level.SEVERE, null, ex);
             throw new NegocioException("Error al ingresar a la sala");
         }
+    }
+
+    @Override
+    public void asignarColores() {
+
+        int index = sala.getJugadores().indexOf(jugadorNegocio.obtenerJugador());
+        if (index != -1) {
+            sala.getJugadores().get(index).setColor(jugadorNegocio.obtenerJugador().getColor());
+            int i = 0;
+            for (Jugador jugador : sala.getJugadores()) {
+                System.out.println("SALA SIZE: " + sala.getJugadores().size());
+                if (!jugador.equals(jugadorNegocio.obtenerJugador())) {
+                    Color aux = jugadorNegocio.getColoresDisponibles().get(i);
+                    System.out.println("indice: " + i + " Color: " + aux);
+                    int r = aux.getRed();
+                    int g = aux.getGreen();
+                    int b = aux.getBlue();
+                    jugador.setColor(r + "," + g + "," + b);
+                    i++;
+                }
+            }
+        }
+
     }
 
     private String generarCodigo() {

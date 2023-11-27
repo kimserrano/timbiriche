@@ -34,5 +34,5 @@ public interface ISalaNegocio {
 
     public boolean verificarInicio(int listos, int numJug);
     
-    
+    public void asignarColores();
 }

@@ -12,6 +12,7 @@ import java.util.Arrays;
 import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import negocio.ISalaNegocio;
 import negocio.SalaNegocio;
 import utils.JugadorDTO;
@@ -33,10 +34,13 @@ public class SalaFrame extends javax.swing.JFrame implements Suscriptor {
 
     SalaDTO sala;
     List<JLabel> nombres;
+    List<JPanel> colores;
 
     public SalaFrame() {
         initComponents();
         nombres = Arrays.asList(lblJugador1, lblJugador2, lblJugador3, lblJugador4);
+        colores = Arrays.asList(pnlJugador1, pnlJugador2, pnlJugador3, pnlJugador4);
+
         this.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
@@ -73,12 +77,20 @@ public class SalaFrame extends javax.swing.JFrame implements Suscriptor {
         sala = vistaModeloSala.obtenerSala();
 
         if (sala != null) {
-            if (sala.getJugadores() != null) {
-//                pnlJugador1.setBackground(generarColor(sala.getJugadores().get(0).getColor()));
+            if (sala.getJugadores() != null && !sala.getJugadores().isEmpty()) {
+                int i = 0;
+                for (JugadorDTO jug : sala.getJugadores()) {
+                    colores.get(i).setBackground(generarColor(jug.getColor()));
+                    i++;
+                }
+
+                for (int j = i; j < colores.size(); j++) {
+                    colores.get(i).setBackground(Color.WHITE);
+                }
+
                 lblCodigo.setText(sala.getCodigo());
                 insertarJugadores();
                 setVisible(true);
-                this.repaint();
                 getListos();
             }
         }
@@ -117,8 +129,8 @@ public class SalaFrame extends javax.swing.JFrame implements Suscriptor {
         jPanel4 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         pnlJugador1 = new javax.swing.JPanel();
-        pblJugador3 = new javax.swing.JPanel();
-        pblJugador2 = new javax.swing.JPanel();
+        pnlJugador3 = new javax.swing.JPanel();
+        pnlJugador2 = new javax.swing.JPanel();
         pnlJugador4 = new javax.swing.JPanel();
         lblJugador1 = new javax.swing.JLabel();
         lblJugador2 = new javax.swing.JLabel();
@@ -174,7 +186,7 @@ public class SalaFrame extends javax.swing.JFrame implements Suscriptor {
         jLabel2.setFont(new java.awt.Font("Javanese Text", 0, 14)); // NOI18N
         jLabel2.setText("Jugadores:");
 
-        pnlJugador1.setBackground(new java.awt.Color(255, 204, 204));
+        pnlJugador1.setBackground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout pnlJugador1Layout = new javax.swing.GroupLayout(pnlJugador1);
         pnlJugador1.setLayout(pnlJugador1Layout);
@@ -187,33 +199,33 @@ public class SalaFrame extends javax.swing.JFrame implements Suscriptor {
             .addGap(0, 40, Short.MAX_VALUE)
         );
 
-        pblJugador3.setBackground(new java.awt.Color(255, 102, 102));
+        pnlJugador3.setBackground(new java.awt.Color(255, 255, 255));
 
-        javax.swing.GroupLayout pblJugador3Layout = new javax.swing.GroupLayout(pblJugador3);
-        pblJugador3.setLayout(pblJugador3Layout);
-        pblJugador3Layout.setHorizontalGroup(
-            pblJugador3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout pnlJugador3Layout = new javax.swing.GroupLayout(pnlJugador3);
+        pnlJugador3.setLayout(pnlJugador3Layout);
+        pnlJugador3Layout.setHorizontalGroup(
+            pnlJugador3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 40, Short.MAX_VALUE)
         );
-        pblJugador3Layout.setVerticalGroup(
-            pblJugador3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 40, Short.MAX_VALUE)
-        );
-
-        pblJugador2.setBackground(new java.awt.Color(255, 255, 204));
-
-        javax.swing.GroupLayout pblJugador2Layout = new javax.swing.GroupLayout(pblJugador2);
-        pblJugador2.setLayout(pblJugador2Layout);
-        pblJugador2Layout.setHorizontalGroup(
-            pblJugador2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 40, Short.MAX_VALUE)
-        );
-        pblJugador2Layout.setVerticalGroup(
-            pblJugador2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        pnlJugador3Layout.setVerticalGroup(
+            pnlJugador3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 40, Short.MAX_VALUE)
         );
 
-        pnlJugador4.setBackground(new java.awt.Color(204, 255, 204));
+        pnlJugador2.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout pnlJugador2Layout = new javax.swing.GroupLayout(pnlJugador2);
+        pnlJugador2.setLayout(pnlJugador2Layout);
+        pnlJugador2Layout.setHorizontalGroup(
+            pnlJugador2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 40, Short.MAX_VALUE)
+        );
+        pnlJugador2Layout.setVerticalGroup(
+            pnlJugador2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 40, Short.MAX_VALUE)
+        );
+
+        pnlJugador4.setBackground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout pnlJugador4Layout = new javax.swing.GroupLayout(pnlJugador4);
         pnlJugador4.setLayout(pnlJugador4Layout);
@@ -250,7 +262,7 @@ public class SalaFrame extends javax.swing.JFrame implements Suscriptor {
                         .addGap(18, 18, 18)
                         .addComponent(lblJugador1, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(pblJugador2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(pnlJugador2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(lblJugador2))
                     .addGroup(jPanel4Layout.createSequentialGroup()
@@ -258,7 +270,7 @@ public class SalaFrame extends javax.swing.JFrame implements Suscriptor {
                         .addGap(18, 18, 18)
                         .addComponent(lblJugador4))
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(pblJugador3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(pnlJugador3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(lblJugador3))
                     .addComponent(jLabel2))
@@ -279,14 +291,14 @@ public class SalaFrame extends javax.swing.JFrame implements Suscriptor {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
-                        .addComponent(pblJugador2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(pnlJugador2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGap(29, 29, 29)
                         .addComponent(lblJugador2)))
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
-                        .addComponent(pblJugador3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(pnlJugador3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGap(28, 28, 28)
                         .addComponent(lblJugador3)))
@@ -430,9 +442,9 @@ public class SalaFrame extends javax.swing.JFrame implements Suscriptor {
     private javax.swing.JLabel lblListos;
     private javax.swing.JLabel lblSala1;
     private javax.swing.JLabel lblTitulo;
-    private javax.swing.JPanel pblJugador2;
-    private javax.swing.JPanel pblJugador3;
     private javax.swing.JPanel pnlJugador1;
+    private javax.swing.JPanel pnlJugador2;
+    private javax.swing.JPanel pnlJugador3;
     private javax.swing.JPanel pnlJugador4;
     // End of variables declaration//GEN-END:variables
 

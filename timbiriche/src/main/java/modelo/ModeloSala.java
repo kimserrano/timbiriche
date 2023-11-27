@@ -6,6 +6,7 @@ package modelo;
 
 import dominio.Jugador;
 import dominio.Sala;
+import java.awt.Color;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
@@ -30,6 +31,7 @@ public class ModeloSala implements IModeloSala {
 
     public ModeloSala() {
         salaN = SalaNegocio.getInstance();
+
     }
 
     @Override
@@ -38,6 +40,7 @@ public class ModeloSala implements IModeloSala {
         try {
             Jugador jug = new Jugador(anfitrion.getNickname(), anfitrion.getColor(), InetAddress.getLocalHost().getHostAddress());
             sala = salaN.crearSala(jug);
+
         } catch (NegocioException ex) {
             Logger.getLogger(ModeloSala.class.getName()).log(Level.SEVERE, null, ex);
         } catch (UnknownHostException e) {
@@ -47,6 +50,9 @@ public class ModeloSala implements IModeloSala {
 
     @Override
     public SalaDTO obtenerSala() {
+        if (!salaN.actualizarSala().getJugadores().isEmpty()) {
+            salaN.asignarColores();
+        }
         sala = salaN.actualizarSala();
         return new SalaDTO(generarListaJugadores(sala.getJugadores()), sala.getCodigo());
     }
@@ -86,7 +92,7 @@ public class ModeloSala implements IModeloSala {
 
     @Override
     public boolean verificarInicio(int listos, int numJug) {
-        return salaN.verificarInicio(listos,numJug);
+        return salaN.verificarInicio(listos, numJug);
     }
 
 }

@@ -5,6 +5,8 @@
 package negocio;
 
 import dominio.Jugador;
+import java.awt.Color;
+import java.util.List;
 
 /**
  *
@@ -15,4 +17,8 @@ public interface IJugadorNegocio {
     public void establecerJugador(Jugador jugador);
 
     public Jugador obtenerJugador();
+
+    public void actualizarJugador(Jugador jugador2);
+
+    public List<Color> getColoresDisponibles();
 }
