@@ -31,7 +31,7 @@ public class ModeloTablero implements IModeloTablero {
 
     public ModeloTablero() {
         salaN = SalaNegocio.getInstance();
-        shuffleTurnos(jugadores);
+        shuffleTurnos(this.obtenerSala().getJugadores().toArray());
 
     }
 
