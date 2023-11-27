@@ -9,5 +9,5 @@ package Cliente;
  * @author Elkur
  */
 public enum OperacionesCliente {
-    entrada, salida, estadoEnSala, iniciar;
+    entrada, salida, estadoEnSala, iniciar, movimiento;
 }

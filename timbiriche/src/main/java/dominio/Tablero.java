@@ -10,12 +10,12 @@ import java.util.List;
  *
  * @author JORGE
  */
-public class Juego {
+public class Tablero {
 
     private List<Puntaje> puntajes;
     private List<Jugador> turnos;
 
-    public Juego() {
+    public Tablero() {
     }
 
     public List<Puntaje> getPuntajes() {
@@ -33,5 +33,12 @@ public class Juego {
     public void setTurnos(List<Jugador> turnos) {
         this.turnos = turnos;
     }
+
+    @Override
+    public String toString() {
+        return "Tablero{" + "puntajes=" + puntajes + ", turnos=" + turnos + '}';
+    }
+    
+    
 
 }

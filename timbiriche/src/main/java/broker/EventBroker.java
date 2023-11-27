@@ -19,13 +19,16 @@ public class EventBroker implements IEventBroker {
     private HashSet<Suscriptor> subsSala;
     private HashSet<Suscriptor> subsJuego;
     private HashSet<Suscriptor> subsServer;
+    private HashSet<Suscriptor> subsTablero;
 
     private EventBroker() {
         subsJuego = new HashSet<>();
         subsSala = new HashSet<>();
         subsServer = new HashSet<>();
-        subsSala.add(ControlVistas.getSalaF());
+        subsTablero = new HashSet<>();
+        subsSala.add(ControlVistas.getSalaF()); 
         subsServer.add(new Servidor());
+        
     }
 
     public static EventBroker getInstance() {
@@ -35,6 +38,11 @@ public class EventBroker implements IEventBroker {
     private static class EventBrokerHolder {
 
         private static final EventBroker INSTANCE = new EventBroker();
+    }
+    
+    @Override
+    public void agregarSuscriptorTablero(Suscriptor sub){
+        subsTablero.add(sub);
     }
 
     @Override
@@ -49,6 +57,13 @@ public class EventBroker implements IEventBroker {
         if (proc == Procedencia.input) {
             if (!subsServer.isEmpty()) {
                 for (Suscriptor sub : subsServer) {
+                    sub.update();
+                }
+            }
+        }
+        if(proc == Procedencia.tablero){
+            if(!subsTablero.isEmpty()){
+                for(Suscriptor sub : subsTablero){
                     sub.update();
                 }
             }

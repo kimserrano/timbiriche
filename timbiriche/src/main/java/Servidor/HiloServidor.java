@@ -17,6 +17,7 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import negocio.ISalaNegocio;
+import negocio.ITableroNegocio;
 import negocio.NegocioException;
 import negocio.SalaNegocio;
 
@@ -29,6 +30,7 @@ public class HiloServidor implements Runnable {
     private Set<Socket> jugadores;
     private ServerSocket svSocket;
     private ISalaNegocio salaN;
+    private ITableroNegocio tableroN;
 
     public HiloServidor() throws IOException {
         salaN = SalaNegocio.getInstance();
@@ -74,6 +76,8 @@ public class HiloServidor implements Runnable {
             salaN.revisarNuevosJugadores();
         }else if(operacion[0].equalsIgnoreCase("estadoEnSala")){
             salaN.indicarListo(operacion[1],operacion[2]);
+        }else if(operacion[0].equalsIgnoreCase("movimiento")){
+            tableroN.pintarMovimiento(Integer.parseInt(operacion[1]), Integer.parseInt(operacion[2]));
         }
     }
 }

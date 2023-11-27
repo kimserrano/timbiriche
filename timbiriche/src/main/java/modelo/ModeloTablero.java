@@ -12,9 +12,11 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import negocio.ISalaNegocio;
+import negocio.ITableroNegocio;
 import negocio.SalaNegocio;
 import utils.JugadorDTO;
 import utils.SalaDTO;
+import utils.btnTimbi;
 
 /**
  *
@@ -28,10 +30,12 @@ public class ModeloTablero implements IModeloTablero {
     private int turnoActual = 0;
     private Sala sala;
     private ISalaNegocio salaN;
+    private ITableroNegocio tableroN;
 
     public ModeloTablero() {
         salaN = SalaNegocio.getInstance();
         shuffleTurnos(this.obtenerSala().getJugadores().toArray());
+        
 
     }
 
@@ -47,9 +51,7 @@ public class ModeloTablero implements IModeloTablero {
         }
     }
 
-    public void generarTurnos() {
-        
-    }
+    
 
     @Override
     public JugadorDTO[] recuperarJugadores() {
@@ -89,5 +91,20 @@ public class ModeloTablero implements IModeloTablero {
     @Override
     public void salir() {
         salaN.salirDeLaSala();
+    }
+
+    @Override
+    public void movimiento(btnTimbi btn) {
+        tableroN.realizarMovimiento(btn);
+    }
+
+    @Override
+    public void otorgarPuntos() {
+        tableroN.otorgarPuntos();
+    }
+    
+    @Override
+    public void generarTurnos(List<JugadorDTO> jugadores) {
+        tableroN.generarTurnos(jugadores);
     }
 }

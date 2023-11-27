@@ -157,12 +157,23 @@ public class Cliente implements ICliente {
     }
 
     @Override
-    public void enviarEstado(Solicitud solicitud) throws IOException{
-        
+    public void enviarEstado(Solicitud solicitud) throws IOException {
+
         int puerto = Integer.parseInt(solicitud.obtenerDato("puerto"));
         ipsDTO ips = obtenerIPs(solicitud.obtenerDato("codigo"), puerto);
-        
+
         clnOut.avisarEstadoSala("estadoEnSala", solicitud, ips);
+    }
+
+    @Override
+    public void enviarCoordenadas(Solicitud solicitud) throws IOException {
+        iniciarSvSockets();
+            String codigo = solicitud.obtenerDato("codigo");
+            int puerto = Integer.parseInt(solicitud.obtenerDato("puerto"));
+        
+            ipsDTO ips = obtenerIPs(codigo,puerto);
+            
+            clnOut.enviarCoordenadasBtn(solicitud, ips);
     }
 
 }

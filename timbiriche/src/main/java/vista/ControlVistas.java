@@ -4,6 +4,9 @@
  */
 package vista;
 
+import broker.EventBroker;
+import broker.IEventBroker;
+import broker.Suscriptor;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.List;
@@ -17,6 +20,7 @@ import utils.SalaDTO;
 public class ControlVistas {
 
     private static SalaFrame salaF = new SalaFrame();
+    private static IEventBroker evtBroker= EventBroker.getInstance();
 
     public static void cambiarVentana(JFrame ventana, int idVentana) {
         ventana.setVisible(false);
@@ -42,8 +46,10 @@ public class ControlVistas {
     public static SalaFrame getSalaF() {
         return salaF;
     }
-
+    
     public static void cambiarATableroNuevo(JFrame ventana) {
-        new Tablero().setVisible(true);
-    }
+        Tablero tablero =  new Tablero();
+        evtBroker.agregarSuscriptorTablero((Suscriptor) tablero);
+        tablero.setVisible(true);
+    }  
 }

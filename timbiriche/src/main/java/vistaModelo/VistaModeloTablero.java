@@ -10,6 +10,7 @@ import javax.swing.JLabel;
 import modelo.ModeloTablero;
 import utils.JugadorDTO;
 import utils.SalaDTO;
+import utils.btnTimbi;
 
 /**
  *
@@ -47,6 +48,19 @@ public class VistaModeloTablero implements IVistaModeloTablero{
     public void salir() {
        modelTab.salir();
     }
-
     
+    @Override
+    public void verificarMovimiento(btnTimbi btn){
+        modelTab.movimiento(btn);
+    }
+
+    @Override
+    public void otorgarPuntos() {
+        modelTab.otorgarPuntos();
+    }
+
+    @Override
+    public void generarTurnos(List<JugadorDTO> jugadores) {
+        modelTab.generarTurnos(jugadores);
+    }
 }

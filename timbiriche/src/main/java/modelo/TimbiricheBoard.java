@@ -11,6 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import utils.btnTimbi;
+import vistaModelo.IVistaModeloTablero;
 
 public class TimbiricheBoard extends JPanel {
 
@@ -22,6 +23,8 @@ public class TimbiricheBoard extends JPanel {
     private btnTimbi[][] botonesV = new btnTimbi[ROWS][COLS];
     private btnTimbi[][] botonesH = new btnTimbi[ROWS][COLS];
     private ArrayList<Point> cuadrosCompletados = new ArrayList<>();
+    private IVistaModeloTablero vistaModeloTablero;
+    
 
     public TimbiricheBoard() {
         setLayout(null);
@@ -99,7 +102,8 @@ public class TimbiricheBoard extends JPanel {
                 boton.setBackground(Color.BLACK);
                 boton.setEnabled(false);
                 repaint();
-                System.out.println(boton.toString());
+//                System.out.println(boton.toString());
+                vistaModeloTablero.verificarMovimiento(boton);
                 verVDer(boton);
                 verVIzq(boton);
             }
@@ -120,7 +124,8 @@ public class TimbiricheBoard extends JPanel {
                 boton.setBackground(Color.BLACK);
                 boton.setEnabled(false);
                 repaint();
-                System.out.println(boton.toString());
+//                System.out.println(boton.toString());
+                vistaModeloTablero.verificarMovimiento(boton);
                 verHAbajo(boton);
                 verHArriba(boton);
             }

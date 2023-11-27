@@ -9,5 +9,5 @@ package broker;
  * @author Elkur
  */
 public enum Procedencia {
-    Sala, juego, input;
+    Sala, juego, input, tablero;
 }

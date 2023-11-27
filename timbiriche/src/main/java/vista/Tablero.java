@@ -4,6 +4,7 @@
  */
 package vista;
 
+import broker.Suscriptor;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.LayoutManager;
@@ -28,7 +29,7 @@ import vistaModelo.VistaModeloTablero;
  *
  * @author berly
  */
-public class Tablero extends javax.swing.JFrame {
+public class Tablero extends javax.swing.JFrame implements Suscriptor {
 
     Font customFontTitulos = new Font("Just Me Again Down Here", Font.BOLD, 50);
     Font customFontSubT = new Font("Just Me Again Down Here", Font.PLAIN, 30);
@@ -67,6 +68,7 @@ public class Tablero extends javax.swing.JFrame {
         vistaModeloTablero = new VistaModeloTablero();
         lblJugadorLocal.setText(vistaModeloJugador.solicitarJugador().getNickname());
         sala = vistaModeloTablero.obtenerSala();
+        vistaModeloTablero.generarTurnos(sala.getJugadores());
         //vistaModeloTablero.imprimirJugadores();
         moduloJugadores();
 
@@ -76,7 +78,7 @@ public class Tablero extends javax.swing.JFrame {
         System.out.println("ras");
         int paddingVertical = 0;
 
-        JugadorDTO[] jugadoresDTO = vistaModeloTablero.recuperarJugadores();
+//        JugadorDTO[] jugadoresDTO = vistaModeloTablero.recuperarJugadores();
         if (sala != null) {
             if (sala.getJugadores() != null && !sala.getJugadores().isEmpty()) {
                 int i = 0;
@@ -310,4 +312,10 @@ public class Tablero extends javax.swing.JFrame {
     private javax.swing.JPanel pnlFondo;
     private javax.swing.JPanel pnlTablero;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void update() {
+        
+        //boton aux
+    }
 }

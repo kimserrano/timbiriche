@@ -98,4 +98,17 @@ public class ClienteOutput {
 
         }
     }
+    
+    public void enviarCoordenadasBtn(Solicitud solicitud, ipsDTO ips) throws IOException{
+        for (String ippuerto : ips.getIppuerto()) {
+            String[] aux = ippuerto.split(" ");
+
+            String ip = aux[1].split(":")[0];
+            int puerto = Integer.parseInt(aux[1].split(":")[1]);
+
+            Socket skt = new Socket(ip, puerto);
+            DataOutputStream out = new DataOutputStream(skt.getOutputStream());
+            out.writeUTF("movimiento" + ""+solicitud.obtenerDato("coordenadaX") + " " + solicitud.obtenerDato("coordenadaY"));
+        }
+    }
 }

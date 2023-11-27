@@ -9,7 +9,8 @@ package broker;
  * @author Elkur
  */
 public interface IEventBroker {
-    
+
     public void notificar(String mensaje, Procedencia proc);
-    
+
+    public void agregarSuscriptorTablero(Suscriptor sub);
 }
