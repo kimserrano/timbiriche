@@ -43,7 +43,7 @@ public class ControlVistas {
         return salaF;
     }
 
-    public static void cambiarATableroNuevo(JFrame ventana, List<String> nicks) {
-        new Tablero(nicks).setVisible(true);
+    public static void cambiarATableroNuevo(JFrame ventana) {
+        new Tablero().setVisible(true);
     }
 }

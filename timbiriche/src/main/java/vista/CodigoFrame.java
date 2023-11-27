@@ -46,6 +46,7 @@ public class CodigoFrame extends javax.swing.JFrame {
         txtCodigo = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         panelFondo.setBackground(new java.awt.Color(255, 207, 210));
         panelFondo.setPreferredSize(new java.awt.Dimension(1280, 730));

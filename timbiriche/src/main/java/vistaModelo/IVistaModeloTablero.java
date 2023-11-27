@@ -20,6 +20,10 @@ public interface IVistaModeloTablero {
     public void imprimirJugadores();
     
     public JugadorDTO[] recuperarJugadores();
+    
+    public SalaDTO obtenerSala();
+    
+    public void salir();
 }
 
     

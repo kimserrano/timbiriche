@@ -9,6 +9,7 @@ import java.util.List;
 import javax.swing.JLabel;
 import modelo.ModeloTablero;
 import utils.JugadorDTO;
+import utils.SalaDTO;
 
 /**
  *
@@ -35,6 +36,16 @@ public class VistaModeloTablero implements IVistaModeloTablero{
     @Override
     public JugadorDTO[] recuperarJugadores() {
        return modelTab.recuperarJugadores();
+    }
+
+    @Override
+    public SalaDTO obtenerSala() {
+        return modelTab.obtenerSala();
+    }
+
+    @Override
+    public void salir() {
+       modelTab.salir();
     }
 
     

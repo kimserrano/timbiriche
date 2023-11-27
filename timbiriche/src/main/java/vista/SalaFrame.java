@@ -143,6 +143,7 @@ public class SalaFrame extends javax.swing.JFrame implements Suscriptor {
         lblListos = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(255, 207, 210));
 
@@ -412,6 +413,7 @@ public class SalaFrame extends javax.swing.JFrame implements Suscriptor {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnIniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarActionPerformed
@@ -422,7 +424,7 @@ public class SalaFrame extends javax.swing.JFrame implements Suscriptor {
     }//GEN-LAST:event_btnIniciarActionPerformed
     private void iniciarPartida() {
         this.dispose();
-        ControlVistas.cambiarATableroNuevo(this, vistaModeloTablero.obtenerNicks(nombres));
+        ControlVistas.cambiarATableroNuevo(this);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

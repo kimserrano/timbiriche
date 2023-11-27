@@ -45,18 +45,17 @@ public class PersonalizarFrame extends javax.swing.JFrame {
         btnColorVerde = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         pnlFondo.setBackground(new java.awt.Color(255, 207, 210));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
         lblCodigo.setFont(new java.awt.Font("Javanese Text", 0, 48)); // NOI18N
-        lblCodigo.setForeground(new java.awt.Color(0, 0, 0));
         lblCodigo.setText("Personalizar");
 
         btnConfirmar.setBackground(new java.awt.Color(207, 186, 240));
         btnConfirmar.setFont(new java.awt.Font("Yu Gothic", 3, 12)); // NOI18N
-        btnConfirmar.setForeground(new java.awt.Color(0, 0, 0));
         btnConfirmar.setText("Confirmar");
         btnConfirmar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -65,11 +64,9 @@ public class PersonalizarFrame extends javax.swing.JFrame {
         });
 
         lblNickname.setFont(new java.awt.Font("Yu Gothic", 0, 18)); // NOI18N
-        lblNickname.setForeground(new java.awt.Color(0, 0, 0));
         lblNickname.setText("Nickname");
 
         lblColor.setFont(new java.awt.Font("Yu Gothic", 0, 18)); // NOI18N
-        lblColor.setForeground(new java.awt.Color(0, 0, 0));
         lblColor.setText("Color");
 
         btnColorRojo.setBackground(new java.awt.Color(255, 102, 153));
