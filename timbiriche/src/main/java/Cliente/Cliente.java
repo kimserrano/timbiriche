@@ -167,12 +167,14 @@ public class Cliente implements ICliente {
 
     @Override
     public void enviarCoordenadas(Solicitud solicitud) throws IOException {
-        iniciarSvSockets();
+        //iniciarSvSockets();
+                    System.out.println("llego al del cliente enviar coordenada");
+                    System.out.println(solicitud.toString());
             String codigo = solicitud.obtenerDato("codigo");
             int puerto = Integer.parseInt(solicitud.obtenerDato("puerto"));
         
             ipsDTO ips = obtenerIPs(codigo,puerto);
-            
+
             clnOut.enviarCoordenadasBtn(solicitud, ips);
     }
 

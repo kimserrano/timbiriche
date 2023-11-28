@@ -56,6 +56,7 @@ public class JugadorNegocio implements IJugadorNegocio {
         String rgb[] = color.split(",");
         return new Color(Integer.parseInt(rgb[0]), Integer.parseInt(rgb[1]), Integer.parseInt(rgb[2]));
     }
+    
     @Override
     public List<Color> getColoresDisponibles(){
         return coloresDisponibles;

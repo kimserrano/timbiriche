@@ -98,6 +98,7 @@ public class ModeloTablero implements IModeloTablero {
 
     @Override
     public void movimiento(BtnTimbi btn) {
+        System.out.println("jalaa "+ btn.toString());
         tableroN.realizarMovimiento(btn);
     }
 

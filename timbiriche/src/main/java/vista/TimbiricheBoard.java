@@ -96,6 +96,7 @@ public class TimbiricheBoard extends JPanel {
     }
 
     private void configurarFinalBtn(BtnTimbi boton) {
+        System.out.println("pintado");
         boton.setOpaque(true);
         boton.setContentAreaFilled(true);
         boton.setBorderPainted(true);
@@ -105,12 +106,14 @@ public class TimbiricheBoard extends JPanel {
     }
 
     private void verificarBtnHorizontal(BtnTimbi boton) {
+        System.out.println("se hace hor");
         vistaModeloTablero.verificarMovimiento(boton);
         verHAbajo(boton);
         verHArriba(boton);
     }
 
     private void verificarBtnVertical(BtnTimbi boton) {
+        System.out.println("se hace ver");
         vistaModeloTablero.verificarMovimiento(boton);
         verVDer(boton);
         verVIzq(boton);
@@ -126,10 +129,12 @@ public class TimbiricheBoard extends JPanel {
 
     private void activarBtn(BtnTimbi boton) {
         configurarInicioBtn(boton);
+        System.out.println("activar "+boton.toString());
         boton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                verificarOrientacionBtn(boton);
+                System.out.println("adentro");
+                verificarOrientacionBtn(boton); 
                 configurarFinalBtn(boton);
             }
         });

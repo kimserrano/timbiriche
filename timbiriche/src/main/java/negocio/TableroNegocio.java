@@ -4,6 +4,7 @@
  */
 package negocio;
 
+import Cliente.Cliente;
 import Cliente.ICliente;
 import static Cliente.OperacionesCliente.movimiento;
 import Cliente.Solicitud;
@@ -16,6 +17,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import utils.JugadorDTO;
 import utils.BtnTimbi;
+import utils.SalaDTO;
+import vistaModelo.IVistaModeloSala;
+import vistaModelo.VistaModeloSala;
 
 /**
  *
@@ -24,11 +28,14 @@ import utils.BtnTimbi;
 public class TableroNegocio implements ITableroNegocio {
 
     int turnoActual = 0;
-    private Sala sala;
+    private IVistaModeloSala vistaModeloSala = new VistaModeloSala();
+    private SalaDTO sala = vistaModeloSala.obtenerSala();
     private ICliente cln;
     private JugadorNegocio jugadorNegocio;
 
     private TableroNegocio() {
+        cln = new Cliente();
+        jugadorNegocio = JugadorNegocio.getInstance();
     }
 
     public static TableroNegocio getInstance() {
@@ -58,34 +65,34 @@ public class TableroNegocio implements ITableroNegocio {
 
     @Override
     public void generarTurnos(List<JugadorDTO> jugadores) {
-       System.out.println("TODAVIA NO ESTA HECHO EL GENERAR TURNOS");
+        System.out.println("TODAVIA NO ESTA HECHO EL GENERAR TURNOS");
     }
 
     @Override
     public void otorgarPuntos() {
-System.out.println("TODAVIA NO ESTA HECHO EL OTORGAR PUNTOS");
+        System.out.println("TODAVIA NO ESTA HECHO EL OTORGAR PUNTOS");
     }
 
     @Override
     public void realizarMovimiento(BtnTimbi btn) {
         try {
-           Solicitud solicitud = new Solicitud.SolicitudBuilder()
-                   .agregarDatos("codigo", sala.getCodigo())
-                   .agregarDatos("puerto", jugadorNegocio.obtenerJugador().getPuerto() + "")
-                   .agregarDatos("coordenadaX", String.valueOf(btn.getCorX()))
-                   .agregarDatos("coordenadaY", String.valueOf(btn.getCorY()))
-                   .agregarDatos("orientacion", String.valueOf(btn.getOrientacion()))
-                   .agregarOperacion(movimiento)
-                   .construir();
-           System.out.println(btn);
-          cln.enviarCoordenadas(solicitud);
-        }catch(IOException ex){
-             Logger.getLogger(TableroNegocio.class.getName()).log(Level.SEVERE, null, ex);
+            Solicitud solicitud = new Solicitud.SolicitudBuilder()
+                    .agregarDatos("codigo", sala.getCodigo())
+                    .agregarDatos("puerto", jugadorNegocio.obtenerJugador().getPuerto() + "")
+                    .agregarDatos("coordenadaX", String.valueOf(btn.getCorX()))
+                    .agregarDatos("coordenadaY", String.valueOf(btn.getCorY()))
+                    .agregarDatos("orientacion", String.valueOf(btn.getOrientacion()))
+                    .agregarOperacion(movimiento)
+                    .construir();
+            System.out.println("llego a realizarMovimiento teblero negocio");
+            cln.enviarCoordenadas(solicitud);
+        } catch (IOException ex) {
+            Logger.getLogger(TableroNegocio.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     @Override
-    public void pintarMovimiento(int cordX, int cordY, boolean orientacion){
+    public void pintarMovimiento(int cordX, int cordY, boolean orientacion) {
         //Pintar el boton con las coordenadas
         //procesar movimiento
         System.out.println("ESTE NO ESTA HECHO");
