@@ -6,6 +6,7 @@ package vista;
 
 import broker.Suscriptor;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Font;
 import java.awt.LayoutManager;
 import java.awt.event.WindowAdapter;
@@ -15,6 +16,8 @@ import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import utils.BtnTimbi;
+import utils.BtnTimbiTrans;
 import utils.JugadorDTO;
 import utils.SalaDTO;
 import vistaModelo.IVistaModeloJugador;
@@ -37,6 +40,7 @@ public class Tablero extends javax.swing.JFrame implements Suscriptor {
     IVistaModeloSala vistaModeloSala;
     IVistaModeloJugador vistaModeloJugador = new VistaModeloJugador();
     SalaDTO sala;
+    TimbiricheBoard tmb;
 
     /**
      * Creates new form Tablero
@@ -53,8 +57,9 @@ public class Tablero extends javax.swing.JFrame implements Suscriptor {
         this.pnlColorJ1.setVisible(false);
         this.jLPtsJ1.setVisible(false);
         // PRUEBAAA, VA EN MODELO SE SABE 
-        this.pnlTablero.add(new TimbiricheBoard());
-        
+        tmb = new TimbiricheBoard();
+        this.pnlTablero.add(tmb);
+
         this.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
@@ -315,6 +320,11 @@ public class Tablero extends javax.swing.JFrame implements Suscriptor {
     @Override
     public void update() {
         //boton aux
-        System.out.println("dasd");
+        System.out.println("esta en el update");
+
+        BtnTimbi btnAPintar = BtnTimbiTrans.btnTransferible;
+        tmb.pintarPorFuera(btnAPintar);
+        System.out.println(btnAPintar.toString() + ".........");
+
     }
 }

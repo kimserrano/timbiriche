@@ -54,4 +54,34 @@ public class BtnTimbi extends JButton {
         return "btnTimbi{" + "corX=" + corX + ", corY=" + corY + ", orientacion=" + orientacion + '}';
     }
 
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 17 * hash + this.corX;
+        hash = 17 * hash + this.corY;
+        hash = 17 * hash + (this.orientacion ? 1 : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final BtnTimbi other = (BtnTimbi) obj;
+        if (this.corX != other.corX) {
+            return false;
+        }
+        if (this.corY != other.corY) {
+            return false;
+        }
+        return this.orientacion == other.orientacion;
+    }
+
 }

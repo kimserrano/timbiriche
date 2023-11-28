@@ -20,6 +20,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import utils.JugadorDTO;
 import utils.BtnTimbi;
+import utils.BtnTimbiTrans;
 import utils.SalaDTO;
 import vistaModelo.IVistaModeloSala;
 import vistaModelo.VistaModeloSala;
@@ -100,8 +101,12 @@ public class TableroNegocio implements ITableroNegocio {
     public void pintarMovimiento(int cordX, int cordY, boolean orientacion) {
         //Pintar el boton con las coordenadas
         //procesar movimiento
+        BtnTimbi btnAPintar = BtnTimbiTrans.btnTransferible;
+        btnAPintar.setCorX(cordX);
+        btnAPintar.setCorY(cordY);
+        btnAPintar.setOrientacion(orientacion);
+
         evtBroker.notificar("", Procedencia.tablero);
-        System.out.println("ESTE NO ESTA HECHO");
     }
 
 }

@@ -7,6 +7,8 @@ import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
@@ -95,6 +97,51 @@ public class TimbiricheBoard extends JPanel {
         boton.setBorderPainted(false);
     }
 
+    public void pintarPorFuera(BtnTimbi boton) {
+        System.out.println(boton.toString() + "el bnoton en pintar");
+        configurarFinalBtn(buscarBoton(boton));
+        if (boton.getOrientacion()) {
+            System.out.println(boton.toString() + "el bnoton en horizontal");
+            verHAbajo(boton);
+            verHArriba(boton);
+        } else {
+            System.out.println(boton.toString() + "el bnoton en vertical");
+            verVDer(boton);
+            verVIzq(boton);
+        }
+    }
+
+    private BtnTimbi buscarBoton(BtnTimbi boton) {
+        BtnTimbi btn = new BtnTimbi();
+        System.out.println("entreo a buscarBoton");
+        if (boton.getOrientacion()) {
+            for (int i = 0; i < this.botonesH.length; i++) {
+                for (int j = 0; j < this.botonesH[i].length; j++) {
+                    // Comparar el objeto en la posición actual con el objeto buscado utilizando equals
+                    if (boton.equals(this.botonesH[i][j])) {
+                        System.out.println("Objeto encontrado en la posición [" + i + "][" + j + "]");
+                        btn = this.botonesH[i][j]; // Salir del método si se encuentra el objeto
+
+                    }
+                }
+            }
+            return btn;
+        } else {
+            for (int i = 0; i < this.botonesV.length; i++) {
+                for (int j = 0; j < this.botonesV[i].length; j++) {
+                    // Comparar el objeto en la posición actual con el objeto buscado utilizando equals
+                    if (boton.equals(this.botonesV[i][j])) {
+                        System.out.println("Objeto encontrado en la posición [" + i + "][" + j + "]");
+                        btn = this.botonesV[i][j]; // Salir del método si se encuentra el objeto
+
+                    }
+                }
+            }
+            return btn;
+        }
+
+    }
+
     private void configurarFinalBtn(BtnTimbi boton) {
         System.out.println("pintado");
         boton.setOpaque(true);
@@ -129,12 +176,12 @@ public class TimbiricheBoard extends JPanel {
 
     private void activarBtn(BtnTimbi boton) {
         configurarInicioBtn(boton);
-        System.out.println("activar "+boton.toString());
+        System.out.println("activar " + boton.toString());
         boton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("adentro");
-                verificarOrientacionBtn(boton); 
+                verificarOrientacionBtn(boton);
                 configurarFinalBtn(boton);
             }
         });
