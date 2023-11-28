@@ -314,7 +314,7 @@ public class Tablero extends javax.swing.JFrame implements Suscriptor {
 
     @Override
     public void update() {
-        System.out.println("Hola");
         //boton aux
+        System.out.println("dasd");
     }
 }

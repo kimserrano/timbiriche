@@ -70,7 +70,7 @@ public class SalaNegocio implements ISalaNegocio {
         this.sala = sala;
         return sala;
     }
-
+ 
     @Override
     public void unirseSala(String codigo, String nombre) throws NegocioException {
         try {

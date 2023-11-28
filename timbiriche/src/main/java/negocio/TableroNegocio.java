@@ -8,6 +8,9 @@ import Cliente.Cliente;
 import Cliente.ICliente;
 import static Cliente.OperacionesCliente.movimiento;
 import Cliente.Solicitud;
+import broker.EventBroker;
+import broker.IEventBroker;
+import broker.Procedencia;
 import dominio.Sala;
 import java.io.IOException;
 import java.util.Arrays;
@@ -32,9 +35,11 @@ public class TableroNegocio implements ITableroNegocio {
     private SalaDTO sala = vistaModeloSala.obtenerSala();
     private ICliente cln;
     private JugadorNegocio jugadorNegocio;
+    private IEventBroker evtBroker;
 
     private TableroNegocio() {
         cln = new Cliente();
+        evtBroker = EventBroker.getInstance();
         jugadorNegocio = JugadorNegocio.getInstance();
     }
 
@@ -95,6 +100,7 @@ public class TableroNegocio implements ITableroNegocio {
     public void pintarMovimiento(int cordX, int cordY, boolean orientacion) {
         //Pintar el boton con las coordenadas
         //procesar movimiento
+        evtBroker.notificar("", Procedencia.tablero);
         System.out.println("ESTE NO ESTA HECHO");
     }
 
