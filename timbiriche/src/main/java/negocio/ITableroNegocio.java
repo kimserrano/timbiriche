@@ -16,5 +16,5 @@ public interface ITableroNegocio {
     public void generarTurnos(List<JugadorDTO> jugadores);
     public void otorgarPuntos();
     public void realizarMovimiento(BtnTimbi btn);
-    public void pintarMovimiento(int cordX, int cordY, boolean orientacion);
+    public void pintarMovimiento(int cordX, int cordY, boolean orientacion, String color);
 }

@@ -15,9 +15,27 @@ public class BtnTimbi extends JButton {
     private int corX;
     private int corY;
     private boolean orientacion;
+    private String nickAutor;
+    private String color;
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
 
     public BtnTimbi() {
         super();
+    }
+
+    public String getNickAutor() {
+        return nickAutor;
+    }
+
+    public void setNickAutor(String nickAutor) {
+        this.nickAutor = nickAutor;
     }
 
     public void setCoordenadas(int corX, int corY) {
@@ -51,7 +69,7 @@ public class BtnTimbi extends JButton {
 
     @Override
     public String toString() {
-        return "btnTimbi{" + "corX=" + corX + ", corY=" + corY + ", orientacion=" + orientacion + '}';
+        return "BtnTimbi{" + "corX=" + corX + ", corY=" + corY + ", orientacion=" + orientacion + ", nickAutor=" + nickAutor + ", color=" + color + '}';
     }
 
     @Override

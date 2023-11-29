@@ -13,6 +13,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import utils.BtnTimbi;
+import utils.PntoTimbi;
 import vistaModelo.IVistaModeloTablero;
 import vistaModelo.VistaModeloTablero;
 
@@ -21,11 +22,12 @@ public class TimbiricheBoard extends JPanel {
     private static final int ROWS = 10;
     private static final int COLS = 10;
     private static final int POINT_SIZE = 10;
+    private String colorLocal;
 
     private ArrayList<Point> puntos = new ArrayList<>();
     private BtnTimbi[][] botonesV = new BtnTimbi[ROWS][COLS];
     private BtnTimbi[][] botonesH = new BtnTimbi[ROWS][COLS];
-    private ArrayList<Point> cuadrosCompletados = new ArrayList<>();
+    private ArrayList<PntoTimbi> cuadrosCompletados = new ArrayList<>();
     private IVistaModeloTablero vistaModeloTablero = new VistaModeloTablero();
 
     public TimbiricheBoard() {
@@ -46,14 +48,14 @@ public class TimbiricheBoard extends JPanel {
         }
 
         // Colorea los cuadros completados
-        for (Point cuadro : cuadrosCompletados) {
+        for (PntoTimbi cuadro : cuadrosCompletados) {
             int separacionHor = getWidth() / ROWS;
             int separacionVer = getHeight() / COLS;
 
             int xCuadro = puntos.get(cuadro.y * ROWS + cuadro.x).x + 4;
             int yCuadro = puntos.get(cuadro.y * ROWS + cuadro.x).y + 6;
 
-            g2d.setColor(Color.PINK); // Puedes cambiar este color
+            g2d.setColor(cuadro.getColor()); // Puedes cambiar este color
             g2d.fillRect(xCuadro, yCuadro, separacionHor - 1, separacionVer - 1);
         }
     }
@@ -101,13 +103,13 @@ public class TimbiricheBoard extends JPanel {
         System.out.println(boton.toString() + "el bnoton en pintar");
         configurarFinalBtn(buscarBoton(boton));
         if (boton.getOrientacion()) {
-            System.out.println(boton.toString() + "el bnoton en horizontal");
-            verHAbajo(boton);
-            verHArriba(boton);
+            System.out.println(buscarBoton(boton) + "el bnoton en horizontal");
+            verHAbajo(buscarBoton(boton));
+            verHArriba(buscarBoton(boton));
         } else {
-            System.out.println(boton.toString() + "el bnoton en vertical");
-            verVDer(boton);
-            verVIzq(boton);
+            System.out.println(buscarBoton(boton) + "el bnoton en vertical");
+            verVDer(buscarBoton(boton));
+            verVIzq(buscarBoton(boton));
         }
     }
 
@@ -121,7 +123,8 @@ public class TimbiricheBoard extends JPanel {
                     if (boton.equals(this.botonesH[i][j])) {
                         System.out.println("Objeto encontrado en la posición [" + i + "][" + j + "]");
                         btn = this.botonesH[i][j]; // Salir del método si se encuentra el objeto
-
+                        btn.setColor(boton.getColor());
+                        System.out.println(btn.toString() + " el bnoton despues de asig color");
                     }
                 }
             }
@@ -133,6 +136,8 @@ public class TimbiricheBoard extends JPanel {
                     if (boton.equals(this.botonesV[i][j])) {
                         System.out.println("Objeto encontrado en la posición [" + i + "][" + j + "]");
                         btn = this.botonesV[i][j]; // Salir del método si se encuentra el objeto
+                        btn.setColor(boton.getColor());
+                        System.out.println(btn.toString() + " el bnoton despues de asig color");
 
                     }
                 }
@@ -141,6 +146,7 @@ public class TimbiricheBoard extends JPanel {
         }
 
     }
+    
 
     private void configurarFinalBtn(BtnTimbi boton) {
         System.out.println("pintado");
@@ -167,6 +173,10 @@ public class TimbiricheBoard extends JPanel {
     }
 
     private void verificarOrientacionBtn(BtnTimbi boton) {
+        System.out.println(boton.toString());
+        if(boton.getColor()==null){
+            boton.setColor(colorLocal);
+        }
         if (boton.getOrientacion()) {
             verificarBtnHorizontal(boton);
         } else {
@@ -176,7 +186,6 @@ public class TimbiricheBoard extends JPanel {
 
     private void activarBtn(BtnTimbi boton) {
         configurarInicioBtn(boton);
-        System.out.println("activar " + boton.toString());
         boton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -195,7 +204,7 @@ public class TimbiricheBoard extends JPanel {
             if (!botonesV[x + 1][y].isEnabled()) {
                 if (!botonesH[x][y].isEnabled()) {
                     if (!botonesH[x][y + 1].isEnabled()) {
-                        colorearCuadro(x, y);
+                        colorearCuadro(x, y, boton.getColor());
                     }
                 }
             }
@@ -210,7 +219,7 @@ public class TimbiricheBoard extends JPanel {
             if (!botonesV[x - 1][y].isEnabled()) {
                 if (!botonesH[x - 1][y].isEnabled()) {
                     if (!botonesH[x - 1][y + 1].isEnabled()) {
-                        colorearCuadro(x - 1, y);
+                        colorearCuadro(x - 1, y, boton.getColor());
                     }
                 }
             }
@@ -225,7 +234,7 @@ public class TimbiricheBoard extends JPanel {
             if (!botonesH[x][y + 1].isEnabled()) {
                 if (!botonesV[x][y].isEnabled()) {
                     if (!botonesV[x + 1][y].isEnabled()) {
-                        colorearCuadro(x, y);
+                        colorearCuadro(x, y, boton.getColor());
                     }
                 }
             }
@@ -240,16 +249,25 @@ public class TimbiricheBoard extends JPanel {
             if (!botonesH[x][y - 1].isEnabled()) {
                 if (!botonesV[x][y - 1].isEnabled()) {
                     if (!botonesV[x + 1][y - 1].isEnabled()) {
-                        colorearCuadro(x, y - 1);
+                        colorearCuadro(x, y - 1, boton.getColor());
                     }
                 }
             }
         }
     }
 
-    private void colorearCuadro(int x, int y) {
-        System.out.println("Cuadro completado en (" + x + ", " + y + ")");
-        cuadrosCompletados.add(new Point(x, y));
+    public Color generarColor(String color) {
+        String rgb[] = color.split(",");
+        return new Color(Integer.parseInt(rgb[0]), Integer.parseInt(rgb[1]), Integer.parseInt(rgb[2]));
+    }
+
+    private void colorearCuadro(int x, int y, String color) {
+        System.out.println("Cuadro completado en (" + x + ", " + y + ")" + "color:" + color);
+        PntoTimbi pt = new PntoTimbi(x, y);
+        Color clr = generarColor(color);
+        System.out.println(clr.toString()+"el color essssss");
+        pt.setColor(clr);
+        cuadrosCompletados.add(pt);
         repaint();
     }
 
@@ -283,4 +301,10 @@ public class TimbiricheBoard extends JPanel {
             frame.setVisible(true);
         });
     }
+
+    public void setColorLocal(String colorLocal) {
+        this.colorLocal = colorLocal;
+    }
+    
+    
 }

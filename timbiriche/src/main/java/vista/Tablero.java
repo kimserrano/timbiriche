@@ -75,7 +75,20 @@ public class Tablero extends javax.swing.JFrame implements Suscriptor {
         //vistaModeloTablero.generarTurnos(sala.getJugadores());
         //vistaModeloTablero.imprimirJugadores();
         moduloJugadores();
+        tmb.setColorLocal(getColorLocal());
 
+    }
+
+    private String getColorLocal() {
+        List<JugadorDTO> jugs = this.sala.getJugadores();
+        for (JugadorDTO jug : jugs) {
+            if (jug.getNickname().equalsIgnoreCase(this.lblJugadorLocal.getText())) {
+
+                return jug.getColor();
+
+            }
+        }
+        return "255,255,255";
     }
 
     private void moduloJugadores() {
@@ -320,11 +333,20 @@ public class Tablero extends javax.swing.JFrame implements Suscriptor {
     @Override
     public void update() {
         //boton aux
-        System.out.println("esta en el update");
-
         BtnTimbi btnAPintar = BtnTimbiTrans.btnTransferible;
-        tmb.pintarPorFuera(btnAPintar);
-        System.out.println(btnAPintar.toString() + ".........");
+        if (sala.getJugadores() != null && !sala.getJugadores().isEmpty()) {
 
+            List<JugadorDTO> jugs = this.sala.getJugadores();
+            for (JugadorDTO jug : jugs) {
+                System.out.println(jug + "jugadore del update");
+                System.out.println("jugador del; btn:" + btnAPintar.getNickAutor());
+                if (jug.getNickname().equalsIgnoreCase(btnAPintar.getNickAutor())) {
+                    System.out.println("es igual!");
+                    btnAPintar.setColor(jug.getColor());
+                }
+            }
+        }
+        System.out.println(btnAPintar.toString() + ".........");
+        tmb.pintarPorFuera(btnAPintar);
     }
 }

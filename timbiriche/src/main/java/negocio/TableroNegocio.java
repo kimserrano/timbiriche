@@ -88,6 +88,7 @@ public class TableroNegocio implements ITableroNegocio {
                     .agregarDatos("coordenadaX", String.valueOf(btn.getCorX()))
                     .agregarDatos("coordenadaY", String.valueOf(btn.getCorY()))
                     .agregarDatos("orientacion", String.valueOf(btn.getOrientacion()))
+                    .agregarDatos("nombre", jugadorNegocio.obtenerJugador().getNickname())
                     .agregarOperacion(movimiento)
                     .construir();
             System.out.println("llego a realizarMovimiento teblero negocio");
@@ -98,13 +99,14 @@ public class TableroNegocio implements ITableroNegocio {
     }
 
     @Override
-    public void pintarMovimiento(int cordX, int cordY, boolean orientacion) {
+    public void pintarMovimiento(int cordX, int cordY, boolean orientacion, String nick) {
         //Pintar el boton con las coordenadas
         //procesar movimiento
         BtnTimbi btnAPintar = BtnTimbiTrans.btnTransferible;
         btnAPintar.setCorX(cordX);
         btnAPintar.setCorY(cordY);
         btnAPintar.setOrientacion(orientacion);
+        btnAPintar.setNickAutor(nick);
 
         evtBroker.notificar("", Procedencia.tablero);
     }

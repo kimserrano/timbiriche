@@ -83,6 +83,7 @@ public class Cliente implements ICliente {
         return clnIn.obtenerPuerto(svSockets);
     }
 
+    
     private void avisarEntrada(ipsDTO ips, String codigo) throws IOException {
         List<Integer> puertosMuertos = new ArrayList<>();
         for (String datos : ips.getIppuerto()) {

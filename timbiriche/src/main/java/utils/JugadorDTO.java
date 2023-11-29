@@ -70,4 +70,10 @@ public class JugadorDTO {
         return Objects.equals(this.color, other.color);
     }
 
+    @Override
+    public String toString() {
+        return "JugadorDTO{" + "nickname=" + nickname + ", color=" + color + ", ready=" + ready + '}';
+    }
+
+    
 }
