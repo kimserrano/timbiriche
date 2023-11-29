@@ -111,4 +111,9 @@ public class ModeloTablero implements IModeloTablero {
     public void generarTurnos(List<JugadorDTO> jugadores) {
         tableroN.generarTurnos(jugadores);
     }
+
+    @Override
+    public void anotarPuntoLocal() {
+        tableroN.anotarPuntoLocal();
+    }
 }

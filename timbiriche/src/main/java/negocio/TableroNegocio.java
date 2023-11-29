@@ -91,7 +91,6 @@ public class TableroNegocio implements ITableroNegocio {
                     .agregarDatos("nombre", jugadorNegocio.obtenerJugador().getNickname())
                     .agregarOperacion(movimiento)
                     .construir();
-            System.out.println("llego a realizarMovimiento teblero negocio");
             cln.enviarCoordenadas(solicitud);
         } catch (IOException ex) {
             Logger.getLogger(TableroNegocio.class.getName()).log(Level.SEVERE, null, ex);
@@ -103,6 +102,7 @@ public class TableroNegocio implements ITableroNegocio {
         //Pintar el boton con las coordenadas
         //procesar movimiento
         BtnTimbi btnAPintar = BtnTimbiTrans.btnTransferible;
+        btnAPintar.setName("pintar");
         btnAPintar.setCorX(cordX);
         btnAPintar.setCorY(cordY);
         btnAPintar.setOrientacion(orientacion);
@@ -111,4 +111,10 @@ public class TableroNegocio implements ITableroNegocio {
         evtBroker.notificar("", Procedencia.tablero);
     }
 
+    @Override
+    public void anotarPuntoLocal() {
+        BtnTimbi btnParaAvisarPunto = BtnTimbiTrans.btnTransferible;
+        btnParaAvisarPunto.setName("local");
+        evtBroker.notificar("", Procedencia.tablero);
+    }
 }

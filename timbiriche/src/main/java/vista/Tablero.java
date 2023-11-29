@@ -12,6 +12,7 @@ import java.awt.LayoutManager;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -41,6 +42,7 @@ public class Tablero extends javax.swing.JFrame implements Suscriptor {
     IVistaModeloJugador vistaModeloJugador = new VistaModeloJugador();
     SalaDTO sala;
     TimbiricheBoard tmb;
+    HashMap<String, JLabel> mapaLblsPuntos;
 
     /**
      * Creates new form Tablero
@@ -52,7 +54,7 @@ public class Tablero extends javax.swing.JFrame implements Suscriptor {
         jLJugador1.setFont(customFontSubT);
         jLPtsJ1.setFont(customFontSubT);
         lblPts.setFont(customFontSubT);
-
+        this.mapaLblsPuntos = new HashMap<>();
         this.jLJugador1.setVisible(false);
         this.pnlColorJ1.setVisible(false);
         this.jLPtsJ1.setVisible(false);
@@ -113,6 +115,7 @@ public class Tablero extends javax.swing.JFrame implements Suscriptor {
                     pnlPts.setVisible(true);
 
                     JLabel pts = new JLabel("0");
+                    this.mapaLblsPuntos.put(jugador.getNickname(), pts);
                     pts.setForeground(Color.WHITE);
                     pts.setBounds(this.jLPtsJ1.getBounds());
                     pts.setVisible(true);
@@ -333,7 +336,12 @@ public class Tablero extends javax.swing.JFrame implements Suscriptor {
     @Override
     public void update() {
         //boton aux
+
         BtnTimbi btnAPintar = BtnTimbiTrans.btnTransferible;
+        if (btnAPintar.getName().equalsIgnoreCase("local")) {
+            anotarPunto(this.lblJugadorLocal.getText());
+            return;
+        }
         if (sala.getJugadores() != null && !sala.getJugadores().isEmpty()) {
 
             List<JugadorDTO> jugs = this.sala.getJugadores();
@@ -347,6 +355,16 @@ public class Tablero extends javax.swing.JFrame implements Suscriptor {
             }
         }
         System.out.println(btnAPintar.toString() + ".........");
-        tmb.pintarPorFuera(btnAPintar);
+        if (tmb.pintarPorFuera(btnAPintar)) {
+            anotarPunto(btnAPintar.getNickAutor());
+        }
+
+    }
+
+    private void anotarPunto(String nickname) {
+        JLabel lbl = this.mapaLblsPuntos.get(nickname);
+        int pts = Integer.parseInt(lbl.getText());
+        pts++;
+        lbl.setText(String.valueOf(pts));
     }
 }

@@ -63,4 +63,9 @@ public class VistaModeloTablero implements IVistaModeloTablero{
     public void generarTurnos(List<JugadorDTO> jugadores) {
         modelTab.generarTurnos(jugadores);
     }
+
+    @Override
+    public void anotarPuntoLocal() {
+        modelTab.anotarPuntoLocal();
+    }
 }
