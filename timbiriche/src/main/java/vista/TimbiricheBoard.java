@@ -111,23 +111,28 @@ public class TimbiricheBoard extends JPanel {
         BtnTimbi btn = buscarBoton(boton);
 
         configurarFinalBtn(btn);
+        boolean retorno = false;
         if (boton.getOrientacion()) {
-            if (verHAbajo(btn)) {
-                return true;
-            } else if (verHArriba(btn)) {
 
-                return true;
+            if (verHAbajo(btn)) {
+                retorno = true;
             }
+            if (verHArriba(btn)) {
+
+                retorno = true;
+            }
+
         } else {
             if (verVDer(btn)) {
 
-                return true;
-            } else if (verVIzq(btn)) {
-                return true;
+                retorno = true;
+            }
+            if (verVIzq(btn)) {
+                retorno = true;
             }
         }
 
-        return false;
+        return retorno;
     }
 
     private BtnTimbi buscarBoton(BtnTimbi boton) {
@@ -169,25 +174,30 @@ public class TimbiricheBoard extends JPanel {
 
     private boolean verificarBtnHorizontal(BtnTimbi boton) {
         vistaModeloTablero.verificarMovimiento(boton);
+        boolean retorno = false;
         if (verHAbajo(boton)) {
-            return true;
-        } else if (verHArriba(boton)) {
-            return true;
+            retorno = true;
         }
-        return false;
+        if (verHArriba(boton)) {
+            retorno = true;
+        }
+        return retorno;
     }
 
     private boolean verificarBtnVertical(BtnTimbi boton) {
         vistaModeloTablero.verificarMovimiento(boton);
+        boolean retorno = false;
+
         if (verVDer(boton)) {
-            return true;
-        } else if (verVIzq(boton)) {
-            return true;
+            retorno = true;
         }
-        return false;
+        if (verVIzq(boton)) {
+            retorno = true;
+        }
+        return retorno;
 
     }
-
+    
     private boolean verificarOrientacionBtn(BtnTimbi boton) {
         if (boton.getColor() == null) {
             boton.setColor(colorLocal);
