@@ -23,8 +23,8 @@ import vistaModelo.VistaModeloTablero;
 
 public class TimbiricheBoard extends JPanel {
 
-    private static final int ROWS = 5;
-    private static final int COLS = 5;
+    private static final int ROWS = 3;
+    private static final int COLS = 3;
     private static final int POINT_SIZE = 10;
     private String colorLocal;
     private int ptosAnotadosPorClick = 0;

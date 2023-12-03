@@ -175,4 +175,14 @@ public class Cliente implements ICliente {
         clnOut.enviarCoordenadasBtn(solicitud, ips);
     }
 
+    public void enviarGanador(Solicitud solicitud) throws IOException {
+        String ganador = solicitud.obtenerDato("ganador");
+        String codigo = solicitud.obtenerDato("codigo");
+
+        int puerto = Integer.parseInt(solicitud.obtenerDato("puerto"));
+
+        ipsDTO ips = obtenerIPs(codigo, puerto);
+        clnOut.enviarGanador(solicitud, ips);
+
+    }
 }

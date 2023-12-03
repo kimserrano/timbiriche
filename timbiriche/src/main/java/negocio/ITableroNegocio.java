@@ -13,10 +13,21 @@ import utils.BtnTimbi;
  * @author JORGE
  */
 public interface ITableroNegocio {
+
     public void generarTurnos(List<JugadorDTO> jugadores);
+
     public void otorgarPuntos();
+
     public void realizarMovimiento(BtnTimbi btn);
+
     public void pintarMovimiento(int cordX, int cordY, boolean orientacion, String color, int puerto);
+
     public void anotarPuntoLocal();
-    public void actualizarAccionesTablero(List<JugadorDTO> jugadores) ;
+
+    public void actualizarAccionesTablero(List<JugadorDTO> jugadores);
+
+    public void juegoTerminado(String ganador);
+
+    public void mostrarGanador(String ganador);
+
 }

@@ -24,11 +24,13 @@ public interface ICliente {
     public ipsDTO agregarSala(String codigo) throws IOException;
 
     public ipsDTO obtenerNuevaSala(String codigo) throws IOException;
-    
+
     public void eliminarPuerto(Solicitud solicitud) throws IOException;
 
     public void enviarEstado(Solicitud solicitud) throws IOException;
-    
+
     public void enviarCoordenadas(Solicitud solicitud) throws IOException;
 
-}
+    public void enviarGanador(Solicitud solicitud) throws IOException ;
+
+    }

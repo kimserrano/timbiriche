@@ -26,7 +26,9 @@ public interface IModeloTablero {
     public void generarTurnos(List<JugadorDTO> jugadores);
 
     public void otorgarPuntos();
-    
+
     public void anotarPuntoLocal();
-    
+
+    public void notificarGanador(String ganador);
+
 }

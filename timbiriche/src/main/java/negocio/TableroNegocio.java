@@ -38,7 +38,7 @@ public class TableroNegocio implements ITableroNegocio {
     private SalaDTO sala = vistaModeloSala.obtenerSala();
     private ICliente cln;
     private JugadorNegocio jugadorNegocio;
-    private SalaNegocio salaNegocio=SalaNegocio.getInstance();
+    private SalaNegocio salaNegocio = SalaNegocio.getInstance();
     private IEventBroker evtBroker;
     int cordX, cordY;
     boolean orientacion;
@@ -112,20 +112,36 @@ public class TableroNegocio implements ITableroNegocio {
         }
     }
 
+    @Override
+    public void juegoTerminado(String ganador) {
+
+        try {
+            Solicitud solicitud = new Solicitud.SolicitudBuilder()
+                    .agregarDatos("ganador", ganador)
+                    .agregarDatos("puerto", jugadorNegocio.obtenerJugador().getPuerto() + "")
+                    .agregarDatos("codigo", sala.getCodigo())
+                    .construir();
+
+            cln.enviarGanador(solicitud);
+        } catch (IOException ex) {
+            Logger.getLogger(TableroNegocio.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @Override
     public void pintarMovimiento(int cordX, int cordY, boolean orientacion, String nick, int puerto) {
         //Pintar el boton con las coordenadas
         //procesar movimiento
         BtnTimbi btnAPintar = BtnTimbiTrans.btnTransferible;
-        Sala sala= this.salaNegocio.actualizarSala();
-        HashMap<Integer, String> mapaColoresPorPuerto=new HashMap<>();
-        List<Jugador> jugadores=sala.getJugadores();
-        for(Jugador jug: jugadores){
+        Sala sala = this.salaNegocio.actualizarSala();
+        HashMap<Integer, String> mapaColoresPorPuerto = new HashMap<>();
+        List<Jugador> jugadores = sala.getJugadores();
+        for (Jugador jug : jugadores) {
             mapaColoresPorPuerto.put(jug.getPuerto(), jug.getColor());
         }
         //if (btnAPintar.getNickAutor().equalsIgnoreCase(esTurno(turnoActual).getNickname())) {
         btnAPintar.setName("pintar");
         btnAPintar.setCorX(cordX);
-        btnAPintar.setPuerto(puerto);
         btnAPintar.setCorY(cordY);
         btnAPintar.setOrientacion(orientacion);
         btnAPintar.setNickAutor(nick);
@@ -137,6 +153,14 @@ public class TableroNegocio implements ITableroNegocio {
         //}
 
         // }
+    }
+
+    @Override
+    public void mostrarGanador(String ganador) {
+        BtnTimbi btnGanador = BtnTimbiTrans.btnTransferible;
+        btnGanador.setNickAutor(ganador);
+        btnGanador.setColor(null);
+        evtBroker.notificar("", Procedencia.tablero);
     }
 
     @Override

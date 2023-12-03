@@ -111,6 +111,12 @@ public class ModeloTablero implements IModeloTablero {
     public void anotarPuntoLocal() {
         tableroN.anotarPuntoLocal();
     }
+    
+    
+    @Override
+    public void notificarGanador(String ganador){
+        tableroN.juegoTerminado(ganador);
+    }
 
 
 }

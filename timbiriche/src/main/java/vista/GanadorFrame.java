@@ -22,7 +22,7 @@ public class GanadorFrame extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(this);
         setImageLabel(jLblTrofeo,"src\\main\\java\\imagenes\\trofeo.png");
-        jLblNickGanadorT.setText(ganador);
+        jLblNickGanadorT.setText(reemplazarComasPorEspacios(ganador));
     }
     
     private void setImageLabel(JLabel lblNombre, String ruta){
@@ -30,6 +30,10 @@ public class GanadorFrame extends javax.swing.JFrame {
         Icon icon = new ImageIcon(trofeo.getImage().getScaledInstance(lblNombre.getWidth(), lblNombre.getHeight(), Image.SCALE_DEFAULT));
         lblNombre.setIcon(icon);
         this.repaint();
+    }
+    
+    public static String reemplazarComasPorEspacios(String input) {
+        return input.replace(",", " ");
     }
 
     /**

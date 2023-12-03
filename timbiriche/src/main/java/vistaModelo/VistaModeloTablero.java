@@ -69,5 +69,8 @@ public class VistaModeloTablero implements IVistaModeloTablero{
         modelTab.anotarPuntoLocal();
     }
 
-  
+    @Override
+    public void notificarGanador(String ganador){
+        modelTab.notificarGanador(ganador);
+    }
 }

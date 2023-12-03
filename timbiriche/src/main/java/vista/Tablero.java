@@ -353,8 +353,13 @@ public class Tablero extends javax.swing.JFrame implements Suscriptor {
     public void update() {
         jLabeTurnoNick.setText(nickTurnoActual);
         BtnTimbi btnAPintar = BtnTimbiTrans.btnTransferible;
+        if (btnAPintar.getColor() == null) {
+            this.dispose();
+            ControlVistas.cambiarFrameGanador(this, btnAPintar.getNickAutor());
+            return;
+        }
         if (btnAPintar.getName().equalsIgnoreCase("local")) {
-            anotarPunto(this.lblJugadorLocal.getText(),tmb.getPtosAnotadosPorClick());
+            anotarPunto(this.lblJugadorLocal.getText(), tmb.getPtosAnotadosPorClick());
             Tablero.turnoActual--;
             return;
         }
@@ -367,7 +372,6 @@ public class Tablero extends javax.swing.JFrame implements Suscriptor {
 //                }
 //            }
 //        }
-
         verificarTurno();
         if (btnAPintar.getNickAutor().equalsIgnoreCase(Tablero.nickTurnoActual)) {
             if (tmb.pintarPorFuera(btnAPintar)) {
@@ -385,8 +389,10 @@ public class Tablero extends javax.swing.JFrame implements Suscriptor {
         }
 
         if (tmb.isCompleted()) {
+            String ganador=reemplazarEspaciosPorComas(determinarGanador());
+            this.vistaModeloTablero.notificarGanador(ganador);
             this.dispose();
-            ControlVistas.cambiarFrameGanador(this, determinarGanador());
+            ControlVistas.cambiarFrameGanador(this, ganador);
         }
     }
 
@@ -415,10 +421,14 @@ public class Tablero extends javax.swing.JFrame implements Suscriptor {
         }
     }
 
+    private static String reemplazarEspaciosPorComas(String input) {
+        return input.replace(" ", ",");
+    }
+    
     private void anotarPunto(String nickname, int numPtos) {
         JLabel lbl = this.mapaLblsPuntos.get(nickname);
         int pts = Integer.parseInt(lbl.getText());
-        pts+=numPtos;
+        pts += numPtos;
         lbl.setText(String.valueOf(pts));
     }
 }

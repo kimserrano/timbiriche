@@ -34,6 +34,8 @@ public interface IVistaModeloTablero {
     
     public void anotarPuntoLocal();
     
+    public void notificarGanador(String ganador);
+    
    
 }
 
