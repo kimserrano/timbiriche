@@ -16,11 +16,21 @@ public class BtnTimbi extends JButton {
     private int corY;
     private boolean orientacion;
     private String nickAutor;
+    private int puerto;
     private String color;
 
     public String getColor() {
         return color;
     }
+
+    public int getPuerto() {
+        return puerto;
+    }
+
+    public void setPuerto(int puerto) {
+        this.puerto = puerto;
+    }
+    
 
     public void setColor(String color) {
         this.color = color;
