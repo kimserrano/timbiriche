@@ -68,4 +68,6 @@ public class VistaModeloTablero implements IVistaModeloTablero{
     public void anotarPuntoLocal() {
         modelTab.anotarPuntoLocal();
     }
+
+  
 }

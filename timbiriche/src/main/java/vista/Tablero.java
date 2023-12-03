@@ -6,16 +6,16 @@ package vista;
 
 import broker.Suscriptor;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Font;
-import java.awt.LayoutManager;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import utils.BtnTimbi;
 import utils.BtnTimbiTrans;
@@ -25,7 +25,6 @@ import vistaModelo.IVistaModeloJugador;
 import vistaModelo.IVistaModeloSala;
 import vistaModelo.IVistaModeloTablero;
 import vistaModelo.VistaModeloJugador;
-import vistaModelo.VistaModeloSala;
 import vistaModelo.VistaModeloTablero;
 
 /**
@@ -43,6 +42,9 @@ public class Tablero extends javax.swing.JFrame implements Suscriptor {
     SalaDTO sala;
     TimbiricheBoard tmb;
     HashMap<String, JLabel> mapaLblsPuntos;
+    public static int turnoActual = 0;
+    public static String nickTurnoActual;
+    List<JugadorDTO> jugadores;
 
     /**
      * Creates new form Tablero
@@ -58,8 +60,9 @@ public class Tablero extends javax.swing.JFrame implements Suscriptor {
         this.jLJugador1.setVisible(false);
         this.pnlColorJ1.setVisible(false);
         this.jLPtsJ1.setVisible(false);
-        // PRUEBAAA, VA EN MODELO SE SABE 
+//      PRUEBAAA, VA EN MODELO SE SABE 
         tmb = new TimbiricheBoard();
+
         this.pnlTablero.add(tmb);
 
         this.addWindowListener(new WindowAdapter() {
@@ -70,12 +73,12 @@ public class Tablero extends javax.swing.JFrame implements Suscriptor {
             }
         });
         this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-        //    this.pnlTablero.getComponent(0).setBounds(-50, -40, 972, 673);
         vistaModeloTablero = new VistaModeloTablero();
         lblJugadorLocal.setText(vistaModeloJugador.solicitarJugador().getNickname());
         sala = vistaModeloTablero.obtenerSala();
-        //vistaModeloTablero.generarTurnos(sala.getJugadores());
-        //vistaModeloTablero.imprimirJugadores();
+        jugadores = sala.getJugadores();
+        nickTurnoActual = jugadores.get(turnoActual).getNickname();
+        jLabeTurnoNick.setText(nickTurnoActual);
         moduloJugadores();
         tmb.setColorLocal(getColorLocal());
 
@@ -96,17 +99,14 @@ public class Tablero extends javax.swing.JFrame implements Suscriptor {
     private void moduloJugadores() {
         System.out.println("ras");
         int paddingVertical = 0;
-
-//        JugadorDTO[] jugadoresDTO = vistaModeloTablero.recuperarJugadores();
         if (sala != null) {
             if (sala.getJugadores() != null && !sala.getJugadores().isEmpty()) {
                 int i = 0;
                 for (JugadorDTO jugador : sala.getJugadores()) {
-                    System.out.println("aqui");
+
                     JLabel nomJugador = new JLabel(jugador.getNickname());
                     nomJugador.setBounds(this.jLJugador1.getX(), this.jLJugador1.getY() + paddingVertical, 96, 32);
                     nomJugador.setVisible(true);
-                    System.out.println(nomJugador.getBounds());
                     this.pnlFondo.add(nomJugador);
 
                     JPanel pnlPts = new JPanel();
@@ -157,6 +157,7 @@ public class Tablero extends javax.swing.JFrame implements Suscriptor {
         lblJugador = new javax.swing.JLabel();
         lblJugadorLocal = new javax.swing.JLabel();
         jugador1 = new javax.swing.JLabel();
+        jLabeTurnoNick = new javax.swing.JLabel();
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
@@ -221,6 +222,8 @@ public class Tablero extends javax.swing.JFrame implements Suscriptor {
         jugador1.setFont(new java.awt.Font("Javanese Text", 0, 24)); // NOI18N
         jugador1.setText("Jugador:");
 
+        jLabeTurnoNick.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+
         javax.swing.GroupLayout pnlFondoLayout = new javax.swing.GroupLayout(pnlFondo);
         pnlFondo.setLayout(pnlFondoLayout);
         pnlFondoLayout.setHorizontalGroup(
@@ -233,13 +236,15 @@ public class Tablero extends javax.swing.JFrame implements Suscriptor {
                         .addContainerGap())
                     .addGroup(pnlFondoLayout.createSequentialGroup()
                         .addComponent(pnlTablero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 88, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 90, Short.MAX_VALUE)
                         .addGroup(pnlFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(pnlFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnlFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlFondoLayout.createSequentialGroup()
                                     .addComponent(jLabelTurno, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGap(72, 72, 72))
                                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlFondoLayout.createSequentialGroup()
+                                    .addComponent(jLabeTurnoNick, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(lblPts, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGap(24, 24, 24)))
                             .addGroup(pnlFondoLayout.createSequentialGroup()
@@ -277,7 +282,9 @@ public class Tablero extends javax.swing.JFrame implements Suscriptor {
                     .addGroup(pnlFondoLayout.createSequentialGroup()
                         .addComponent(jLabelTurno, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblPts)
+                        .addGroup(pnlFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblPts)
+                            .addComponent(jLabeTurnoNick))
                         .addGap(28, 28, 28)
                         .addGroup(pnlFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLJugador1)
@@ -321,6 +328,7 @@ public class Tablero extends javax.swing.JFrame implements Suscriptor {
     private javax.swing.JButton btnSalir;
     private javax.swing.JLabel jLJugador1;
     private javax.swing.JLabel jLPtsJ1;
+    private javax.swing.JLabel jLabeTurnoNick;
     private javax.swing.JLabel jLabelTurno;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea1;
@@ -333,32 +341,78 @@ public class Tablero extends javax.swing.JFrame implements Suscriptor {
     private javax.swing.JPanel pnlTablero;
     // End of variables declaration//GEN-END:variables
 
+    private void verificarTurno() {
+        if (Tablero.turnoActual >= jugadores.size()) {
+            Tablero.turnoActual = 0;
+        }
+        JugadorDTO jugadorTurnoActual = jugadores.get(Tablero.turnoActual);
+        Tablero.nickTurnoActual = jugadorTurnoActual.getNickname();
+    }
+
     @Override
     public void update() {
-        //boton aux
-
+        jLabeTurnoNick.setText(nickTurnoActual);
         BtnTimbi btnAPintar = BtnTimbiTrans.btnTransferible;
         if (btnAPintar.getName().equalsIgnoreCase("local")) {
             anotarPunto(this.lblJugadorLocal.getText());
+            Tablero.turnoActual--;
             return;
         }
-        if (sala.getJugadores() != null && !sala.getJugadores().isEmpty()) {
 
+        if (sala.getJugadores() != null && !sala.getJugadores().isEmpty()) {
             List<JugadorDTO> jugs = this.sala.getJugadores();
             for (JugadorDTO jug : jugs) {
-                System.out.println(jug + "jugadore del update");
-                System.out.println("jugador del; btn:" + btnAPintar.getNickAutor());
                 if (jug.getNickname().equalsIgnoreCase(btnAPintar.getNickAutor())) {
-                    System.out.println("es igual!");
                     btnAPintar.setColor(jug.getColor());
                 }
             }
         }
-        System.out.println(btnAPintar.toString() + ".........");
-        if (tmb.pintarPorFuera(btnAPintar)) {
-            anotarPunto(btnAPintar.getNickAutor());
+
+        verificarTurno();
+        if (btnAPintar.getNickAutor().equalsIgnoreCase(Tablero.nickTurnoActual)) {
+            if (tmb.pintarPorFuera(btnAPintar)) {
+                anotarPunto(btnAPintar.getNickAutor());
+                Tablero.turnoActual--;
+            }
+            Tablero.turnoActual++;
+        } else {
+            JOptionPane.showMessageDialog(
+                    null,
+                    "Debes esperar tu turno",
+                    "Error en movimiento",
+                    JOptionPane.ERROR_MESSAGE
+            );
         }
 
+        if (tmb.isCompleted()) {
+            this.dispose();
+            ControlVistas.cambiarFrameGanador(this, determinarGanador());
+        }
+    }
+
+    private String determinarGanador() {
+        List<String> ganadores = new ArrayList<>();
+        int maxPuntos = -1;
+
+        for (Map.Entry<String, JLabel> entry : mapaLblsPuntos.entrySet()) {
+            String nickname = entry.getKey();
+            JLabel lbl = entry.getValue();
+            int puntos = Integer.parseInt(lbl.getText());
+
+            if (puntos > maxPuntos) {
+                maxPuntos = puntos;
+                ganadores.clear();  // Limpiar la lista de ganadores ya que encontramos un nuevo máximo
+                ganadores.add(nickname);
+            } else if (puntos == maxPuntos) {
+                ganadores.add(nickname);  // Agregar al jugador a la lista de ganadores en caso de empate
+            }
+        }
+
+        if (ganadores.size() == 1) {
+            return "El ganador es: " + ganadores.get(0);
+        } else {
+            return "Empate entre: " + String.join(" y ", ganadores);
+        }
     }
 
     private void anotarPunto(String nickname) {

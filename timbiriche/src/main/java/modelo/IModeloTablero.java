@@ -28,4 +28,5 @@ public interface IModeloTablero {
     public void otorgarPuntos();
     
     public void anotarPuntoLocal();
+    
 }

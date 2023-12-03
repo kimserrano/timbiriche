@@ -18,4 +18,5 @@ public interface ITableroNegocio {
     public void realizarMovimiento(BtnTimbi btn);
     public void pintarMovimiento(int cordX, int cordY, boolean orientacion, String color);
     public void anotarPuntoLocal();
+    public void actualizarAccionesTablero(List<JugadorDTO> jugadores) ;
 }

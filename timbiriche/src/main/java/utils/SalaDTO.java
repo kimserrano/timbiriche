@@ -11,6 +11,7 @@ import java.util.List;
  * @author Elkur
  */
 public class SalaDTO {
+
     private List<JugadorDTO> jugadores;
     private String codigo;
 
@@ -34,4 +35,6 @@ public class SalaDTO {
     public void setCodigo(String codigo) {
         this.codigo = codigo;
     }
+
+ 
 }

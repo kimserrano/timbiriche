@@ -33,6 +33,8 @@ public interface IVistaModeloTablero {
     public void generarTurnos(List<JugadorDTO> jugadores);
     
     public void anotarPuntoLocal();
+    
+   
 }
 
     

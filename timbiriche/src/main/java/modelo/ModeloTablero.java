@@ -38,8 +38,6 @@ public class ModeloTablero implements IModeloTablero {
         salaN = SalaNegocio.getInstance();
         tableroN = TableroNegocio.getInstance();
         shuffleTurnos(this.obtenerSala().getJugadores().toArray());
-        
-
     }
 
     private static <T> void shuffleTurnos(T[] array) {
@@ -53,8 +51,6 @@ public class ModeloTablero implements IModeloTablero {
             System.out.println(jugador);
         }
     }
-
-    
 
     @Override
     public JugadorDTO[] recuperarJugadores() {
@@ -98,7 +94,6 @@ public class ModeloTablero implements IModeloTablero {
 
     @Override
     public void movimiento(BtnTimbi btn) {
-        System.out.println("jalaa "+ btn.toString());
         tableroN.realizarMovimiento(btn);
     }
 
@@ -106,7 +101,7 @@ public class ModeloTablero implements IModeloTablero {
     public void otorgarPuntos() {
         tableroN.otorgarPuntos();
     }
-    
+
     @Override
     public void generarTurnos(List<JugadorDTO> jugadores) {
         tableroN.generarTurnos(jugadores);
@@ -116,4 +111,6 @@ public class ModeloTablero implements IModeloTablero {
     public void anotarPuntoLocal() {
         tableroN.anotarPuntoLocal();
     }
+
+
 }

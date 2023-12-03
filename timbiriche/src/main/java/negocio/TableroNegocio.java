@@ -37,6 +37,9 @@ public class TableroNegocio implements ITableroNegocio {
     private ICliente cln;
     private JugadorNegocio jugadorNegocio;
     private IEventBroker evtBroker;
+    int cordX, cordY;
+    boolean orientacion;
+    String nick;
 
     private TableroNegocio() {
         cln = new Cliente();
@@ -59,19 +62,24 @@ public class TableroNegocio implements ITableroNegocio {
         lista.toArray(array); // Convierte la lista mezclada de nuevo a un array
     }
 
-    private void actualizarAccionesTablero(List<JugadorDTO> jugadores) {
-        for (int i = 0; i < jugadores.size(); i++) {
-            boolean esTurnoJugador = (i == turnoActual);
-            // Habilitar o deshabilitar la interacción según el turno
-            // Puedes adaptar esto según la lógica de tu aplicación y los componentes específicos que estás utilizando
-            // Por ejemplo, si estás utilizando JButton, puedes usar setEnabled
-            // Ejemplo: boton.setEnabled(esTurnoJugador);
-        }
+    @Override
+    public void actualizarAccionesTablero(List<JugadorDTO> jugadores) {
+//        BtnTimbi btn = BtnTimbiTrans.btnTransferible;
+//        // for (int i = 0; i < jugadores.size(); i++) {
+//        if (btn.getNickAutor().equalsIgnoreCase(esTurno(turnoActual).getNickname())) {
+//            pintarMovimiento(cordX, cordY, orientacion, nick);
+//            turnoActual++;
+//        } else {
+//            System.out.println("NO ES TU TURNOOOOOOOOO");
+//            //}
+//
+//        }
     }
 
     @Override
     public void generarTurnos(List<JugadorDTO> jugadores) {
         System.out.println("TODAVIA NO ESTA HECHO EL GENERAR TURNOS");
+
     }
 
     @Override
@@ -92,6 +100,10 @@ public class TableroNegocio implements ITableroNegocio {
                     .agregarOperacion(movimiento)
                     .construir();
             cln.enviarCoordenadas(solicitud);
+//            cordX = Integer.valueOf(solicitud.obtenerDato("coordenadaX"));
+//            cordY = Integer.valueOf(solicitud.obtenerDato("coordenadaY"));
+//            orientacion = Boolean.valueOf(solicitud.obtenerDato("orientacion"));
+//            nick = solicitud.obtenerDato("nombre");
         } catch (IOException ex) {
             Logger.getLogger(TableroNegocio.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -102,13 +114,19 @@ public class TableroNegocio implements ITableroNegocio {
         //Pintar el boton con las coordenadas
         //procesar movimiento
         BtnTimbi btnAPintar = BtnTimbiTrans.btnTransferible;
+        //if (btnAPintar.getNickAutor().equalsIgnoreCase(esTurno(turnoActual).getNickname())) {
         btnAPintar.setName("pintar");
         btnAPintar.setCorX(cordX);
         btnAPintar.setCorY(cordY);
         btnAPintar.setOrientacion(orientacion);
         btnAPintar.setNickAutor(nick);
-
         evtBroker.notificar("", Procedencia.tablero);
+        // turnoActual++;
+        // } else {
+        // System.out.println("NO ES TU TURNOOOOOOOOO");
+        //}
+
+        // }
     }
 
     @Override

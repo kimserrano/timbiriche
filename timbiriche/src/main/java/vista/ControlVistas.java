@@ -40,12 +40,18 @@ public class ControlVistas {
             case 5:
                 new Tablero().setVisible(true);
                 break;
-        }
+               }
     }
 
     public static SalaFrame getSalaF() {
         return salaF;
     }
+    
+       
+    public static void cambiarFrameGanador(JFrame ventana, String ganador) {
+        GanadorFrame ganadorFrame =  new GanadorFrame(ganador);
+        ganadorFrame.setVisible(true);
+    }  
     
     public static void cambiarATableroNuevo(JFrame ventana) {
         Tablero tablero =  new Tablero();
