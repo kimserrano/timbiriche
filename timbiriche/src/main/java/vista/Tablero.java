@@ -359,14 +359,14 @@ public class Tablero extends javax.swing.JFrame implements Suscriptor {
             return;
         }
 
-//        if (sala.getJugadores() != null && !sala.getJugadores().isEmpty()) {
-//            List<JugadorDTO> jugs = this.sala.getJugadores();
-//            for (JugadorDTO jug : jugs) {
-//                if (jug.getNickname().equalsIgnoreCase(btnAPintar.getNickAutor())) {
-//                    btnAPintar.setColor(jug.getColor());
-//                }
-//            }
-//        }
+        if (sala.getJugadores() != null && !sala.getJugadores().isEmpty()) {
+            List<JugadorDTO> jugs = this.sala.getJugadores();
+            for (JugadorDTO jug : jugs) {
+                if (jug.getNickname().equalsIgnoreCase(btnAPintar.getNickAutor())) {
+                    btnAPintar.setColor(jug.getColor());
+                }
+            }
+        }
 
         verificarTurno();
         if (btnAPintar.getNickAutor().equalsIgnoreCase(Tablero.nickTurnoActual)) {

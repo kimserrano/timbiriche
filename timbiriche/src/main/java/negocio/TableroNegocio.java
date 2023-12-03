@@ -11,12 +11,10 @@ import Cliente.Solicitud;
 import broker.EventBroker;
 import broker.IEventBroker;
 import broker.Procedencia;
-import dominio.Jugador;
 import dominio.Sala;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -38,7 +36,6 @@ public class TableroNegocio implements ITableroNegocio {
     private SalaDTO sala = vistaModeloSala.obtenerSala();
     private ICliente cln;
     private JugadorNegocio jugadorNegocio;
-    private SalaNegocio salaNegocio=SalaNegocio.getInstance();
     private IEventBroker evtBroker;
     int cordX, cordY;
     boolean orientacion;
@@ -112,24 +109,17 @@ public class TableroNegocio implements ITableroNegocio {
         }
     }
 
-    public void pintarMovimiento(int cordX, int cordY, boolean orientacion, String nick, int puerto) {
+    @Override
+    public void pintarMovimiento(int cordX, int cordY, boolean orientacion, String nick) {
         //Pintar el boton con las coordenadas
         //procesar movimiento
         BtnTimbi btnAPintar = BtnTimbiTrans.btnTransferible;
-        Sala sala= this.salaNegocio.actualizarSala();
-        HashMap<Integer, String> mapaColoresPorPuerto=new HashMap<>();
-        List<Jugador> jugadores=sala.getJugadores();
-        for(Jugador jug: jugadores){
-            mapaColoresPorPuerto.put(jug.getPuerto(), jug.getColor());
-        }
         //if (btnAPintar.getNickAutor().equalsIgnoreCase(esTurno(turnoActual).getNickname())) {
         btnAPintar.setName("pintar");
         btnAPintar.setCorX(cordX);
-        btnAPintar.setPuerto(puerto);
         btnAPintar.setCorY(cordY);
         btnAPintar.setOrientacion(orientacion);
         btnAPintar.setNickAutor(nick);
-        btnAPintar.setColor(mapaColoresPorPuerto.get(puerto));
         evtBroker.notificar("", Procedencia.tablero);
         // turnoActual++;
         // } else {

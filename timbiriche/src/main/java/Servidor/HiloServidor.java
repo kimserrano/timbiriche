@@ -78,7 +78,7 @@ public class HiloServidor implements Runnable {
             salaN.indicarListo(operacion[1],operacion[2]);
         }else if(operacion[0].equalsIgnoreCase("movimiento")){
             tableroN=TableroNegocio.getInstance();
-            tableroN.pintarMovimiento(Integer.parseInt(operacion[1]), Integer.parseInt(operacion[2]), Boolean.parseBoolean(operacion[3]), String.valueOf(operacion[4]), Integer.parseInt(operacion[5]));
+            tableroN.pintarMovimiento(Integer.parseInt(operacion[1]), Integer.parseInt(operacion[2]), Boolean.parseBoolean(operacion[3]), String.valueOf(operacion[4]));
         }
     }
 }
