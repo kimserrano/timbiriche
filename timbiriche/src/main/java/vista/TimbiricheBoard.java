@@ -27,6 +27,7 @@ public class TimbiricheBoard extends JPanel {
     private static final int COLS = 5;
     private static final int POINT_SIZE = 10;
     private String colorLocal;
+    private int ptosAnotadosPorClick = 0;
 
     private ArrayList<Point> puntos = new ArrayList<>();
     private BtnTimbi[][] botonesV = new BtnTimbi[ROWS][COLS];
@@ -43,6 +44,10 @@ public class TimbiricheBoard extends JPanel {
         setSize(872, 573);
         calcularPuntos();
         crearBotones();
+    }
+
+    public int getPtosAnotadosPorClick() {
+        return ptosAnotadosPorClick;
     }
 
     @Override
@@ -109,25 +114,32 @@ public class TimbiricheBoard extends JPanel {
 
     public boolean pintarPorFuera(BtnTimbi boton) {
         BtnTimbi btn = buscarBoton(boton);
+        this.reiniciarPtosAnotadosPorClick();
 
         configurarFinalBtn(btn);
         boolean retorno = false;
         if (boton.getOrientacion()) {
 
             if (verHAbajo(btn)) {
+                this.ptosAnotadosPorClick++;
+
                 retorno = true;
             }
             if (verHArriba(btn)) {
+                this.ptosAnotadosPorClick++;
 
                 retorno = true;
             }
 
         } else {
             if (verVDer(btn)) {
+                this.ptosAnotadosPorClick++;
 
                 retorno = true;
             }
             if (verVIzq(btn)) {
+                this.ptosAnotadosPorClick++;
+
                 retorno = true;
             }
         }
@@ -177,9 +189,13 @@ public class TimbiricheBoard extends JPanel {
         boolean retorno = false;
         if (verHAbajo(boton)) {
             retorno = true;
+            this.ptosAnotadosPorClick++;
+
         }
         if (verHArriba(boton)) {
             retorno = true;
+            this.ptosAnotadosPorClick++;
+
         }
         return retorno;
     }
@@ -187,17 +203,20 @@ public class TimbiricheBoard extends JPanel {
     private boolean verificarBtnVertical(BtnTimbi boton) {
         vistaModeloTablero.verificarMovimiento(boton);
         boolean retorno = false;
-
         if (verVDer(boton)) {
             retorno = true;
+            this.ptosAnotadosPorClick++;
+
         }
         if (verVIzq(boton)) {
             retorno = true;
+            this.ptosAnotadosPorClick++;
+
         }
         return retorno;
 
     }
-    
+
     private boolean verificarOrientacionBtn(BtnTimbi boton) {
         if (boton.getColor() == null) {
             boton.setColor(colorLocal);
@@ -207,6 +226,10 @@ public class TimbiricheBoard extends JPanel {
         } else {
             return verificarBtnVertical(boton);
         }
+    }
+
+    private void reiniciarPtosAnotadosPorClick() {
+        this.ptosAnotadosPorClick = 0;
     }
 
     private void verificarTurno() {
@@ -224,7 +247,9 @@ public class TimbiricheBoard extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 verificarTurno();
+
                 if (nickJugadorLocal.equalsIgnoreCase(Tablero.nickTurnoActual)) {
+                    reiniciarPtosAnotadosPorClick();
                     Tablero.turnoActual++;
                     if (verificarOrientacionBtn(boton)) {
                         vistaModeloTablero.anotarPuntoLocal();

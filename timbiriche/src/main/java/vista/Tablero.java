@@ -354,7 +354,7 @@ public class Tablero extends javax.swing.JFrame implements Suscriptor {
         jLabeTurnoNick.setText(nickTurnoActual);
         BtnTimbi btnAPintar = BtnTimbiTrans.btnTransferible;
         if (btnAPintar.getName().equalsIgnoreCase("local")) {
-            anotarPunto(this.lblJugadorLocal.getText());
+            anotarPunto(this.lblJugadorLocal.getText(),tmb.getPtosAnotadosPorClick());
             Tablero.turnoActual--;
             return;
         }
@@ -371,7 +371,7 @@ public class Tablero extends javax.swing.JFrame implements Suscriptor {
         verificarTurno();
         if (btnAPintar.getNickAutor().equalsIgnoreCase(Tablero.nickTurnoActual)) {
             if (tmb.pintarPorFuera(btnAPintar)) {
-                anotarPunto(btnAPintar.getNickAutor());
+                anotarPunto(btnAPintar.getNickAutor(), tmb.getPtosAnotadosPorClick());
                 Tablero.turnoActual--;
             }
             Tablero.turnoActual++;
@@ -415,10 +415,10 @@ public class Tablero extends javax.swing.JFrame implements Suscriptor {
         }
     }
 
-    private void anotarPunto(String nickname) {
+    private void anotarPunto(String nickname, int numPtos) {
         JLabel lbl = this.mapaLblsPuntos.get(nickname);
         int pts = Integer.parseInt(lbl.getText());
-        pts++;
+        pts+=numPtos;
         lbl.setText(String.valueOf(pts));
     }
 }
