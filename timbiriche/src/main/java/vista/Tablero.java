@@ -65,7 +65,7 @@ public class Tablero extends javax.swing.JFrame implements Suscriptor {
         this.pnlTablero.add(tmb);
         this.addWindowListener(new WindowAdapter() {
             @Override
-            public void windowClosing(WindowEvent e) {   
+            public void windowClosing(WindowEvent e) {
                 vistaModeloTablero.salir();
                 System.exit(0);
             }
@@ -83,7 +83,6 @@ public class Tablero extends javax.swing.JFrame implements Suscriptor {
         jLabeTurnoNick.setText(turno.getNickTurnoActual());
         moduloJugadores();
         tmb.setColorLocal(getColorLocal());
-
     }
 
     private String getColorLocal() {
@@ -355,6 +354,15 @@ public class Tablero extends javax.swing.JFrame implements Suscriptor {
                 ControlVistas.cambiarFrameGanador(this, ganador);
             }
             return;
+        }
+        
+        if (sala.getJugadores() != null && !sala.getJugadores().isEmpty()) {
+            List<JugadorDTO> jugs = this.sala.getJugadores();
+            for (JugadorDTO jug : jugs) {
+                if (jug.getNickname().equalsIgnoreCase(btnAPintar.getNickAutor())) {
+                    btnAPintar.setColor(jug.getColor());
+                }
+            }
         }
         turno.verificarTurno();
         if (btnAPintar.getNickAutor().equalsIgnoreCase(turno.getNickTurnoActual())) {

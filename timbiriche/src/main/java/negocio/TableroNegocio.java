@@ -129,7 +129,7 @@ public class TableroNegocio implements ITableroNegocio {
     }
 
     @Override
-    public void pintarMovimiento(int cordX, int cordY, boolean orientacion, String nick, int puerto) {
+    public void pintarMovimiento(int cordX, int cordY, boolean orientacion, String nick) {
         //Pintar el boton con las coordenadas
         //procesar movimiento
         BtnTimbi btnAPintar = BtnTimbiTrans.btnTransferible;
@@ -145,7 +145,6 @@ public class TableroNegocio implements ITableroNegocio {
         btnAPintar.setCorY(cordY);
         btnAPintar.setOrientacion(orientacion);
         btnAPintar.setNickAutor(nick);
-        btnAPintar.setColor(mapaColoresPorPuerto.get(puerto));
         evtBroker.notificar("", Procedencia.tablero);
         // turnoActual++;
         // } else {

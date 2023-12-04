@@ -20,7 +20,7 @@ public interface ITableroNegocio {
 
     public void realizarMovimiento(BtnTimbi btn);
 
-    public void pintarMovimiento(int cordX, int cordY, boolean orientacion, String color, int puerto);
+    public void pintarMovimiento(int cordX, int cordY, boolean orientacion, String color);
 
     public void anotarPuntoLocal();
 

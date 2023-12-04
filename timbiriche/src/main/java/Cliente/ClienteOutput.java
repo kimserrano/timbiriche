@@ -108,7 +108,7 @@ public class ClienteOutput {
 
             Socket skt = new Socket(ip, puerto);
             DataOutputStream out = new DataOutputStream(skt.getOutputStream());
-            out.writeUTF("movimiento" + " " + solicitud.obtenerDato("coordenadaX") + " " + solicitud.obtenerDato("coordenadaY") + " " + solicitud.obtenerDato("orientacion") + " " + solicitud.obtenerDato("nombre") + " " + solicitud.obtenerDato("puerto"));
+            out.writeUTF("movimiento" + " " + solicitud.obtenerDato("coordenadaX") + " " + solicitud.obtenerDato("coordenadaY") + " " + solicitud.obtenerDato("orientacion") + " " + solicitud.obtenerDato("nombre"));
         }
     }
 
@@ -121,7 +121,7 @@ public class ClienteOutput {
 
             Socket skt = new Socket(ip, puerto);
             DataOutputStream out = new DataOutputStream(skt.getOutputStream());
-            out.writeUTF("ganador"+" "+solicitud.obtenerDato("ganador"));
+            out.writeUTF("ganador" + " " + solicitud.obtenerDato("ganador"));
         }
     }
 }
