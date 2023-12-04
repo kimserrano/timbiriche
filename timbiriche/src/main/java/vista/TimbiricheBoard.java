@@ -25,15 +25,15 @@ import vistaModelo.VistaModeloTablero;
 
 public class TimbiricheBoard extends JPanel {
 
-    private static final int ROWS = 3;
-    private static final int COLS = 3;
+    private int rows;
+    private int cols;
     private static final int POINT_SIZE = 10;
     private String colorLocal;
     private int ptosAnotadosPorClick = 0;
 
     private ArrayList<Point> puntos = new ArrayList<>();
-    private BtnTimbi[][] botonesV = new BtnTimbi[ROWS][COLS];
-    private BtnTimbi[][] botonesH = new BtnTimbi[ROWS][COLS];
+    private BtnTimbi[][] botonesV;
+    private BtnTimbi[][] botonesH;
     private ArrayList<PntoTimbi> cuadrosCompletados = new ArrayList<>();
     private IVistaModeloTablero vistaModeloTablero = new VistaModeloTablero();
     SalaDTO sala = vistaModeloTablero.obtenerSala();
@@ -45,6 +45,9 @@ public class TimbiricheBoard extends JPanel {
     public TimbiricheBoard() {
         setLayout(null);
         setSize(872, 573);
+        tamTablero();
+        botonesV = new BtnTimbi[rows][cols];
+        botonesH = new BtnTimbi[rows][cols];
         calcularPuntos();
         crearBotones();
         turno = TurnoTrans.TurnoTransferible;
@@ -52,6 +55,19 @@ public class TimbiricheBoard extends JPanel {
 
     public int getPtosAnotadosPorClick() {
         return ptosAnotadosPorClick;
+    }
+
+    public void tamTablero() {
+        if (jugadores.size() == 4) {
+            rows = 14;
+            cols = 14;
+        } else if (jugadores.size() == 3) {
+            rows = 10;
+            cols = 10;
+        } else if (jugadores.size() == 2) {
+            rows = 6;
+            cols = 6;
+        }
     }
 
     @Override
@@ -66,11 +82,11 @@ public class TimbiricheBoard extends JPanel {
 
         // Colorea los cuadros completados
         for (PntoTimbi cuadro : cuadrosCompletados) {
-            int separacionHor = getWidth() / ROWS;
-            int separacionVer = getHeight() / COLS;
+            int separacionHor = getWidth() / rows;
+            int separacionVer = getHeight() / cols;
 
-            int xCuadro = puntos.get(cuadro.y * ROWS + cuadro.x).x + 4;
-            int yCuadro = puntos.get(cuadro.y * ROWS + cuadro.x).y + 6;
+            int xCuadro = puntos.get(cuadro.y * rows + cuadro.x).x + 4;
+            int yCuadro = puntos.get(cuadro.y * rows + cuadro.x).y + 6;
 
             g2d.setColor(cuadro.getColor()); // Puedes cambiar este color
             g2d.fillRect(xCuadro, yCuadro, separacionHor - 1, separacionVer - 1);
@@ -78,15 +94,15 @@ public class TimbiricheBoard extends JPanel {
     }
 
     private void crearBotones() {
-        int separacionHor = getWidth() / ROWS;
-        int separacionVer = getHeight() / COLS;
+        int separacionHor = getWidth() / rows;
+        int separacionVer = getHeight() / cols;
 
-        for (int i = 0; i < COLS; i++) {
-            for (int j = 0; j < ROWS; j++) {
-                Point punto = puntos.get(i * ROWS + j);
+        for (int i = 0; i < cols; i++) {
+            for (int j = 0; j < rows; j++) {
+                Point punto = puntos.get(i * rows + j);
 
                 // horizontal
-                if (j < ROWS - 1) {
+                if (j < rows - 1) {
                     BtnTimbi botonHorizontal = new BtnTimbi();
                     botonHorizontal.setOrientacion(true);
                     botonHorizontal.setCoordenadas(j, i);
@@ -97,7 +113,7 @@ public class TimbiricheBoard extends JPanel {
                 }
 
                 // vertical
-                if (i < COLS - 1) {
+                if (i < rows - 1) {
                     BtnTimbi botonVertical = new BtnTimbi();
                     botonVertical.setOrientacion(false);
                     botonVertical.setCoordenadas(j, i);
@@ -268,7 +284,7 @@ public class TimbiricheBoard extends JPanel {
     private boolean verVDer(BtnTimbi boton) {
         int x = boton.getCorX();
         int y = boton.getCorY();
-        if (x != ROWS - 1 && y != COLS - 1) {
+        if (x != rows - 1 && y != cols - 1) {
             if (!botonesV[x + 1][y].isEnabled()) {
                 if (!botonesH[x][y].isEnabled()) {
                     if (!botonesH[x][y + 1].isEnabled()) {
@@ -284,7 +300,7 @@ public class TimbiricheBoard extends JPanel {
     private boolean verVIzq(BtnTimbi boton) {
         int x = boton.getCorX();
         int y = boton.getCorY();
-        if (x != ROWS && x != 0) {
+        if (x != rows && x != 0) {
             if (!botonesV[x - 1][y].isEnabled()) {
                 if (!botonesH[x - 1][y].isEnabled()) {
                     if (!botonesH[x - 1][y + 1].isEnabled()) {
@@ -302,7 +318,7 @@ public class TimbiricheBoard extends JPanel {
         int x = boton.getCorX();
         int y = boton.getCorY();
 
-        if (y != COLS - 1 && x != ROWS - 1) {
+        if (y != cols - 1 && x != rows - 1) {
             if (!botonesH[x][y + 1].isEnabled()) {
                 if (!botonesV[x][y].isEnabled()) {
                     if (!botonesV[x + 1][y].isEnabled()) {
@@ -319,7 +335,7 @@ public class TimbiricheBoard extends JPanel {
         int x = boton.getCorX();
         int y = boton.getCorY();
 
-        if (y != 0 && x != ROWS - 1) {
+        if (y != 0 && x != rows - 1) {
             if (!botonesH[x][y - 1].isEnabled()) {
                 if (!botonesV[x][y - 1].isEnabled()) {
                     if (!botonesV[x + 1][y - 1].isEnabled()) {
@@ -350,13 +366,13 @@ public class TimbiricheBoard extends JPanel {
         int width = getWidth();
         int height = getHeight();
 
-        int separacionHor = width / ROWS;
-        int separacionVer = height / COLS;
+        int separacionHor = width / rows;
+        int separacionVer = height / cols;
 
         int x = 32;
         int y = 20;
-        for (int i = 0; i < COLS; i++) {
-            for (int k = 0; k < ROWS; k++) {
+        for (int i = 0; i < cols; i++) {
+            for (int k = 0; k < rows; k++) {
                 puntos.add(new Point(x, y));
                 x += separacionHor;
             }
@@ -382,7 +398,7 @@ public class TimbiricheBoard extends JPanel {
     }
 
     public boolean isCompleted() {
-        int cuadrosTotales = (this.ROWS - 1) * (this.COLS - 1);
+        int cuadrosTotales = (this.rows - 1) * (this.cols - 1);
         if (cuadrosCompletados.size() == cuadrosTotales) {
             return true;
         }
