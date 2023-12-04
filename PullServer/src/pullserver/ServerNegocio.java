@@ -22,8 +22,7 @@ public class ServerNegocio {
         if (puerto == -1) {
             throw new SalaException("No hay puertos disponibles");
         }
-
-        Conexion con = new Conexion(skt.getLocalAddress().getHostAddress().replace("/", ""), puerto, nickname);
+        Conexion con = new Conexion(skt.getInetAddress().getHostAddress().replace("/", ""), puerto, nickname);
         salas.add(new Sala(codigo, con));
         return con.getPuerto();
     }
@@ -37,7 +36,7 @@ public class ServerNegocio {
         int puerto = getPuertoDisponible();
 
         if (puerto != -1) {
-            Conexion con = new Conexion(skt.getLocalAddress().getHostAddress().replace("/", ""), puerto, nickname);
+            Conexion con = new Conexion(skt.getInetAddress().getHostAddress().replace("/", ""), puerto, nickname);
             salas.get(i).setConexion(con);
 
             return puerto;
@@ -49,14 +48,12 @@ public class ServerNegocio {
     public ipsDTO obtenerSala(String codigo) {
         Sala sala = this.salas.get(salas.indexOf(new Sala(codigo)));
         List<String> ippuertos = new ArrayList<>();
-
         for (Conexion con : sala.getConexiones()) {
             String ip = con.getSkt();
             String nickname = con.getNickname();
             String ippuerto = nickname + " " + ip + ":" + con.getPuerto();
             ippuertos.add(ippuerto);
         }
-
         return new ipsDTO(ippuertos);
     }
 
@@ -64,7 +61,7 @@ public class ServerNegocio {
         Sala sala = this.salas.get(salas.indexOf(new Sala(codigo)));
         List<String> ippuertos = new ArrayList<>();
         int port = Integer.parseInt(puerto);
-
+        
         for (Conexion con : sala.getConexiones()) {
             if (con.getPuerto() != port) {
                 String ip = con.getSkt();
@@ -133,12 +130,12 @@ public class ServerNegocio {
 //    }
     public void eliminarPuerto(String codigo, int puerto) throws SalaException {
         int index = salas.indexOf(new Sala(codigo));
-        if(index == -1){
+        if (index == -1) {
             throw new SalaException("No se encontro la sala");
         }
-        
+
         Sala sala = salas.get(index);
-        
+
         sala.remove(new Conexion(puerto));
     }
 }
