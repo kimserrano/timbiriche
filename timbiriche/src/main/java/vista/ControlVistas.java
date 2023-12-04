@@ -50,6 +50,7 @@ public class ControlVistas {
        
     public static void cambiarFrameGanador(JFrame ventana, String ganador) {
         GanadorFrame ganadorFrame =  new GanadorFrame(ganador);
+        evtBroker.agregarSuscriptorTablero((Suscriptor) ganadorFrame);
         ganadorFrame.setVisible(true);
     }  
     

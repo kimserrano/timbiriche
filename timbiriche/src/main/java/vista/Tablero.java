@@ -360,24 +360,22 @@ public class Tablero extends javax.swing.JFrame implements Suscriptor {
     public void update() {
         //    jLabeTurnoNick.setText(nickTurnoActual);
         BtnTimbi btnAPintar = BtnTimbiTrans.btnTransferible;
-        if (btnAPintar.getColor() == null) {
-            this.dispose();
-            ControlVistas.cambiarFrameGanador(this, btnAPintar.getNickAutor());
-            return;
-        }
+//        if (btnAPintar.getColor() == null) {
+//            this.dispose();
+//            ControlVistas.cambiarFrameGanador(this, btnAPintar.getNickAutor());
+//            return;
+//        }
         if (btnAPintar.getName().equalsIgnoreCase("local")) {
             anotarPunto(this.lblJugadorLocal.getText(), tmb.getPtosAnotadosPorClick());
+            if (tmb.isCompleted()) {
+                String ganador = reemplazarEspaciosPorComas(determinarGanador());
+                // this.vistaModeloTablero.notificarGanador(ganador);
+                this.dispose();
+                ControlVistas.cambiarFrameGanador(this, ganador);
+            }
             return;
         }
 
-//        if (sala.getJugadores() != null && !sala.getJugadores().isEmpty()) {
-//            List<JugadorDTO> jugs = this.sala.getJugadores();
-//            for (JugadorDTO jug : jugs) {
-//                if (jug.getNickname().equalsIgnoreCase(btnAPintar.getNickAutor())) {
-//                    btnAPintar.setColor(jug.getColor());
-//                }
-//            }
-//        }
         turno.verificarTurno();
         if (btnAPintar.getNickAutor().equalsIgnoreCase(turno.getNickTurnoActual())) {
             if (tmb.pintarPorFuera(btnAPintar)) {
@@ -397,7 +395,7 @@ public class Tablero extends javax.swing.JFrame implements Suscriptor {
 
         if (tmb.isCompleted()) {
             String ganador = reemplazarEspaciosPorComas(determinarGanador());
-            this.vistaModeloTablero.notificarGanador(ganador);
+            // this.vistaModeloTablero.notificarGanador(ganador);
             this.dispose();
             ControlVistas.cambiarFrameGanador(this, ganador);
         }

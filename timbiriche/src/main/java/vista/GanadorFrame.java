@@ -4,25 +4,34 @@
  */
 package vista;
 
+import broker.Suscriptor;
 import java.awt.Image;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import vistaModelo.IVistaModeloTablero;
+import vistaModelo.VistaModeloTablero;
 
 /**
  *
  * @author berly
  */
-public class GanadorFrame extends javax.swing.JFrame {
+public class GanadorFrame extends javax.swing.JFrame  implements Suscriptor{
 
+    IVistaModeloTablero vistaModeloTablero;
+    String nombre;
+    
     /**
      * Creates new form GanadorFrame
      */
     public GanadorFrame(String ganador) {
         initComponents();
+        nombre=ganador;
         this.setLocationRelativeTo(this);
         setImageLabel(jLblTrofeo,"src\\main\\java\\imagenes\\trofeo.png");
         jLblNickGanadorT.setText(reemplazarComasPorEspacios(ganador));
+        vistaModeloTablero = new VistaModeloTablero();
+       
     }
     
     private void setImageLabel(JLabel lblNombre, String ruta){
@@ -151,4 +160,9 @@ public class GanadorFrame extends javax.swing.JFrame {
     private javax.swing.JPanel pnlFondo;
     private javax.swing.JPanel pnlTablero;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void update() {
+         vistaModeloTablero.notificarGanador(reemplazarComasPorEspacios(nombre));
+    }
 }
