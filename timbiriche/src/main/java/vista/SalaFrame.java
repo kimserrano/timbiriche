@@ -30,7 +30,6 @@ public class SalaFrame extends javax.swing.JFrame implements Suscriptor {
 
     IVistaModeloSala vistaModeloSala;
     IVistaModeloJugador vistaModeloJugador;
-    IVistaModeloTablero vistaModeloTablero;
 
     SalaDTO sala;
     List<JLabel> nombres;
@@ -73,7 +72,6 @@ public class SalaFrame extends javax.swing.JFrame implements Suscriptor {
     public void update() {
         vistaModeloSala = new VistaModeloSala();
         vistaModeloJugador = new VistaModeloJugador();
-        vistaModeloTablero = new VistaModeloTablero();
         sala = vistaModeloSala.obtenerSala();
 
         if (sala != null) {

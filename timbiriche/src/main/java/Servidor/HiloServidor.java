@@ -49,7 +49,6 @@ public class HiloServidor implements Runnable {
                 Socket skt = svSocket.accept();
                 DataInputStream dis = new DataInputStream(skt.getInputStream());
                 String operacion = dis.readUTF();
-
                 procesaMensaje(operacion, skt);
 
             } catch (IOException ex) {

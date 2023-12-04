@@ -94,12 +94,8 @@ public class Cliente implements ICliente {
             try {
                 clnOut.avisar(ip, puerto, codigo);
             } catch (ConnectException e) {
-                System.out.println("Puerto muerto: " + puerto);
-                puertosMuertos.add(puerto);
             }
         }
-
-        eliminarPuertos(puertosMuertos, codigo);
 
     }
 
