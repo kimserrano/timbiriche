@@ -21,6 +21,8 @@ import utils.BtnTimbi;
 import utils.BtnTimbiTrans;
 import utils.JugadorDTO;
 import utils.SalaDTO;
+import utils.Turno;
+import utils.TurnoTrans;
 import vistaModelo.IVistaModeloJugador;
 import vistaModelo.IVistaModeloSala;
 import vistaModelo.IVistaModeloTablero;
@@ -42,9 +44,10 @@ public class Tablero extends javax.swing.JFrame implements Suscriptor {
     SalaDTO sala;
     TimbiricheBoard tmb;
     HashMap<String, JLabel> mapaLblsPuntos;
-    public static int turnoActual = 0;
-    public static String nickTurnoActual;
+    // public static int turnoActual = 0;
+    // public static String nickTurnoActual;
     List<JugadorDTO> jugadores;
+    private Turno turno;
 
     /**
      * Creates new form Tablero
@@ -77,8 +80,13 @@ public class Tablero extends javax.swing.JFrame implements Suscriptor {
         lblJugadorLocal.setText(vistaModeloJugador.solicitarJugador().getNickname());
         sala = vistaModeloTablero.obtenerSala();
         jugadores = sala.getJugadores();
-        nickTurnoActual = jugadores.get(turnoActual).getNickname();
-        jLabeTurnoNick.setText(nickTurnoActual);
+        // nickTurnoActual = jugadores.get(turnoActual).getNickname();
+        turno = TurnoTrans.TurnoTransferible;
+        turno.setJugadores(jugadores);
+        turno.setLblTurnoActual(jLabeTurnoNick);
+        turno.setTurnoActual(0);
+        turno.verificarTurno();
+        jLabeTurnoNick.setText(turno.getNickTurnoActual());
         moduloJugadores();
         tmb.setColorLocal(getColorLocal());
 
@@ -341,17 +349,16 @@ public class Tablero extends javax.swing.JFrame implements Suscriptor {
     private javax.swing.JPanel pnlTablero;
     // End of variables declaration//GEN-END:variables
 
-    private void verificarTurno() {
-        if (Tablero.turnoActual >= jugadores.size()) {
-            Tablero.turnoActual = 0;
-        }
-        JugadorDTO jugadorTurnoActual = jugadores.get(Tablero.turnoActual);
-        Tablero.nickTurnoActual = jugadorTurnoActual.getNickname();
-    }
-
+//    private void verificarTurno() {
+//        if (Tablero.turnoActual >= jugadores.size()) {
+//            Tablero.turnoActual = 0;
+//        }
+//        JugadorDTO jugadorTurnoActual = jugadores.get(Tablero.turnoActual);
+//        Tablero.nickTurnoActual = jugadorTurnoActual.getNickname();
+//    }
     @Override
     public void update() {
-        jLabeTurnoNick.setText(nickTurnoActual);
+        //    jLabeTurnoNick.setText(nickTurnoActual);
         BtnTimbi btnAPintar = BtnTimbiTrans.btnTransferible;
         if (btnAPintar.getColor() == null) {
             this.dispose();
@@ -360,7 +367,6 @@ public class Tablero extends javax.swing.JFrame implements Suscriptor {
         }
         if (btnAPintar.getName().equalsIgnoreCase("local")) {
             anotarPunto(this.lblJugadorLocal.getText(), tmb.getPtosAnotadosPorClick());
-            Tablero.turnoActual--;
             return;
         }
 
@@ -372,13 +378,14 @@ public class Tablero extends javax.swing.JFrame implements Suscriptor {
 //                }
 //            }
 //        }
-        verificarTurno();
-        if (btnAPintar.getNickAutor().equalsIgnoreCase(Tablero.nickTurnoActual)) {
+        turno.verificarTurno();
+        if (btnAPintar.getNickAutor().equalsIgnoreCase(turno.getNickTurnoActual())) {
             if (tmb.pintarPorFuera(btnAPintar)) {
                 anotarPunto(btnAPintar.getNickAutor(), tmb.getPtosAnotadosPorClick());
-                Tablero.turnoActual--;
+                //    turno.turnoLess();
+            } else {
+                turno.turnoAdd();
             }
-            Tablero.turnoActual++;
         } else {
             JOptionPane.showMessageDialog(
                     null,
@@ -389,7 +396,7 @@ public class Tablero extends javax.swing.JFrame implements Suscriptor {
         }
 
         if (tmb.isCompleted()) {
-            String ganador=reemplazarEspaciosPorComas(determinarGanador());
+            String ganador = reemplazarEspaciosPorComas(determinarGanador());
             this.vistaModeloTablero.notificarGanador(ganador);
             this.dispose();
             ControlVistas.cambiarFrameGanador(this, ganador);
@@ -424,7 +431,7 @@ public class Tablero extends javax.swing.JFrame implements Suscriptor {
     private static String reemplazarEspaciosPorComas(String input) {
         return input.replace(" ", ",");
     }
-    
+
     private void anotarPunto(String nickname, int numPtos) {
         JLabel lbl = this.mapaLblsPuntos.get(nickname);
         int pts = Integer.parseInt(lbl.getText());

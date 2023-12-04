@@ -16,6 +16,8 @@ import utils.BtnTimbi;
 import utils.JugadorDTO;
 import utils.PntoTimbi;
 import utils.SalaDTO;
+import utils.Turno;
+import utils.TurnoTrans;
 import vistaModelo.IVistaModeloJugador;
 import vistaModelo.IVistaModeloTablero;
 import vistaModelo.VistaModeloJugador;
@@ -38,12 +40,14 @@ public class TimbiricheBoard extends JPanel {
     IVistaModeloJugador vistaModeloJugador = new VistaModeloJugador();
     String nickJugadorLocal = vistaModeloJugador.solicitarJugador().getNickname();
     List<JugadorDTO> jugadores = sala.getJugadores();
+    private Turno turno;
 
     public TimbiricheBoard() {
         setLayout(null);
         setSize(872, 573);
         calcularPuntos();
         crearBotones();
+        turno = TurnoTrans.TurnoTransferible;
     }
 
     public int getPtosAnotadosPorClick() {
@@ -232,29 +236,28 @@ public class TimbiricheBoard extends JPanel {
         this.ptosAnotadosPorClick = 0;
     }
 
-    private void verificarTurno() {
-        if (Tablero.turnoActual >= jugadores.size()) {
-            Tablero.turnoActual = 0;
-        }
-        JugadorDTO jugadorTurnoActual = jugadores.get(Tablero.turnoActual);
-        Tablero.nickTurnoActual = jugadorTurnoActual.getNickname();
-
-    }
-
+//    private void verificarTurno() {
+//        if (Tablero.turnoActual >= jugadores.size()) {
+//            Tablero.turnoActual = 0;
+//        }
+//        JugadorDTO jugadorTurnoActual = jugadores.get(Tablero.turnoActual);
+//        Tablero.nickTurnoActual = jugadorTurnoActual.getNickname();
+//    }
     private void activarBtn(BtnTimbi boton) {
         configurarInicioBtn(boton);
         boton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                verificarTurno();
+                turno.verificarTurno();
 
-                if (nickJugadorLocal.equalsIgnoreCase(Tablero.nickTurnoActual)) {
+                if (nickJugadorLocal.equalsIgnoreCase(turno.getNickTurnoActual())) {
                     reiniciarPtosAnotadosPorClick();
-                    Tablero.turnoActual++;
                     if (verificarOrientacionBtn(boton)) {
                         vistaModeloTablero.anotarPuntoLocal();
-                    }
+                    } else {
+                        turno.turnoAdd();
 
+                    }
                     configurarFinalBtn(boton);
                 } else {
                     JOptionPane.showMessageDialog(

@@ -175,6 +175,7 @@ public class Cliente implements ICliente {
         clnOut.enviarCoordenadasBtn(solicitud, ips);
     }
 
+    @Override
     public void enviarGanador(Solicitud solicitud) throws IOException {
         String ganador = solicitud.obtenerDato("ganador");
         String codigo = solicitud.obtenerDato("codigo");
