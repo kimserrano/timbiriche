@@ -95,6 +95,7 @@ public class SalaFrame extends javax.swing.JFrame implements Suscriptor {
             }
         }
     }
+    
 
     public void getListos() {
         List<JugadorDTO> jugadores = sala.getJugadores();

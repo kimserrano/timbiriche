@@ -236,13 +236,6 @@ public class TimbiricheBoard extends JPanel {
         this.ptosAnotadosPorClick = 0;
     }
 
-//    private void verificarTurno() {
-//        if (Tablero.turnoActual >= jugadores.size()) {
-//            Tablero.turnoActual = 0;
-//        }
-//        JugadorDTO jugadorTurnoActual = jugadores.get(Tablero.turnoActual);
-//        Tablero.nickTurnoActual = jugadorTurnoActual.getNickname();
-//    }
     private void activarBtn(BtnTimbi boton) {
         configurarInicioBtn(boton);
         boton.addActionListener(new ActionListener() {
@@ -272,11 +265,6 @@ public class TimbiricheBoard extends JPanel {
         });
     }
 
-//            BtnTimbi btnAPintar = BtnTimbiTrans.btnTransferible;
-//        if (!btnAPintar.getNickAutor().equalsIgnoreCase(esTurno(turnoActual).getNickname())) {
-//            turnoActual++;
-//            return;
-//        }
     private boolean verVDer(BtnTimbi boton) {
         int x = boton.getCorX();
         int y = boton.getCorY();

@@ -24,6 +24,9 @@ import Cliente.OperacionesCliente;
 import static Cliente.OperacionesCliente.*;
 import java.awt.Color;
 import java.util.HashMap;
+import utils.JugadorDTO;
+import utils.Turno;
+import utils.TurnoTrans;
 
 /**
  *
@@ -70,7 +73,7 @@ public class SalaNegocio implements ISalaNegocio {
         this.sala = sala;
         return sala;
     }
- 
+
     @Override
     public void unirseSala(String codigo, String nombre) throws NegocioException {
         try {
@@ -150,6 +153,7 @@ public class SalaNegocio implements ISalaNegocio {
 
     @Override
     public void revisarNuevosJugadores() {
+        Turno turno = TurnoTrans.TurnoTransferible;
         ipsDTO ips = null;
         try {
             ips = cln.obtenerNuevaSala(sala.getCodigo());
@@ -158,6 +162,7 @@ public class SalaNegocio implements ISalaNegocio {
         }
 
         List<Jugador> jugadores = new ArrayList<>();
+        List<JugadorDTO> jugadoresDTO = new ArrayList<>();
 
         for (String datos : ips.getIppuerto()) {
             String[] aux = datos.split(" ");
@@ -167,12 +172,16 @@ public class SalaNegocio implements ISalaNegocio {
             int puerto = Integer.parseInt(aux[1].split(":")[1]);
 
             Jugador jugador = new Jugador(nickname, ip, puerto);
+            JugadorDTO jugadorDTO = new JugadorDTO(nickname, null);
 
+            jugadoresDTO.add(jugadorDTO);
             jugadores.add(jugador);
         }
-
+        turno.setJugadores(jugadoresDTO);
+        turno.verificarTurno();
         sala.setJugadores(jugadores);
         evtBroker.notificar("", Procedencia.Sala);
+        //evtBroker.notificar("", Procedencia.tablero);
     }
 
     @Override
@@ -195,7 +204,6 @@ public class SalaNegocio implements ISalaNegocio {
                     .agregarDatos("puerto", jugadorNegocio.obtenerJugador().getPuerto() + "")
                     .agregarOperacion(salida)
                     .construir();
-
             cln.eliminarPuerto(solicitud);
         } catch (IOException ex) {
             Logger.getLogger(SalaNegocio.class.getName()).log(Level.SEVERE, null, ex);

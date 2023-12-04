@@ -44,8 +44,6 @@ public class Tablero extends javax.swing.JFrame implements Suscriptor {
     SalaDTO sala;
     TimbiricheBoard tmb;
     HashMap<String, JLabel> mapaLblsPuntos;
-    // public static int turnoActual = 0;
-    // public static String nickTurnoActual;
     List<JugadorDTO> jugadores;
     private Turno turno;
 
@@ -63,14 +61,11 @@ public class Tablero extends javax.swing.JFrame implements Suscriptor {
         this.jLJugador1.setVisible(false);
         this.pnlColorJ1.setVisible(false);
         this.jLPtsJ1.setVisible(false);
-//      PRUEBAAA, VA EN MODELO SE SABE 
         tmb = new TimbiricheBoard();
-
         this.pnlTablero.add(tmb);
-
         this.addWindowListener(new WindowAdapter() {
             @Override
-            public void windowClosing(WindowEvent e) {
+            public void windowClosing(WindowEvent e) {   
                 vistaModeloTablero.salir();
                 System.exit(0);
             }
@@ -80,7 +75,6 @@ public class Tablero extends javax.swing.JFrame implements Suscriptor {
         lblJugadorLocal.setText(vistaModeloJugador.solicitarJugador().getNickname());
         sala = vistaModeloTablero.obtenerSala();
         jugadores = sala.getJugadores();
-        // nickTurnoActual = jugadores.get(turnoActual).getNickname();
         turno = TurnoTrans.TurnoTransferible;
         turno.setJugadores(jugadores);
         turno.setLblTurnoActual(jLabeTurnoNick);
@@ -349,22 +343,9 @@ public class Tablero extends javax.swing.JFrame implements Suscriptor {
     private javax.swing.JPanel pnlTablero;
     // End of variables declaration//GEN-END:variables
 
-//    private void verificarTurno() {
-//        if (Tablero.turnoActual >= jugadores.size()) {
-//            Tablero.turnoActual = 0;
-//        }
-//        JugadorDTO jugadorTurnoActual = jugadores.get(Tablero.turnoActual);
-//        Tablero.nickTurnoActual = jugadorTurnoActual.getNickname();
-//    }
     @Override
     public void update() {
-        //    jLabeTurnoNick.setText(nickTurnoActual);
         BtnTimbi btnAPintar = BtnTimbiTrans.btnTransferible;
-//        if (btnAPintar.getColor() == null) {
-//            this.dispose();
-//            ControlVistas.cambiarFrameGanador(this, btnAPintar.getNickAutor());
-//            return;
-//        }
         if (btnAPintar.getName().equalsIgnoreCase("local")) {
             anotarPunto(this.lblJugadorLocal.getText(), tmb.getPtosAnotadosPorClick());
             if (tmb.isCompleted()) {
@@ -375,12 +356,10 @@ public class Tablero extends javax.swing.JFrame implements Suscriptor {
             }
             return;
         }
-
         turno.verificarTurno();
         if (btnAPintar.getNickAutor().equalsIgnoreCase(turno.getNickTurnoActual())) {
             if (tmb.pintarPorFuera(btnAPintar)) {
                 anotarPunto(btnAPintar.getNickAutor(), tmb.getPtosAnotadosPorClick());
-                //    turno.turnoLess();
             } else {
                 turno.turnoAdd();
             }
@@ -392,10 +371,8 @@ public class Tablero extends javax.swing.JFrame implements Suscriptor {
                     JOptionPane.ERROR_MESSAGE
             );
         }
-
         if (tmb.isCompleted()) {
             String ganador = reemplazarEspaciosPorComas(determinarGanador());
-            // this.vistaModeloTablero.notificarGanador(ganador);
             this.dispose();
             ControlVistas.cambiarFrameGanador(this, ganador);
         }
@@ -418,7 +395,6 @@ public class Tablero extends javax.swing.JFrame implements Suscriptor {
                 ganadores.add(nickname);  // Agregar al jugador a la lista de ganadores en caso de empate
             }
         }
-
         if (ganadores.size() == 1) {
             return "El ganador es: " + ganadores.get(0);
         } else {
